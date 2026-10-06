@@ -215,3 +215,7 @@ table.formules{width:100%;border-collapse:collapse;font-size:.88rem;min-width:76
 .quote-shell>*{min-width:0}
 @media(max-width:900px){.quote-steps{grid-template-columns:repeat(9,minmax(0,1fr));gap:4px}.quote-steps .dot{width:28px;height:28px}}
 @media(max-width:640px){.quote-steps .dot{width:24px;height:24px;font-size:.7rem}.quote-side{padding:20px 16px}}
+/* En-tête : pas de retour à la ligne */
+.desktop-nav a,.header-actions .btn,.header-phone{white-space:nowrap}
+@media(max-width:1400px){.header-phone{display:none}.desktop-nav{gap:18px}}
+@media(max-width:1260px){.btn-callback{display:none}}

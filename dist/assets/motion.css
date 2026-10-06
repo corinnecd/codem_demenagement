@@ -1,0 +1,159 @@
+/* CODEM — couche de mouvement */
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:vt-out .28s ease both}
+::view-transition-new(root){animation:vt-in .45s cubic-bezier(.2,.7,.2,1) both}
+@keyframes vt-out{to{opacity:0;transform:translateY(-10px)}}
+@keyframes vt-in{from{opacity:0;transform:translateY(14px)}}
+
+/* Titres révélés */
+.tsplit .ln{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+.tsplit .ln-i{display:block;transform:translateY(105%);transition:transform 1s cubic-bezier(.2,.75,.15,1) var(--d,0ms)}
+.tsplit.in .ln-i{transform:none}
+
+/* Parallaxe */
+.image-wrap{overflow:hidden}
+img.plx{transform:scale(1.1);will-change:transform;transition:transform .12s linear}
+
+/* Boutons magnétiques */
+.btn-cta{transition:transform .35s cubic-bezier(.2,.7,.2,1),background .3s,box-shadow .3s}
+
+/* Route CODEM (ordinateur) */
+.route-rail{position:fixed;right:22px;top:130px;bottom:120px;width:30px;z-index:30;display:none;flex-direction:column;align-items:center;pointer-events:none}
+.rail-a,.rail-b{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font:700 .7rem/1 Arial,sans-serif;flex:none}
+.rail-a{background:#5fb03a;color:#14163f}
+.rail-b{background:#22264f;color:white;pointer-events:auto;position:relative;transition:transform .3s,box-shadow .3s}
+.rail-b span{position:absolute;right:34px;white-space:nowrap;background:#22264f;color:white;padding:6px 10px;border-radius:20px;font-size:.72rem;opacity:0;transform:translateX(6px);transition:.3s}
+.rail-b:hover span,.route-rail.arrived .rail-b span{opacity:1;transform:none}
+.route-rail.arrived .rail-b{background:#5fb03a;color:#14163f;transform:scale(1.25);box-shadow:0 0 0 8px #5fb03a33}
+.rail-line{position:relative;flex:1;width:2px;margin:6px 0;background:repeating-linear-gradient(180deg,#22264f55 0 6px,transparent 6px 12px)}
+.rail-fill{position:absolute;left:0;top:0;width:2px;background:#5fb03a;height:0}
+.rail-dot{position:absolute;left:50%;width:9px;height:9px;margin:-4px 0 0 -4.5px;border-radius:50%;background:#fafaf8;border:2px solid #22264f80;transition:.3s}
+.rail-dot.lit{background:#5fb03a;border-color:#5fb03a;transform:scale(1.2)}
+.rail-truck{position:absolute;left:50%;width:34px;margin-left:-17px;transform:translateY(-50%) rotate(90deg);transition:top .12s linear;filter:drop-shadow(0 3px 6px #1a1f4a30)}
+.home-page .route-rail{top:150px}
+@media(min-width:1180px){.route-rail{display:flex}}
+/* Route CODEM (mobile) */
+.route-top{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;pointer-events:none}
+.rt-fill{display:block;height:100%;width:calc(var(--p,0)*100%);background:#5fb03a}
+@media(min-width:1180px){.route-top{display:none}}
+
+/* Pastille devis */
+.quick-pill{position:fixed;left:28px;bottom:28px;z-index:34;display:flex;align-items:center;gap:10px;background:#22264f;color:white;padding:14px 20px;border-radius:40px;font-size:.85rem;font-weight:600;box-shadow:0 14px 34px #14163f40;opacity:0;transform:translateY(20px) scale(.96);pointer-events:none;transition:.45s cubic-bezier(.2,.7,.2,1)}
+.quick-pill.show{opacity:1;transform:none;pointer-events:auto}
+.quick-pill:hover{background:#5fb03a;color:#14163f}
+.qp-dot{width:9px;height:9px;border-radius:50%;background:#5fb03a;box-shadow:0 0 0 0 #5fb03a99;animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px #5fb03a00}100%{box-shadow:0 0 0 0 #5fb03a00}}
+@media(max-width:900px){.quick-pill{display:none}}
+
+/* Aperçu de service au survol */
+.hover-preview{position:fixed;left:0;top:0;width:240px;height:160px;border-radius:14px;overflow:hidden;z-index:70;pointer-events:none;opacity:0;scale:.85;transition:opacity .25s,scale .3s;box-shadow:0 20px 40px #14163f40}
+.hover-preview.on{opacity:1;scale:1}
+.hover-preview img{width:100%;height:100%;object-fit:cover}
+
+/* Tracés qui se dessinent */
+.draw{stroke-dashoffset:600;transition:stroke-dashoffset 2.2s cubic-bezier(.3,.6,.2,1)}
+.draw.in{stroke-dashoffset:0}
+
+/* Devis : camion sur la barre, étapes qui glissent, coche animée */
+.quote-card .progress-track{overflow:visible;position:relative}
+.quote-card .progress-bar{position:relative;transition:width .6s cubic-bezier(.2,.7,.2,1)}
+.quote-card .progress-bar:after{content:'';position:absolute;right:-16px;top:-14px;width:32px;height:18px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 34'%3E%3Crect x='1' y='2' width='40' height='24' rx='3' fill='%23fff' stroke='%2322264f' stroke-width='2'/%3E%3Cpath d='M41 9h12l9 9v8H41z' fill='%235fb03a' stroke='%2322264f' stroke-width='2'/%3E%3Ccircle cx='13' cy='28' r='5' fill='%2322264f'/%3E%3Ccircle cx='51' cy='28' r='5' fill='%2322264f'/%3E%3C/svg%3E") no-repeat center/contain}
+.motion .qstep:not([hidden]){animation:step-in .5s cubic-bezier(.2,.7,.2,1)}
+@keyframes step-in{from{opacity:0;transform:translateX(26px)}}
+.motion .qstep:not([hidden]) .confirm-icon{animation:pop .7s cubic-bezier(.2,1.6,.4,1) .15s both}
+@keyframes pop{from{transform:scale(0)}}
+
+/* ---------- Particuliers : les 4 actes ---------- */
+.acts{padding:110px 0 60px}
+.acts-head h2{font-size:clamp(2.6rem,4.6vw,4.4rem)}
+.acts-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:7%;margin-top:40px}
+.acts-sticky{position:sticky;top:120px}
+.scene{width:100%;height:auto;display:block;border-radius:28px;box-shadow:0 30px 60px #1a1f4a14}
+.scene .layer{opacity:0;transition:opacity .7s ease,transform .9s cubic-bezier(.2,.7,.2,1);transform:translateY(16px)}
+[data-act-stage="1"] .act-1,[data-act-stage="2"] .act-2,[data-act-stage="3"] .act-3,[data-act-stage="4"] .act-4{opacity:1;transform:none}
+[data-act-stage="1"] .act-1 .box{animation:drop .8s cubic-bezier(.3,1.4,.5,1) both}
+.act-1 .box:nth-of-type(2){animation-delay:.12s!important}.act-1 .box:nth-of-type(3){animation-delay:.24s!important}
+@keyframes drop{from{transform:translateY(-60px);opacity:0}}
+[data-act-stage="2"] .tape{animation:spin 3s linear infinite;transform-origin:470px 330px}
+@keyframes spin{to{transform:rotate(360deg)}}
+[data-act-stage="3"] .truck-move{animation:drive 2.6s cubic-bezier(.3,.6,.2,1) both}
+@keyframes drive{from{transform:translate(-340px,230px)}to{transform:translate(140px,230px)}}
+[data-act-stage="3"] .road{animation:road 1s linear infinite}
+@keyframes road{to{transform:translateX(-80px)}}
+[data-act-stage="4"] .badge{animation:pop .8s cubic-bezier(.2,1.6,.4,1) .3s both;transform-origin:470px 140px}
+.act-progress{display:flex;gap:10px;justify-content:center;margin-top:18px}
+.act-dot{width:42px;height:4px;border-radius:4px;background:#22264f22;transition:background .4s}
+.act-dot.on{background:#5fb03a}
+.acts-text{padding:8vh 0 4vh}
+.act{min-height:62vh;display:flex;flex-direction:column;justify-content:center;opacity:.28;transform:translateX(18px);transition:opacity .6s,transform .6s}
+.act.active{opacity:1;transform:none}
+.act-num{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#2f7d1e}
+.act h3{font-size:clamp(2rem,3.2vw,3rem);margin:12px 0 16px}
+.act p{color:#4c5068}
+.act-list{list-style:none;padding:0;margin:8px 0 0;display:flex;flex-wrap:wrap;gap:10px}
+.act-list li{background:#edf6e8;color:#22264f;border-radius:30px;padding:8px 16px;font-size:.85rem;font-weight:600}
+.act-cta{padding:20px 0 0}
+
+/* ---------- Curseur Je fais / CODEM fait ---------- */
+.ft-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:6%;align-items:start}
+.ft-left{position:sticky;top:120px}
+.ft-control{margin:30px 0 22px}
+.ft-control input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:10px;border-radius:10px;background:linear-gradient(90deg,#5fb03a calc(var(--v,.5)*100%),#22264f22 0);outline-offset:8px;cursor:pointer}
+.ft-control input::-webkit-slider-thumb{-webkit-appearance:none;width:34px;height:34px;border-radius:50%;background:#22264f;border:5px solid #5fb03a;box-shadow:0 6px 16px #14163f40;transition:transform .2s}
+.ft-control input::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:#22264f;border:5px solid #5fb03a}
+.ft-control input:active::-webkit-slider-thumb{transform:scale(1.15)}
+.ft-ticks{display:flex;justify-content:space-between;margin-top:12px}
+.ft-ticks span{font-size:.78rem;color:#6a6d80;cursor:pointer;transition:color .3s}
+.ft-ticks span.on{color:#22264f;font-weight:700}
+.ft-result{background:white;border-radius:20px;padding:26px 28px;box-shadow:0 14px 40px #1a1f4a12}
+.ft-result.pop{animation:ft-pop .45s cubic-bezier(.2,1.4,.4,1)}
+@keyframes ft-pop{from{transform:scale(.97)}}
+.ft-name{font-family:var(--serif);font-size:2.2rem;color:#22264f}
+.ft-desc{margin:6px 0 10px;color:#4c5068}
+.ft-count{font-size:.9rem}.ft-count strong{font-size:1.4rem;color:#2f7d1e}
+.ft-tasks{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.task{display:flex;justify-content:space-between;align-items:center;gap:14px;background:white;border-radius:14px;padding:16px 18px;border:1px solid #e6e1d6;transition:border-color .4s,background .4s}
+.task-name{font-weight:600;color:#22264f;font-size:.95rem}
+.who{position:relative;width:126px;height:34px;border-radius:30px;background:#efeae0;overflow:hidden;flex:none}
+.who span{position:absolute;inset:0;display:grid;place-items:center;font-size:.8rem;font-weight:700;transition:transform .5s cubic-bezier(.3,1.3,.5,1),opacity .4s}
+.who-you{color:#6a6d80}
+.who-codem{background:#5fb03a;color:#14163f;transform:translateX(100%)}
+.who-tbd{background:#f6ead0;color:#8a6d2b;transform:translateY(100%)}
+.task[data-who=codem]{border-color:#5fb03a;background:#f6fbf2}
+.task[data-who=codem] .who-codem{transform:none}
+.task[data-who=codem] .who-you{transform:translateX(-100%);opacity:0}
+.task[data-who=tbd] .who-tbd{transform:none}
+
+/* ---------- Galerie horizontale ---------- */
+.band-navy{background:#22264f;color:white}
+.band-navy .eyebrow{color:#bfe6a8}
+.hscroll{position:relative}
+.hs-sticky{padding:100px 0 80px;overflow:hidden}
+.hscroll.pinned .hs-sticky{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;padding:80px 0}
+.hs-head h2{color:white}
+.hs-track{display:flex;gap:26px;padding:30px 5vw 0;will-change:transform}
+.hs-card{flex:0 0 min(440px,78vw);margin:0}
+.hs-card img{width:100%;height:340px;object-fit:cover;border-radius:20px}
+.hs-card figcaption{display:flex;gap:14px;align-items:baseline;margin-top:14px;font-family:var(--serif);font-size:1.3rem}
+.hs-card figcaption span{font:700 .75rem Arial,sans-serif;color:#bfe6a8;letter-spacing:.15em}
+.hs-end{display:flex;flex-direction:column;justify-content:center;gap:22px;background:#2c3163;border-radius:20px;padding:40px;min-height:340px}
+.hs-end p{font-family:var(--serif);font-size:2rem;line-height:1.2;margin:0}
+@media(max-width:900px){.hs-track{overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px}.hs-card{scroll-snap-align:start}}
+
+/* ---------- Europe teaser ---------- */
+.europe-teaser{display:grid;grid-template-columns:1.1fr .9fr;gap:6%;align-items:center}
+.et-route svg{width:100%;height:auto}
+
+@media(max-width:900px){
+ .acts-grid,.ft-grid,.europe-teaser{grid-template-columns:1fr}
+ .acts-stage{position:sticky;top:62px;z-index:3;background:#fafaf8;padding:8px 0}
+ .acts-sticky{position:static}
+ .scene{max-height:34vh;width:auto;margin:0 auto}
+ .act-progress{margin-top:8px}
+ .act{min-height:auto;padding:30px 0;opacity:1;transform:none}
+ .ft-left{position:static}
+}
+@media(prefers-reduced-motion:reduce){
+ .scene .layer{transition:none}.tsplit .ln-i{transform:none}
+ *,*:before,*:after{animation:none!important}
+}
