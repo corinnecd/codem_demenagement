@@ -157,3 +157,13 @@ img.plx{transform:scale(1.1);will-change:transform;transition:transform .12s lin
  .scene .layer{transition:none}.tsplit .ln-i{transform:none}
  *,*:before,*:after{animation:none!important}
 }
+
+/* 4 actes : vraies photos CODEM en fondu */
+.act-photos{position:relative;aspect-ratio:4/3;border-radius:24px;overflow:hidden;box-shadow:0 30px 60px #1a1f4a1f;background:#22264f}
+.act-photo{position:absolute;inset:0;margin:0;opacity:0;transition:opacity .9s ease}
+.act-photo img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);transition:transform 6s cubic-bezier(.2,.6,.2,1)}
+.act-photo figcaption{position:absolute;left:18px;bottom:16px;background:#22264fd9;color:white;font-size:.8rem;padding:7px 14px;border-radius:20px}
+[data-act-stage="1"] [data-photo="1"],[data-act-stage="2"] [data-photo="2"],[data-act-stage="3"] [data-photo="3"],[data-act-stage="4"] [data-photo="4"]{opacity:1}
+[data-act-stage="1"] [data-photo="1"] img,[data-act-stage="2"] [data-photo="2"] img,[data-act-stage="3"] [data-photo="3"] img,[data-act-stage="4"] [data-photo="4"] img{transform:scale(1)}
+.photo-film img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+@media(max-width:900px){.act-photos{max-height:34vh;aspect-ratio:auto;height:34vh}}

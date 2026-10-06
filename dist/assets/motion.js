@@ -53,7 +53,7 @@ if(!isForm){
 
 /* 6. Aperçu photo qui suit la souris sur les listes de services */
 if(!reduce&&fine){
- const map={'particuliers':'ancien-07','home-moving':'ancien-07','entreprises':'entreprises','office-moving':'entreprises','france-europe':'europe','garde-meubles':'stockage','storage':'stockage','monte-meubles':'monte-meubles','furniture-lift':'monte-meubles','objets-specialises':'piano','specialist-items':'piano'};
+ const map={'particuliers':'ancien-19','home-moving':'ancien-19','entreprises':'ancien-16','office-moving':'ancien-16','france-europe':'ancien-12','garde-meubles':'stockage','storage':'stockage','monte-meubles':'monte-meubles','furniture-lift':'monte-meubles','objets-specialises':'ancien-26','specialist-items':'ancien-26'};
  const prev=document.createElement('div');prev.className='hover-preview';prev.innerHTML='<img alt="">';body.append(prev);const pi=prev.querySelector('img');
  document.querySelectorAll('.services-band a,.service-tabs a').forEach(a=>{const k=Object.keys(map).find(k=>a.getAttribute('href').includes(k));if(!k)return;a.addEventListener('pointerenter',()=>{pi.src=`/assets/${map[k]}-640.webp`;prev.classList.add('on');});a.addEventListener('pointerleave',()=>prev.classList.remove('on'));a.addEventListener('pointermove',e=>{prev.style.transform=`translate(${e.clientX+18}px,${e.clientY+18}px)`;});});
 }
