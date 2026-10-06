@@ -176,3 +176,8 @@ img.plx{transform:scale(1.1);will-change:transform;transition:transform .12s lin
 .ht.on{opacity:1;transform:none;filter:none}
 @media(prefers-reduced-motion:reduce){.ht{transition:none}}
 @media(max-width:640px){.hero h1.hero-title{font-size:clamp(2.3rem,9.4vw,2.9rem);line-height:1.1}}
+/* Titres du hero : plus compacts, calés à gauche */
+.hero h1.hero-title{font-size:clamp(2.8rem,4.4vw,4.6rem);max-width:min(760px,52vw);line-height:1.08}
+@media(max-width:900px){.hero h1.hero-title{max-width:none}}
+
+@media(max-width:640px){.ht-desk{display:none}}

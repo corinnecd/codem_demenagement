@@ -1,0 +1,110 @@
+/* CODEM — outils interactifs */
+.tool-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:6%;align-items:start}
+.tool-intro{position:sticky;top:120px}
+.tool-intro h2{font-size:clamp(2.3rem,3.8vw,3.6rem)}
+.tool-card{background:white;border-radius:22px;padding:34px 36px;box-shadow:0 18px 50px #1a1f4a14}
+.tool-q{border:0;padding:0;margin:0 0 24px;transition:opacity .3s}
+.tool-q legend{font-family:var(--serif);font-size:1.45rem;color:#22264f;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.tool-q legend:before{content:'';width:22px;height:22px;border-radius:50%;border:2px solid #22264f40;flex:none;transition:.3s}
+.tool-q.done legend:before{background:#5fb03a;border-color:#5fb03a;box-shadow:inset 0 0 0 4px white}
+.picks{display:flex;flex-wrap:wrap;gap:10px}
+.pick{cursor:pointer}
+.pick input{position:absolute;opacity:0;pointer-events:none}
+.pick span{display:block;border:1.5px solid #d6dae2;border-radius:40px;padding:12px 20px;font-size:.9rem;font-weight:600;color:#22264f;transition:background .25s,border-color .25s,transform .25s}
+.pick:hover span{border-color:#9fd27f;transform:translateY(-2px)}
+.pick input:checked+span{background:#22264f;border-color:#22264f;color:white}
+.pick input:focus-visible+span{outline:3px solid #20afd8;outline-offset:3px}
+.tool-result{margin-top:10px;border-top:1px solid #e6e8ee;padding-top:24px}
+.tool-result.pop{animation:tool-pop .55s cubic-bezier(.2,1.3,.4,1)}
+@keyframes tool-pop{from{opacity:0;transform:translateY(14px) scale(.98)}}
+.tool-big{font-family:var(--serif);font-size:clamp(2rem,3vw,2.8rem);color:#22264f;margin:4px 0 8px;line-height:1.1}
+.tool-result .btn{margin:10px 18px 0 0}
+.tool-reset{background:none;border:0;cursor:pointer;color:#22264f}
+.tool-label{display:block;font-weight:700;color:#22264f;margin-bottom:10px}
+.tool-range{-webkit-appearance:none;appearance:none;width:100%;height:10px;border-radius:10px;background:linear-gradient(90deg,#5fb03a calc(var(--v,.2)*100%),#22264f22 0);cursor:pointer}
+.tool-range::-webkit-slider-thumb{-webkit-appearance:none;width:32px;height:32px;border-radius:50%;background:#22264f;border:5px solid #5fb03a;box-shadow:0 6px 16px #14163f40}
+.tool-range::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:#22264f;border:5px solid #5fb03a}
+
+/* Monte-meubles : jauge d'étages */
+.lift-band{padding:110px 0}
+.lift-band h2{color:white}
+.lift-grid{display:grid;grid-template-columns:1fr 1fr;gap:7%;align-items:center}
+.lift-photo{position:relative;height:560px;border-radius:24px}
+.lift-photo img{width:100%;height:100%;object-fit:cover}
+.lift-gauge{position:absolute;right:22px;top:4%;bottom:4%;list-style:none;margin:0;padding:0;display:flex;flex-direction:column;justify-content:space-between;width:64px}
+.lift-gauge li{display:flex;align-items:center;justify-content:center;height:30px;border-radius:20px;background:#22264fb3;color:#ffffffb0;font-size:.72rem;font-weight:700;backdrop-filter:blur(4px);transition:background .3s,color .3s}
+.lift-gauge li.lit{background:#5fb03a;color:#14163f}
+.lift-cab{position:absolute;right:96px;bottom:4%;width:14px;height:14px;border-radius:50%;background:#5fb03a;box-shadow:0 0 0 8px #5fb03a40;transition:bottom .25s linear}
+.lift-floor-read{font-size:1rem;color:#bfe6a8}
+.lift-floor-read strong{font-family:var(--serif);font-size:2rem;color:white;font-weight:400}
+
+/* Destinations */
+.dest-grid{display:grid;grid-template-columns:1fr 1fr;gap:5%;align-items:start}
+.dest-chips{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dest{display:flex;align-items:center;gap:14px;background:white;border:1.5px solid #d6dae2;border-radius:16px;padding:18px 20px;font:600 1rem/1.2 var(--sans);color:#22264f;cursor:pointer;text-align:left;transition:.25s}
+.dest:hover{border-color:#9fd27f;transform:translateY(-3px);box-shadow:0 10px 24px #1a1f4a12}
+.dest.on{background:#22264f;border-color:#22264f;color:white}
+.dest-code{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#edf6e8;color:#2f7d1e;font-size:.75rem;font-weight:800;flex:none}
+.dest.on .dest-code{background:#5fb03a;color:#14163f}
+.dest-card{background:white;border-radius:22px;padding:32px;box-shadow:0 18px 50px #1a1f4a14}
+.dest-route{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.dr-a,.dr-b{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:.8rem;flex:none}
+.dr-a{background:#5fb03a;color:#14163f}.dr-b{background:#22264f;color:white}
+.dr-line{position:relative;flex:1;height:3px;background:repeating-linear-gradient(90deg,#22264f55 0 8px,transparent 8px 16px)}
+.dr-fill{position:absolute;left:0;top:0;height:3px;width:0;background:#5fb03a}
+.dr-truck{position:absolute;top:50%;left:0;width:34px;height:18px;margin-top:-17px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 34'%3E%3Crect x='1' y='2' width='40' height='24' rx='3' fill='%23fff' stroke='%2322264f' stroke-width='2'/%3E%3Cpath d='M41 9h12l9 9v8H41z' fill='%235fb03a' stroke='%2322264f' stroke-width='2'/%3E%3Ccircle cx='13' cy='28' r='5' fill='%2322264f'/%3E%3Ccircle cx='51' cy='28' r='5' fill='%2322264f'/%3E%3C/svg%3E") no-repeat center/contain}
+.go .dr-fill{animation:dr-fill 1.6s cubic-bezier(.3,.6,.2,1) forwards}
+.go .dr-truck{animation:dr-truck 1.6s cubic-bezier(.3,.6,.2,1) forwards}
+@keyframes dr-fill{to{width:100%}}
+@keyframes dr-truck{to{left:calc(100% - 34px)}}
+.dest-names{display:flex;justify-content:space-between;gap:10px;font-size:.85rem;color:#6a6d80;margin-bottom:16px}
+.dest-names strong{font-family:var(--serif);font-size:1.6rem;color:#22264f;font-weight:400;text-align:right}
+.dest-form input:not([type]),.dest-form input[id]{width:100%;min-height:52px;border:1px solid #c9ced8;border-radius:12px;padding:12px 14px;font-size:1rem;margin-top:8px}
+
+/* Entreprises : calendrier */
+.tl-card{flex:0 0 min(340px,78vw);background:#2c3163;border-radius:20px;padding:30px;min-height:260px;display:flex;flex-direction:column}
+.tl-card h3{color:white;font-size:1.7rem;margin:14px 0 10px}
+.tl-card p{color:#d5d7e8;font-size:.95rem}
+.tl-day{display:inline-block;align-self:flex-start;background:#5fb03a;color:#14163f;font-weight:800;font-size:.8rem;letter-spacing:.06em;padding:7px 14px;border-radius:30px}
+.tl-note{color:#bfc3dc;font-size:.8rem;margin-top:16px}
+
+/* Garde-meubles : jauge de volume */
+.box-card{display:grid;grid-template-columns:150px 1fr;gap:30px;align-items:stretch}
+.box-gauge{position:relative;border:3px solid #22264f;border-radius:14px;overflow:hidden;background:repeating-linear-gradient(0deg,#f4efe6 0 22px,#efe8dc 22px 23px);min-height:300px}
+.box-fill{position:absolute;left:0;right:0;bottom:0;height:16%;background:linear-gradient(180deg,#7cc35a,#5fb03a);transition:height .45s cubic-bezier(.2,.8,.2,1)}
+.box-m3{position:absolute;left:0;right:0;top:12px;text-align:center;font-family:var(--serif);font-size:1.8rem;color:#22264f}
+.box-hint{color:#2f7d1e;font-weight:600;margin:10px 0 22px}
+
+/* Zones */
+.zone-input{display:flex;gap:10px}
+.zone-input input{flex:1;min-height:56px;border:1px solid #c9ced8;border-radius:40px;padding:12px 22px;font-size:1.05rem}
+.zone-answer{margin-top:26px;border-top:1px solid #e6e8ee;padding-top:24px}
+
+/* Checklist */
+.ck-progress{min-width:280px}
+.ck-bar{height:10px;border-radius:10px;background:#22264f1a;overflow:hidden}
+.ck-bar span{display:block;height:100%;width:0;background:#5fb03a;transition:width .4s}
+.ck-progress p{margin:10px 0 14px}.ck-progress strong{font-size:1.4rem;color:#2f7d1e}
+.ck-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.ck-col{background:white;border-radius:18px;padding:24px}
+.ck-col ul{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:10px}
+.ck-col label{display:flex;gap:12px;align-items:flex-start;cursor:pointer;font-size:.93rem;color:#22264f}
+.ck-col input{width:20px;height:20px;accent-color:#2f7d1e;flex:none;margin-top:2px}
+.ck-col input:checked+span{text-decoration:line-through;color:#8a8ea3}
+
+/* Contact : ouvert / fermé */
+.open-badge{display:flex;align-items:center;gap:10px;font-weight:700;font-size:.9rem;border-radius:30px;padding:10px 16px;margin:16px 0 0}
+.open-badge .dot{width:10px;height:10px;border-radius:50%;flex:none}
+.open-badge.is-open{background:#edf6e8;color:#2f7d1e}.open-badge.is-open .dot{background:#5fb03a;animation:pulse 2s infinite}
+.open-badge.is-closed{background:#f6ead0;color:#7a5d1f}.open-badge.is-closed .dot{background:#d9a84c}
+
+@media(max-width:900px){
+ .tool-grid,.lift-grid,.dest-grid,.box-card{grid-template-columns:1fr}
+ .tool-intro{position:static}
+ .tool-card{padding:24px 20px}
+ .lift-photo{height:420px}
+ .ck-grid{grid-template-columns:1fr}
+ .box-gauge{min-height:180px}
+}
+@media(max-width:640px){.dest{padding:14px 12px;font-size:.92rem;gap:10px}.dest-code{width:32px;height:32px}.zone-input{flex-direction:column}.lift-cab{display:none}}
+@media print{header,footer,.mobile-bottom,.route-rail,.route-top,.quick-pill,main>*:not(.checklist){display:none!important}.checklist{padding:0}}
