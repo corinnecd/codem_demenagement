@@ -14,7 +14,7 @@ class Check(HTMLParser):
   for attr in ['href','src','poster','data-src']:
    ref=a.get(attr,'')
    if ref.startswith('/'):
-    target=root/ref.lstrip('/').split('#')[0]
+    ref=ref.split('?')[0].split('#')[0];target=root/ref.lstrip('/')
     if ref.endswith('/'):target=target/'index.html'
     if not target.exists():errors.append(f'Missing {ref} from {self.path}')
 for p in root.rglob('*.html'):

@@ -3,7 +3,10 @@
 Site statique français / anglais. 17 pages dans chaque langue et accueil racine.
 
 ## Mise à jour
-Exécuter `python3 build.py`, `python3 pages.py`, puis `python3 content.py`. Les styles et interactions sont dans `dist/assets`. Vérifier avec `python3 verify.py`.
+Exécuter `python3 build.py`, `python3 pages.py`, puis `python3 content.py`. Les styles et interactions sont dans `dist/assets` (`brand.css` porte la couche de marque : vert du logo, bandes de couleur, devis 9 étapes). Les contenus métier repris de l’ancienne version sont dans `v1content.py`. Vérifier avec `python3 verify.py`.
+
+## Réception des demandes
+Renseigner `FORM_ENDPOINT` dans `pages.py` (URL qui accepte un POST multipart : e-mail, CRM ou fonction serveur) puis reconstruire. Tant qu’il est vide, le devis, le rappel, la visite et le message n’envoient rien et affichent le numéro de téléphone.
 
 ## Avant ouverture au public
 - Configurer une véritable destination de réception pour les formulaires (service serveur, messagerie ou CRM) ; les formulaires actuels n'envoient aucune donnée et ne simulent jamais de réussite.
