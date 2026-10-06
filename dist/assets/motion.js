@@ -14,7 +14,7 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.targ
 
 /* 1. Titres révélés ligne par ligne */
 if(!reduce){
- document.querySelectorAll('main h1, main h2').forEach(h=>{if(h.closest('form,.quote-page,.cta-strip,.film-copy'))return;const parts=h.innerHTML.split(/<br\s*\/?>/i);h.innerHTML=parts.map((p,i)=>`<span class="ln"><span class="ln-i" style="--d:${i*110}ms">${p}</span></span>`).join('');h.classList.add('tsplit');});
+ document.querySelectorAll('main h1, main h2').forEach(h=>{if(h.closest('form,.quote-page,.cta-strip,.film-copy,.hero'))return;const parts=h.innerHTML.split(/<br\s*\/?>/i);h.innerHTML=parts.map((p,i)=>`<span class="ln"><span class="ln-i" style="--d:${i*110}ms">${p}</span></span>`).join('');h.classList.add('tsplit');});
  document.querySelectorAll('.tsplit,.draw,[data-in]').forEach(el=>io.observe(el));
  document.documentElement.classList.add('motion');
 }
@@ -87,6 +87,16 @@ if(hs&&!reduce&&matchMedia('(min-width:901px)').matches){
  const size=()=>{const extra=track.scrollWidth-innerWidth+80;hs.style.height=(innerHeight+Math.max(0,extra))+'px';return extra;};
  let extra=size();addEventListener('resize',()=>{extra=size();});addEventListener('load',()=>{extra=size();});
  onScroll.push(()=>{const r=hs.getBoundingClientRect();const p=Math.min(1,Math.max(0,-r.top/(hs.offsetHeight-innerHeight)));track.style.transform=`translate3d(${-p*Math.max(0,extra)}px,0,0)`;});
+}
+
+/* 10. Titres du hero synchronisés avec les séquences de la vidéo */
+const ht=document.querySelector('.hero-title[data-titles]');
+if(ht){
+ const list=[[0,ht.innerHTML]].concat(JSON.parse(ht.dataset.titles));
+ ht.innerHTML='<span class="ht-stack">'+list.map((x,i)=>`<span class="ht${i?'':' on'}"${i?' aria-hidden="true"':''}>${x[1]}</span>`).join('')+'</span>';
+ const spans=[...ht.querySelectorAll('.ht')];const v=document.querySelector('.hero video');let cur=0;
+ const show=i=>{if(i===cur)return;spans[cur].classList.remove('on');spans[i].classList.add('on');cur=i;};
+ if(v&&!reduce){v.addEventListener('timeupdate',()=>{const tm=v.currentTime;let i=0;list.forEach((x,k)=>{if(tm>=x[0])i=k;});show(i);});}
 }
 loop();
 })();
