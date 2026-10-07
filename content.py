@@ -27,7 +27,7 @@ def photo_section(key):
 
 def service(key):
  im,film,eyfr,eyen,fr,en,descfr,descen=SERVICES[key]
- visual=video(film)+toggle() if film else img(im,label(key),eager=True)
+ visual=video(film,True)+toggle() if film else img(im,label(key),eager=True)
  tabs='<nav class="wrap service-tabs" aria-label="'+t('Tous les services','All services')+'">'+''.join(link(k,extra='aria-current="page"' if key==k else '') for k in SERVICES)+'</nav>'
  head=crumb(key)+f'<section class="page-intro"><div class="wrap split"><div>{eyebrow(eyfr,eyen)}<h1>{t(fr,en)}</h1><p class="lead">{t(descfr,descen)}</p><div class="actions"><a class="btn btn-cta" href="{url("devis")}?service={PROJECT_OF[key]}">{t("Demander un devis","Get a quote")}</a>{link("contact",t("Être rappelé","Request a callback"),"btn outline")}</div></div><div><div class="image-wrap">{visual}</div>'+'</div></div></section>'+tabs
  if key=='particuliers':return head+particuliers_body()

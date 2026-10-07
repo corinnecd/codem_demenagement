@@ -10,7 +10,7 @@ class Check(HTMLParser):
    if a['id'] in self.ids:errors.append(f'Duplicate id {self.path}: {a["id"]}')
    self.ids.add(a['id'])
   if tag=='h1':self.h1+=1
-  if tag=='img' and not a.get('alt'):errors.append(f'Alt missing: {self.path}')
+  if tag=='img' and not a.get('alt') and a.get('aria-hidden')!='true':errors.append(f'Alt missing: {self.path}')
   for attr in ['href','src','poster','data-src']:
    ref=a.get(attr,'')
    if ref.startswith('/'):

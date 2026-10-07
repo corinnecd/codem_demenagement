@@ -181,8 +181,10 @@ img.plx{transform:scale(1.1);will-change:transform;transition:transform .12s lin
 @media(max-width:900px){.hero h1.hero-title{max-width:none}}
 
 @media(max-width:640px){.ht-desk{display:none}}
-/* Vidéos : apparition en fondu sur fond de marque */
-video[data-video]{opacity:0;transition:opacity .7s ease}
+/* Vidéos : image d'attente immédiate (aperçu flou puis image nette), vidéo en fondu par-dessus */
+.video-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background-size:cover;background-position:center}
+.page-intro .image-wrap video{position:relative}
+.wide-film .video-poster{object-position:45% center}
+video[data-video]{opacity:0;transition:opacity .6s ease}
 video[data-video].vready{opacity:1}
-.page-intro .image-wrap:has(video),.wide-film{background:#22264f}
-@media(prefers-reduced-motion:reduce){video[data-video]{transition:none}}
+@media(prefers-reduced-motion:reduce){video[data-video]{opacity:1;transition:none}}

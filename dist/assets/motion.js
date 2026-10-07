@@ -100,5 +100,5 @@ if(ht){
 }
 loop();
 })();
-/* Vidéos : fondu d'apparition dès que l'image d'attente est prête (pas de flash) */
-(()=>{document.querySelectorAll('video[data-video]').forEach(v=>{const show=()=>v.classList.add('vready');if(!v.poster){show();return;}const i=new Image();i.onload=show;i.onerror=show;i.src=v.poster;if(i.complete)show();v.addEventListener('playing',show,{once:true});setTimeout(show,2500);});})();
+/* Vidéos : l'image d'attente est affichée immédiatement ; la vidéo apparaît en fondu dès sa première image */
+(()=>{const rm=matchMedia('(prefers-reduced-motion: reduce)').matches||navigator.connection?.saveData;document.querySelectorAll('video[data-video]').forEach(v=>{if(v.readyState>=3&&!v.paused)v.classList.add('vready');v.addEventListener('playing',()=>v.classList.add('vready'),{once:true});if(rm&&v.autoplay){v.pause();v.removeAttribute('autoplay');}});})();

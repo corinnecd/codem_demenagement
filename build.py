@@ -16,7 +16,17 @@ def img(name,alt='',cls='',eager=False):
  w,h=PHOTO_SIZES.get(name,(1280,853))
  return f'<img class="{cls}" src="/assets/{name}-1280.webp" srcset="/assets/{name}-640.webp 640w, /assets/{name}-1280.webp 1280w" sizes="(max-width:640px) 90vw, 50vw" width="{w}" height="{h}" alt="{escape(alt)}" loading="{"eager" if eager else "lazy"}" decoding="async">'
 
-def video(name,hero=False):return f'<video data-video="{name}" data-src="/assets/{name}.mp4" poster="/assets/{name}-poster.webp" muted loop playsinline preload="none" aria-label="{t("Scène animée illustrant les services CODEM","Animated illustration of CODEM moving services")}"></video>'
+def lqip(name):
+ import base64,io
+ from PIL import Image
+ from PIL import ImageFilter
+ im=Image.open(OUT/'assets'/f'{name}-poster.webp').convert('RGB');im.thumbnail((64,64),Image.LANCZOS);im=im.filter(ImageFilter.GaussianBlur(2.2));b=io.BytesIO();im.save(b,'WEBP',quality=70)
+ return 'data:image/webp;base64,'+base64.b64encode(b.getvalue()).decode()
+def video(name,hero=False):
+ extra=' src="/assets/'+name+'.mp4" autoplay' if hero else ''
+ pre='auto' if hero else 'none'
+ label=t('Scène animée illustrant les services CODEM','Animated illustration of CODEM moving services')
+ return f'<img class="poster video-poster" src="/assets/{name}-poster.webp" alt="" aria-hidden="true" fetchpriority="high" decoding="async" style="background-image:url({lqip(name)})"><video data-video="{name}" data-src="/assets/{name}.mp4"{extra} muted loop playsinline preload="{pre}" aria-label="{label}"></video>'
 def toggle():return f'<button class="video-toggle" type="button" data-video-toggle aria-pressed="false">{t("Lire la vidéo","Play video")}</button>'
 def eyebrow(a,b):return '<span class="eyebrow">'+t(a,b)+'</span>'
 def actions():return f'<div class="actions">{link("devis",t("Décrire mon projet","Tell us about your move"),"btn")}{link("contact",t("Parlons-en","Let’s talk"),"text-link")}</div>'
@@ -33,7 +43,7 @@ def cta_strip(fr,en,service=None):
  return f'<div class="cta-strip"><div class="wrap"><p>{t(fr,en)}</p><div class="actions"><a class="btn btn-cta" href="{q}">{t("Demander un devis","Get a quote")}</a>{link("contact",t("Être rappelé","Callback"),"btn outline")}</div></div></div>'
 def shell(key,body,desc=None,head=''):
  import re as _re
- _m=_re.search(r'poster="(/assets/[^"]+-poster\.webp)"',body)
+ _m=_re.search(r'class="poster video-poster" src="(/assets/[^"]+-poster\.webp)"',body)
  if _m: head='<link rel="preload" as="image" href="'+_m.group(1)+'" fetchpriority="high">'+head
  title= t('CODEM — Votre déménagement, l’esprit libre.','CODEM — Moving, with peace of mind.') if key=='home' else label(key)+' | CODEM'
  desc=desc or t('CODEM organise votre déménagement à Paris, en Île-de-France, en France et en Europe. Protection, transport et prestations adaptées à votre projet.','CODEM organises home and office moves in Paris, Greater Paris, France and Europe. Packing, transport and services tailored to your move.')
