@@ -23,10 +23,10 @@ def lqip(name):
  im=Image.open(OUT/'assets'/f'{name}-poster.webp').convert('RGB');im.thumbnail((64,64),Image.LANCZOS);im=im.filter(ImageFilter.GaussianBlur(2.2));b=io.BytesIO();im.save(b,'WEBP',quality=70)
  return 'data:image/webp;base64,'+base64.b64encode(b.getvalue()).decode()
 def video(name,hero=False):
- extra=' src="/assets/'+name+'.mp4" autoplay' if hero else ''
+ extra=' src="/assets/'+name+'.mp4"' if hero else ''
  pre='auto' if hero else 'none'
  label=t('Scène animée illustrant les services CODEM','Animated illustration of CODEM moving services')
- return f'<img class="poster video-poster" src="/assets/{name}-poster.webp" alt="" aria-hidden="true" fetchpriority="high" decoding="async" style="background-image:url({lqip(name)})"><video data-video="{name}" data-src="/assets/{name}.mp4"{extra} muted loop playsinline preload="{pre}" aria-label="{label}"></video>'
+ return f'<img class="poster video-poster" src="/assets/{name}-poster.webp" alt="" aria-hidden="true" fetchpriority="high" decoding="sync"><video data-video="{name}" data-src="/assets/{name}.mp4"{extra} muted loop playsinline preload="{pre}" aria-label="{label}"></video>'
 def toggle():return f'<button class="video-toggle" type="button" data-video-toggle aria-pressed="false">{t("Lire la vidéo","Play video")}</button>'
 def eyebrow(a,b):return '<span class="eyebrow">'+t(a,b)+'</span>'
 def actions():return f'<div class="actions">{link("devis",t("Décrire mon projet","Tell us about your move"),"btn")}{link("contact",t("Parlons-en","Let’s talk"),"text-link")}</div>'

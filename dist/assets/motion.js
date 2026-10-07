@@ -21,7 +21,7 @@ if(!reduce){
 
 /* 2. Parallaxe douce des photos */
 if(!reduce&&fine){
- const imgs=[...document.querySelectorAll('.page-intro .image-wrap img,.split .image-wrap img,.layered-media img,.real-grid img,.europe-teaser img')];
+ const imgs=[...document.querySelectorAll('.page-intro .image-wrap img,.split .image-wrap img,.layered-media img,.real-grid img,.europe-teaser img')].filter(i=>!i.classList.contains('video-poster'));
  imgs.forEach(i=>i.classList.add('plx'));
  onScroll.push(()=>{const vh=innerHeight;for(const i of imgs){const r=i.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>vh)continue;const k=((r.top+r.height/2)-vh/2)/vh;i.style.transform=`translate3d(0,${(k*-34).toFixed(1)}px,0) scale(1.1)`;}});
 }
@@ -101,4 +101,4 @@ if(ht){
 loop();
 })();
 /* Vidéos : l'image d'attente est affichée immédiatement ; la vidéo apparaît en fondu dès sa première image */
-(()=>{const rm=matchMedia('(prefers-reduced-motion: reduce)').matches||navigator.connection?.saveData;document.querySelectorAll('video[data-video]').forEach(v=>{if(v.readyState>=3&&!v.paused)v.classList.add('vready');v.addEventListener('playing',()=>v.classList.add('vready'),{once:true});if(rm&&v.autoplay){v.pause();v.removeAttribute('autoplay');}});})();
+(()=>{const rm=matchMedia('(prefers-reduced-motion: reduce)').matches||navigator.connection?.saveData;document.querySelectorAll('video[data-video]').forEach(v=>{if(v.readyState>=3&&!v.paused)v.classList.add('vready');v.addEventListener('playing',()=>{const on=()=>v.classList.add('vready');v.requestVideoFrameCallback?v.requestVideoFrameCallback(on):on();},{once:true});});})();
