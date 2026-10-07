@@ -181,3 +181,8 @@ img.plx{transform:scale(1.1);will-change:transform;transition:transform .12s lin
 @media(max-width:900px){.hero h1.hero-title{max-width:none}}
 
 @media(max-width:640px){.ht-desk{display:none}}
+/* Vidéos : apparition en fondu sur fond de marque */
+video[data-video]{opacity:0;transition:opacity .7s ease}
+video[data-video].vready{opacity:1}
+.page-intro .image-wrap:has(video),.wide-film{background:#22264f}
+@media(prefers-reduced-motion:reduce){video[data-video]{transition:none}}
