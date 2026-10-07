@@ -96,7 +96,7 @@ if(ht){
  ht.innerHTML='<span class="ht-stack">'+list.map((x,i)=>`<span class="ht${i?'':' on'}"${i?' aria-hidden="true"':''}>${x[1]}</span>`).join('')+'</span>';
  const spans=[...ht.querySelectorAll('.ht')];const v=document.querySelector('.hero video');let cur=0;
  const show=i=>{if(i===cur)return;spans[cur].classList.remove('on');spans[i].classList.add('on');cur=i;};
- if(v&&!reduce){v.addEventListener('timeupdate',()=>{const tm=v.currentTime;let i=0;list.forEach((x,k)=>{if(tm>=x[0])i=k;});if(v.duration&&tm>=v.duration-0.9)i=0;show(i);});}
+ if(v&&!reduce){v.addEventListener('timeupdate',()=>{const tm=v.currentTime;let i=0;list.forEach((x,k)=>{if(tm>=x[0])i=k;});show(i);});}
 }
 loop();
 })();
