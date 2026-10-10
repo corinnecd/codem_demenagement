@@ -3,7 +3,7 @@ from build import t,label,url,link,img,video,toggle,eyebrow,actions,cta,steps,fa
 
 # Adresse de réception des demandes (e-mail, CRM ou fonction serveur).
 # Laisser vide tant que CODEM n'a pas fourni de destination : aucune donnée n'est alors transmise.
-FORM_ENDPOINT=''
+FORM_ENDPOINT='https://hzeohzbdckhehbkjxxws.supabase.co/rest/v1/demandes'
 
 def crumb(key):return f'<div class="wrap breadcrumbs">{link("home")} &nbsp; / &nbsp; {label(key)}</div>'
 def field(name,fr,en,kind='text',required=False,options=None,full=False,value='',attrs='',fid=None):
