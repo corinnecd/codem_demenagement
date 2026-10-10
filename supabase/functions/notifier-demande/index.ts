@@ -53,7 +53,7 @@ const LABELS: [string, string][] = [
   ["formule", "Formule pressentie"],
   ["prestations", "Prestations souhaitées"],
   ["objets", "Objets / informations utiles"],
-  ["fichiers_noms", "Photos sélectionnées (non transmises)"],
+  ["fichiers_echec", "Fichiers non reçus"],
   ["message", "Message"],
   ["marketing", "Accepte les informations commerciales"],
 ];
@@ -84,7 +84,7 @@ const VALUES: Record<string, Record<string, string>> = {
 };
 
 // Déjà affichés dans l'encadré du client, ou sans intérêt dans l'e-mail
-const HIDDEN = new Set(["consentement", "reference", "website", "viewport", "nom", "telephone", "email"]);
+const HIDDEN = new Set(["consentement", "reference", "website", "viewport", "nom", "prenom", "telephone", "email", "fichiers", "fichiers_noms"]);
 
 const esc = (v: unknown) =>
   String(v ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]!));
@@ -126,6 +126,30 @@ Deno.serve(async (req) => {
     ...Object.keys(d).filter((k) => !known.has(k) && !HIDDEN.has(k) && show(k, d[k]) !== "").map((k) => row(k, show(k, d[k]))),
   ].join("");
 
+  // Photos et vidéos jointes : liens privés valables 30 jours
+  const fichiers: string[] = Array.isArray(d.fichiers) ? (d.fichiers as string[]) : [];
+  let blocFichiers = "";
+  if (fichiers.length) {
+    const base = Deno.env.get("SUPABASE_URL");
+    const service = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+    const liens = await Promise.all(fichiers.map(async (path, i) => {
+      const nom = path.split("/").pop()!.replace(/^\d+-/, "");
+      try {
+        const res = await fetch(`${base}/storage/v1/object/sign/devis-photos/${path}`, {
+          method: "POST",
+          headers: { Authorization: `Bearer ${service}`, apikey: service!, "Content-Type": "application/json" },
+          body: JSON.stringify({ expiresIn: 60 * 60 * 24 * 30 }),
+        });
+        const j = await res.json();
+        if (!res.ok || !j.signedURL) throw new Error();
+        return `<li style="margin:0 0 6px"><a href="${esc(base + "/storage/v1" + j.signedURL)}" style="color:#2f7d1e">${esc(nom || "Fichier " + (i + 1))}</a></li>`;
+      } catch {
+        return `<li style="margin:0 0 6px">${esc(nom)} (à voir dans Supabase → Storage → devis-photos)</li>`;
+      }
+    }));
+    blocFichiers = `<h3 style="margin:24px 0 8px;font-size:16px">Photos et vidéos jointes (${fichiers.length})</h3><ul style="margin:0;padding-left:18px;font-size:14px">${liens.join("")}</ul><p style="margin:6px 0 0;color:#666;font-size:12px">Liens valables 30 jours. Les fichiers restent ensuite consultables dans Supabase → Storage → devis-photos.</p>`;
+  }
+
   const tel = r.telephone ? `<a href="tel:${esc(r.telephone)}" style="color:#2f7d1e">${esc(r.telephone)}</a>` : "—";
   const mail = r.email ? `<a href="mailto:${esc(r.email)}" style="color:#2f7d1e">${esc(r.email)}</a>` : "—";
 
@@ -139,6 +163,7 @@ Deno.serve(async (req) => {
 <p style="margin:0">E-mail : ${mail}</p>
 </div>
 <table style="border-collapse:collapse;font-size:14px;width:100%">${lignes}</table>
+${blocFichiers}
 </div>`;
 
   const res = await fetch("https://api.resend.com/emails", {
