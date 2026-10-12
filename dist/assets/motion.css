@@ -41,9 +41,6 @@ img.plx{transform:scale(1.1);will-change:transform;transition:transform .12s lin
 @media(max-width:900px){.quick-pill{display:none}}
 
 /* Aperçu de service au survol */
-.hover-preview{position:fixed;left:0;top:0;width:240px;height:160px;border-radius:14px;overflow:hidden;z-index:70;pointer-events:none;opacity:0;scale:.85;transition:opacity .25s,scale .3s;box-shadow:0 20px 40px #14163f40}
-.hover-preview.on{opacity:1;scale:1}
-.hover-preview img{width:100%;height:100%;object-fit:cover}
 
 /* Tracés qui se dessinent */
 .draw{stroke-dashoffset:600;transition:stroke-dashoffset 2.2s cubic-bezier(.3,.6,.2,1)}

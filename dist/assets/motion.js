@@ -51,13 +51,6 @@ if(!isForm){
  onScroll.push(()=>{const H=document.documentElement.scrollHeight-innerHeight;pill.classList.toggle('show',H>0&&scrollY/H>.3&&!ctaVisible);});
 }
 
-/* 6. Aperçu photo qui suit la souris sur les listes de services */
-if(!reduce&&fine){
- const map={'particuliers':'ancien-07','home-moving':'ancien-07','entreprises':'entreprises','office-moving':'entreprises','france-europe':'europe','garde-meubles':'stockage','storage':'stockage','monte-meubles':'monte-meubles','furniture-lift':'monte-meubles','objets-specialises':'piano','specialist-items':'piano'};
- const prev=document.createElement('div');prev.className='hover-preview';prev.innerHTML='<img alt="">';body.append(prev);const pi=prev.querySelector('img');
- document.querySelectorAll('.services-band a,.service-tabs a').forEach(a=>{const k=Object.keys(map).find(k=>a.getAttribute('href').includes(k));if(!k)return;a.addEventListener('pointerenter',()=>{pi.src=`/assets/${map[k]}-640.webp`;prev.classList.add('on');});a.addEventListener('pointerleave',()=>prev.classList.remove('on'));a.addEventListener('pointermove',e=>{prev.style.transform=`translate(${e.clientX+18}px,${e.clientY+18}px)`;});});
-}
-
 /* 7. Particuliers — les 4 actes */
 const stage=document.querySelector('[data-act-stage]');
 if(stage){
