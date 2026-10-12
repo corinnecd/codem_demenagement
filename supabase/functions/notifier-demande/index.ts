@@ -26,7 +26,7 @@ const LABELS: Record<string, string> = {
   arrivee_ascenseur: "Ascenseur", arrivee_portage: "Portage", arrivee_stationnement: "Stationnement", arrivee_rue_etroite: "Accès",
   groupage: "Groupage", date: "Date souhaitée", flexibilite: "Flexibilité", urgent: "Urgence", contraintes: "Contraintes horaires",
   volume_mode: "Estimation", taille: "Taille du logement", surface: "Surface", volume: "Volume estimé",
-  annexes: "Annexes", formule: "Formule", prestations: "Prestations",
+  annexes: "Annexes", formule: "Formule", prestations: "Prestations", duree_stockage: "Garde-meubles",
   objets: "Objets et informations utiles", fichiers_echec: "Fichiers non reçus", message: "Message",
   marketing: "Informations commerciales",
 };
@@ -53,6 +53,7 @@ const VALUES: Record<string, Record<string, string>> = {
   formule: { self: "Self", "self-plus": "Self plus", confort: "Confort", "confort-plus": "Confort plus", "grand-confort": "Grand Confort", "a-definir": "À définir avec CODEM" },
   prestations: { emballage: "Emballage", demontage: "Démontage / remontage", fragiles: "Objets fragiles", "monte-meubles": "Monte-meubles", "garde-meubles": "Garde-meubles", cartons: "Cartons" },
   marketing: { oui: "Accepte de les recevoir" },
+  duree_stockage: { "moins-1-mois": "Moins d'1 mois", "1-3-mois": "1 à 3 mois", "3-12-mois": "3 à 12 mois", "plus-1-an": "Plus d'1 an" },
 };
 
 const UNITS: Record<string, string> = { surface: " m²", volume: " m³", depart_portage: " m", arrivee_portage: " m" };
@@ -262,7 +263,7 @@ async function buildPdf(r: any, d: Record<string, unknown>, photos: string[]): P
     "Volume à déménager",
     rows(["volume_mode", "taille", "surface", "volume", "annexes"]),
     "Formule et prestations",
-    rows(["formule", "prestations"]),
+    rows(["formule", "prestations", "duree_stockage"]),
   );
   section("Objets et remarques", rows(["objets", "message"]));
   if (photos.length || d.fichiers_echec) {
@@ -390,7 +391,7 @@ Deno.serve(async (req) => {
 <p style="margin:0">E-mail : ${mail}</p>
 </div>
 <table style="border-collapse:collapse;font-size:14px">
-${row("Trajet", trajet)}${row("Date souhaitée", dateV)}${show(d, "formule") ? row("Formule", show(d, "formule")) : ""}${show(d, "creneau") ? row("Rappel", show(d, "creneau")) : ""}
+${row("Trajet", trajet)}${row("Date souhaitée", dateV)}${show(d, "formule") ? row("Formule", show(d, "formule")) : ""}${show(d, "duree_stockage") ? row("Garde-meubles", show(d, "duree_stockage")) : ""}${show(d, "creneau") ? row("Rappel", show(d, "creneau")) : ""}
 </table>
 <p style="margin:18px 0 0">Le dossier complet est joint en PDF${pdfB64 ? "" : " (PDF indisponible : voir la table demandes dans Supabase)"}.</p>
 ${blocPhotos}`);

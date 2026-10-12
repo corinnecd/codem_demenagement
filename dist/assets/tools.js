@@ -52,10 +52,10 @@ if(b2b)b2b.addEventListener('submit',()=>{const p=b2b.querySelector('[data-b2b=p
 
 /* Box garde-meubles */
 const bx=document.querySelector('.box-tool');
-if(bx){const r=bx.querySelector('#box-range'),fill=bx.querySelector('.box-fill'),m3=bx.querySelector('[data-box-m3]'),hint=bx.querySelector('[data-box-hint]'),vol=bx.querySelector('[data-box-volume]'),ann=bx.querySelector('[data-box-annexes]'),f=bx.querySelector('form');
+if(bx){const r=bx.querySelector('#box-range'),fill=bx.querySelector('.box-fill'),m3=bx.querySelector('[data-box-m3]'),hint=bx.querySelector('[data-box-hint]'),vol=bx.querySelector('[data-box-volume]'),f=bx.querySelector('form');
  const H=[[5,'Quelques meubles et cartons','A few items and boxes'],[12,'Un studio ou un T1','A studio'],[25,'Un T2 – T3','A 2–3 room flat'],[40,'Un T4 ou une petite maison','A 4-room flat or small house'],[61,'Une maison','A house']];
  const upd=()=>{const v=+r.value;fill.style.height=`${(v/60)*100}%`;m3.textContent=`${v} m³`;vol.value=v;const h=H.find(x=>v<x[0]);hint.textContent=tr('Environ : ','About: ')+tr(h[1],h[2]);r.style.setProperty('--v',(v-2)/58);};
- r.addEventListener('input',upd);upd();f.addEventListener('submit',()=>{ann.value=`${tr('Garde-meubles','Storage')} : ${val(f,'duree')||''}`;});}
+ r.addEventListener('input',upd);upd();}
 
 /* Fiche objet */
 const ob=document.querySelector('.objet-form');
