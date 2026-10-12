@@ -152,3 +152,5 @@
 @media(max-width:640px){.recap-row{grid-template-columns:1fr auto}.recap-row dd{grid-column:1/-1;grid-row:2}}
 .quote-steps li.empty .dot{border:1.5px dashed #9fd27f;color:#c9cbe0}
 .quote-steps li.empty{color:#c9cbe0}
+.groupage-help{margin:-4px 0 14px 34px;max-width:620px}
+@media(max-width:640px){.groupage-help{margin-left:0}}
