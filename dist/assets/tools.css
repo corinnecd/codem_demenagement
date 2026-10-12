@@ -150,3 +150,5 @@
 .recap-row dd{margin:0;color:#4a4d63;font-size:.88rem}
 .recap-edit{background:none;border:0;color:#2f7d1e;font-weight:700;font-size:.85rem;cursor:pointer;text-decoration:underline;padding:0}
 @media(max-width:640px){.recap-row{grid-template-columns:1fr auto}.recap-row dd{grid-column:1/-1;grid-row:2}}
+.quote-steps li.empty .dot{border:1.5px dashed #9fd27f;color:#c9cbe0}
+.quote-steps li.empty{color:#c9cbe0}
