@@ -108,3 +108,26 @@
 }
 @media(max-width:640px){.dest{padding:14px 12px;font-size:.92rem;gap:10px}.dest-code{width:32px;height:32px}.zone-input{flex-direction:column}.lift-cab{display:none}}
 @media print{header,footer,.mobile-bottom,.route-rail,.route-top,.quick-pill,main>*:not(.checklist){display:none!important}.checklist{padding:0}}
+
+/* Devis : comparatif des formules intégré */
+.fc-wrap{margin:6px 0 22px}
+.fc-panel{margin-top:16px;animation:tool-pop .45s cubic-bezier(.2,1,.4,1)}
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:10px}
+.fc-card{display:flex;flex-direction:column;background:#f7f8f4;border:1.5px solid #e2e5dc;border-radius:16px;padding:18px 16px;transition:border-color .25s,box-shadow .25s}
+.fc-card.is-picked{border-color:#5fb03a;box-shadow:0 0 0 3px #5fb03a33;background:#fff}
+.fc-card h3{font-family:var(--serif);font-size:1.35rem;color:#22264f;margin:0 0 6px}
+.fc-desc{font-size:.85rem;color:#4a4d63;margin:0 0 12px}
+.fc-label{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#2f7d1e;margin:6px 0 6px}
+.fc-list{list-style:none;padding:0;margin:0 0 8px;display:grid;gap:5px;font-size:.82rem;color:#22264f}
+.fc-list li{padding-left:18px;position:relative;line-height:1.35}
+.fc-codem:before{content:'✓';position:absolute;left:0;color:#2f7d1e;font-weight:700}
+.fc-tbd:before{content:'?';position:absolute;left:2px;color:#b07d1e;font-weight:700}
+.fc-you:before{content:'•';position:absolute;left:4px;color:#8a8ea3}
+.fc-list em{color:#8a8ea3;font-style:normal}
+.fc-pick{margin-top:auto;width:100%;justify-content:center;font-size:.85rem;padding:12px 14px}
+.formule-flash{animation:formule-flash 1.4s ease}
+@keyframes formule-flash{0%,60%{box-shadow:0 0 0 4px #5fb03a66}100%{box-shadow:none}}
+.back-to-quote{position:sticky;top:96px;z-index:30;display:flex;justify-content:center;margin:12px 0 0;pointer-events:none}
+.back-to-quote a{pointer-events:auto;box-shadow:0 10px 28px #14163f33}
+@media(max-width:640px){.fc-grid{grid-template-columns:1fr}.back-to-quote{top:80px}}
+.fc-toggle:after,.fc-pick:after,.back-to-quote a:after{content:none!important;display:none!important}
