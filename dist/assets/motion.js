@@ -43,9 +43,9 @@ if(!isForm){
  onScroll.push(()=>{const H=document.documentElement.scrollHeight-innerHeight;const p=H>0?Math.min(1,scrollY/H):0;fill.style.height=(p*100)+'%';truck.style.top=`calc(${p*100}% + 38px)`;top.style.setProperty('--p',p);dots.forEach(d=>d.classList.toggle('lit',parseFloat(d.style.top)<=p*100+.5));rail.classList.toggle('arrived',p>.97);});
 }
 
-/* 5. Pastille « Devis en 2 min » */
+/* 5. Pastille « Recevoir mon devis gratuit » */
 if(!isForm){
- const pill=document.createElement('a');pill.className='quick-pill';pill.href=quoteUrl;pill.innerHTML=`<span class="qp-dot"></span>${tr('Devis gratuit en 2 min','Free quote in 2 min')}<span aria-hidden="true">→</span>`;body.append(pill);
+ const pill=document.createElement('a');pill.className='quick-pill';pill.href=quoteUrl;pill.innerHTML=`<span class="qp-dot"></span><span class="qp-text">${tr('Recevoir mon devis gratuit','Get my free quote')}<small>${tr('Sans engagement','No obligation')}</small></span><span aria-hidden="true">→</span>`;body.append(pill);
  const cta=document.querySelector('.cta');let ctaVisible=false;
  if(cta)new IntersectionObserver(es=>{ctaVisible=es[0].isIntersecting;loop();}).observe(cta);
  onScroll.push(()=>{const H=document.documentElement.scrollHeight-innerHeight;pill.classList.toggle('show',H>0&&scrollY/H>.3&&!ctaVisible);});

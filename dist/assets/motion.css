@@ -34,6 +34,7 @@ img.plx{transform:scale(1.1);will-change:transform;transition:transform .12s lin
 
 /* Pastille devis */
 .quick-pill{position:fixed;left:28px;bottom:28px;z-index:34;display:flex;align-items:center;gap:10px;background:#22264f;color:white;padding:14px 20px;border-radius:40px;font-size:.85rem;font-weight:600;box-shadow:0 14px 34px #14163f40;opacity:0;transform:translateY(20px) scale(.96);pointer-events:none;transition:.45s cubic-bezier(.2,.7,.2,1)}
+.quick-pill .qp-text{display:flex;flex-direction:column;line-height:1.2}.quick-pill .qp-text small{font-size:.72rem;font-weight:500;opacity:.75;margin-top:2px}
 .quick-pill.show{opacity:1;transform:none;pointer-events:auto}
 .quick-pill:hover{background:#5fb03a;color:#14163f}
 .qp-dot{width:9px;height:9px;border-radius:50%;background:#5fb03a;box-shadow:0 0 0 0 #5fb03a99;animation:pulse 2s infinite}
