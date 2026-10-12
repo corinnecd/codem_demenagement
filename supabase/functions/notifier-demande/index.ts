@@ -77,6 +77,10 @@ const show = (d: Record<string, unknown>, k: string) => {
   return s && UNITS[k] && /^[\d.,]+$/.test(s) ? s + UNITS[k] : s;
 };
 
+// Stockage seul : les biens vont au garde-meubles CODEM (pas d'adresse d'arrivée)
+const GM = ["", "Garde-meubles CODEM", "CODEM storage facility"];
+const stockageSeul = (d: Record<string, unknown>) => d.projet === "stockage" && GM.includes(String(d.arrivee_commune ?? "").trim());
+
 // ---------- PDF ----------
 const NAVY = rgb(0x22 / 255, 0x26 / 255, 0x4f / 255);
 const GREEN = rgb(0x5f / 255, 0xb0 / 255, 0x3a / 255);
@@ -170,7 +174,7 @@ async function buildPdf(r: any, d: Record<string, unknown>, photos: string[]): P
   y -= 42;
 
   // Titre
-  text("Votre projet de déménagement", M, y, 28, serif);
+  text(d.projet === "stockage" ? "Votre projet de garde-meubles" : "Votre projet de déménagement", M, y, 28, serif);
   y -= 22;
   const nom = r.nom || "";
   if (nom) { text("Préparé pour " + nom + (d.organisation ? " — " + String(d.organisation) : ""), M, y, 13, serifIt, GREY); y -= 8; }
@@ -178,8 +182,9 @@ async function buildPdf(r: any, d: Record<string, unknown>, photos: string[]): P
 
   // Bandeau trajet
   const dep = show(d, "depart_commune") || show(d, "depart") || "—";
-  const arr = show(d, "arrivee_commune") || show(d, "arrivee") || "—";
-  const depP = show(d, "depart_pays"), arrP = show(d, "arrivee_pays");
+  const seul = stockageSeul(d);
+  const arr = seul ? "Garde-meubles CODEM" : show(d, "arrivee_commune") || show(d, "arrivee") || "—";
+  const depP = show(d, "depart_pays"), arrP = seul ? show(d, "duree_stockage") : show(d, "arrivee_pays");
   const bh = 104;
   page.drawRectangle({ x: M, y: y - bh, width: CW, height: bh, color: NAVY });
   const col = (CW - 40) / 3;
@@ -191,7 +196,7 @@ async function buildPdf(r: any, d: Record<string, unknown>, photos: string[]): P
     if (sub) text(sub, x, y - 50 - lines.length * 19, 9, sans, rgb(0.8, 0.82, 0.9));
   };
   cell(0, "Départ", dep, depP);
-  cell(1, "Arrivée", arr, arrP);
+  cell(1, seul ? "Destination" : "Arrivée", arr, arrP);
   cell(2, "Date souhaitée", show(d, "date") ? dateFr(String(d.date), { day: "numeric", month: "long", year: "numeric" }) : "À définir", show(d, "flexibilite"));
   y -= bh + 30;
 
@@ -256,8 +261,10 @@ async function buildPdf(r: any, d: Record<string, unknown>, photos: string[]): P
   pair(
     "Au départ",
     rows(["depart_commune", "depart_pays", "depart_type", "depart_etage", "depart_ascenseur", "depart_portage", "depart_stationnement", "depart_rue_etroite"]),
-    "À l'arrivée",
-    rows(["arrivee_commune", "arrivee_pays", "arrivee_type", "arrivee_etage", "arrivee_ascenseur", "arrivee_portage", "arrivee_stationnement", "arrivee_rue_etroite"]),
+    seul ? "Destination" : "À l'arrivée",
+    seul
+      ? [["Lieu", "Garde-meubles CODEM"], ["Durée", show(d, "duree_stockage") || "À définir"], ["Volume", show(d, "volume") || show(d, "taille") || (show(d, "surface") ? show(d, "surface") + " de surface" : "À estimer")]]
+      : rows(["arrivee_commune", "arrivee_pays", "arrivee_type", "arrivee_etage", "arrivee_ascenseur", "arrivee_portage", "arrivee_stationnement", "arrivee_rue_etroite"]),
   );
   pair(
     "Volume à déménager",
@@ -378,7 +385,7 @@ Deno.serve(async (req) => {
     try { pdfB64 = b64(await buildPdf(r, d, photos)); } catch (e) { console.error("PDF", e); }
     const fichier = `CODEM-dossier-${r.reference ?? "devis"}.pdf`;
     const pj = pdfB64 ? [{ filename: fichier, content: pdfB64 }] : undefined;
-    const trajet = `${show(d, "depart_commune") || "—"} → ${show(d, "arrivee_commune") || "—"}`;
+    const trajet = `${show(d, "depart_commune") || "—"} → ${stockageSeul(d) ? "Garde-meubles CODEM" : show(d, "arrivee_commune") || "—"}`;
     const dateV = show(d, "date") || "à définir";
 
     const htmlCodem = shell(`
