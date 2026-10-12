@@ -13,7 +13,7 @@ V1={
  checks=[('Transferts de sociétés, bureaux et services administratifs','Company, office and administrative relocations'),('Prise en charge du mobilier, des archives et des équipements','Furniture, records and equipment handled'),('Destruction de documents ou mise en déchetterie selon le besoin','Document destruction or waste disposal if needed')],
  steps_title=('Un transfert organisé<br><em>avec précision.</em>','A relocation organised<br><em>with precision.</em>'),
  steps=[('Inventorier','Take inventory','Recensez les postes, le mobilier, les archives, documents et équipements à prendre en charge.','List workstations, furniture, records, documents and equipment to be moved.'),('Planifier','Plan','CODEM prépare le marquage, l’étiquetage et le calendrier afin de limiter l’interruption de votre activité.','CODEM prepares marking, labelling and the schedule to keep disruption to a minimum.'),('Transférer et remettre en place','Move and set up','L’équipe protège, transporte, remonte et remet en place le mobilier selon le périmètre convenu.','The team protects, moves, reassembles and places furniture within the agreed scope.')],
- photo='ancien-16'),
+ photo='entreprise-chargement'),
 'europe':dict(
  ess=[('Voyages réguliers en Europe','Regular trips across Europe'),('Groupage sur poids lourd','Shared loads on heavy goods vehicles'),('Équipe multilingue','Multilingual team'),('Cinq formules au choix','Five packages to choose from')],
  eyebrow=('Toutes destinations en Europe','All European destinations'),title=('Particuliers, entreprises,<br><em>militaires et mutations.</em>','Households, businesses,<br><em>military and job transfers.</em>'),
@@ -21,7 +21,7 @@ V1={
  checks=[('Départs réguliers France – Italie – Espagne – Portugal','Regular departures France – Italy – Spain – Portugal'),('Transfert de bureaux, archives et parc informatique','Office, records and IT equipment transfers'),('Garde-meubles possible pendant une absence','Storage available while you are away')],
  steps_title=('Préparer un déménagement<br><em>international.</em>','Preparing an<br><em>international move.</em>'),
  steps=[('Évaluer le volume','Assess the volume','CODEM étudie les biens à prendre en charge et les accès afin de calculer le volume.','CODEM reviews your belongings and access to calculate the volume.'),('Choisir la formule','Choose the package','Self, Self plus, Confort, Confort plus ou Grand Confort permettent d’adapter la répartition des tâches.','Self, Self plus, Confort, Confort plus or Grand Confort let you share the tasks your way.'),('Organiser le trajet','Organise the journey','Dates, destination, groupage et éventuelles formalités sont confirmés avec votre conseiller.','Dates, destination, shared loads and any formalities are confirmed with your adviser.')],
- photo='ancien-12'),
+ photo='europe'),
 'stockage':dict(
  ess=[('Stockage court ou long terme','Short or long-term storage'),('Mobilier et affaires personnelles','Furniture and personal belongings'),('Box d’archives','Record storage boxes'),('Volume calculé avec CODEM','Volume calculated with CODEM')],
  eyebrow=('Stockage adapté','Suitable storage'),title=('Entreposez vos biens<br><em>pendant un déménagement, des travaux ou une absence.</em>','Store your belongings<br><em>during a move, renovation or time away.</em>'),
@@ -37,7 +37,7 @@ V1={
  checks=[('Réduction des risques pour le mobilier et les parties communes','Less risk to furniture and shared areas'),('Solution pour particuliers et professionnels','For households and businesses'),('Étude du stationnement et des contraintes de rue','Parking and street constraints assessed')],
  steps_title=('Préparer l’intervention<br><em>du monte-meubles.</em>','Preparing the<br><em>furniture lift.</em>'),
  steps=[('Décrivez l’immeuble','Describe the building','Étage, ouvertures, façade et espace disponible devant l’immeuble.','Floor, openings, facade and space in front of the building.'),('Listez les objets concernés','List the items','Dimensions et poids approximatifs des meubles à monter ou descendre.','Approximate size and weight of the items to raise or lower.'),('CODEM confirme l’équipement et le créneau','CODEM confirms equipment and slot','Le conseiller valide la faisabilité, le stationnement et l’horaire d’intervention.','The adviser confirms feasibility, parking and timing.')],
- photo='monte-meubles'),
+ photo='ancien-21'),
 'piano':dict(
  ess=[('Papier bulle et couvertures','Bubble wrap and blankets'),('Bull-kraft et cartons double cannelure','Bubble kraft and double-wall boxes'),('Emballage sur mesure','Custom packing'),('Sanglage pendant le transport','Strapped down in transit')],
  eyebrow=('Biens précieux','Valuable items'),title=('Manutention délicate<br><em>et transport spécialisé.</em>','Careful handling<br><em>and specialist transport.</em>'),
@@ -45,7 +45,7 @@ V1={
  checks=[('Prise en charge des objets fragiles, précieux ou lourds','Fragile, valuable or heavy items handled'),('Protections adaptées à la taille et à la nature du bien','Protection suited to size and type of item'),('Étude des accès et des moyens techniques','Access and equipment assessed')],
  steps_title=('Protéger chaque objet<br><em>avec le matériel adapté.</em>','Protecting each item<br><em>with the right materials.</em>'),
  steps=[('Identifier et mesurer','Identify and measure','Précisez la nature, les dimensions, la valeur et la fragilité de chaque objet.','Tell us the type, size, value and fragility of each item.'),('Choisir les protections','Choose protection','CODEM sélectionne les emballages et protections adaptés à la forme et aux matériaux.','CODEM selects packing and protection suited to shape and materials.'),('Organiser la manutention et le transport','Organise handling and transport','Les accès, le besoin d’un monte-meubles et le sanglage dans le véhicule sont étudiés avant l’intervention.','Access, the need for a lift and strapping in the vehicle are planned beforehand.')],
- photo='ancien-26'),
+ photo='ancien-28'),
 }
 
 def v1_blocks(key):
