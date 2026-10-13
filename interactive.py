@@ -58,7 +58,7 @@ def zones_tool():
 
 # --- À propos : la flotte en galerie ----------------------------------------
 def apropos_gallery():
- shots=[('ancien-02','Les véhicules CODEM','CODEM vehicles'),('ancien-12','Poids lourd et utilitaire','Truck and van'),('ancien-21','Monte-meubles en intervention','Furniture lift at work'),('ancien-20','À Nogent-sur-Marne','In Nogent-sur-Marne'),('ancien-19','Chargement chez un particulier','Loading at a home'),('ancien-26','Manutention d’un objet d’exception','Handling an exceptional item')]
+ shots=[('ancien-02','Les véhicules CODEM','CODEM vehicles'),('ancien-12','Poids lourd et utilitaire','Truck and van'),('ancien-21','Monte-meubles en intervention','Furniture lift at work'),('ancien-20','À Nogent-sur-Marne','In Nogent-sur-Marne'),('ancien-19','Chargement chez un particulier','Loading at a home'),('objet-vitrail','Manutention d’un objet d’exception','Handling an exceptional item')]
  cards=''.join(f'<figure class="hs-card">{img(i,t(a,c))}<figcaption><span>0{k+1}</span>{t(a,c)}</figcaption></figure>' for k,(i,a,c) in enumerate(shots))
  return f'''<section class="hscroll band-navy"><div class="hs-sticky"><div class="wrap hs-head">{eyebrow('La flotte CODEM','The CODEM fleet')}<h2>{t('Des moyens réels,<br><em>sur le terrain.</em>','Real resources,<br><em>out in the field.</em>')}</h2></div><div class="hs-track">{cards}<div class="hs-card hs-end"><p>{t('Rencontrez un conseiller CODEM.','Meet a CODEM adviser.')}</p>{link('contact',t('Prendre rendez-vous','Book a meeting'),'btn btn-cta')}</div></div></div></section>'''
 

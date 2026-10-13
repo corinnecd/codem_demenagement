@@ -19,7 +19,8 @@ def photo_section(key):
  'entreprises':[('entreprise-hall','Les dossiers de chaque service, étiquetés','Each department’s files, clearly labelled'),('entreprise-camion','Postes de travail protégés et sanglés','Workstations protected and strapped')],
  'europe':[(12,'Les véhicules de transport CODEM','CODEM transport vehicles'),(20,'Une intervention en région parisienne','A move in Greater Paris')],
  'monte':[(22,'Manutention dans une cour intérieure','Handling in an inner courtyard'),(25,'Un accès par l’extérieur','Access from outside')],
- 'piano':[(26,'Manutention d’un objet volumineux','Handling a bulky item'),(29,'Le soin du mobilier de caractère','Care for distinctive furniture')],
+ 'piano':[('objet-vitrail','Manutention d’un objet volumineux','Handling a bulky item'),('objet-piano','Le soin du mobilier de caractère','Care for distinctive furniture')],
+ 'stockage':[('garde-meubles-box','Vos meubles protégés dans un box fermé','Your furniture protected in a closed unit'),('garde-meubles-bureaux','Mobilier de bureau et archives entreposés','Office furniture and records in storage')],
  }
  data=photos.get(key,[])
  if not data:return ''
