@@ -45,7 +45,7 @@ def protection():
  return f'<section class="section band-ivory prot"><div class="wrap"><div class="ap-head reveal"><div>{eyebrow("La protection de vos biens","Protecting your belongings")}<h2>{t("Le soin commence<br><em>avant le transport.</em>","Care begins<br><em>before the journey.</em>")}</h2></div><p class="lead">{t("Chaque objet a sa protection. Retournez les cartes pour voir comment nous préparons vos biens.","Every item gets its own protection. Flip the cards to see how we prepare your belongings.")}</p></div><ul class="flip-grid">{cards}</ul><p class="prot-link">{link("piano",t("Confier un objet particulier","Arrange care for a specialist item"),"text-link")}</p></div></section>'
 
 # 5. Bande de photos réelles qui défile
-TERRAIN=['ancien-02','ancien-19','ancien-26','ancien-16','ancien-29','ancien-22','ancien-12','ancien-33','ancien-20','ancien-25','ancien-06']
+TERRAIN=['chantier-camion','ancien-02','ancien-19','ancien-26','ancien-16','ancien-29','ancien-22','ancien-12','ancien-33','ancien-20','ancien-25','ancien-06']
 def terrain():
  alt=t('Chantier CODEM','CODEM job')
  row=''.join(f'<li><a href="{url("realisations")}">{img(p,alt)}</a></li>' for p in TERRAIN);row2=row.replace('<a ','<a tabindex="-1" ')

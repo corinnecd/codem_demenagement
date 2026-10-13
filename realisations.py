@@ -16,7 +16,7 @@ CAS=[
   titre=('Une maison entière,<br><em>chargée avec soin.</em>','A whole house,<br><em>loaded with care.</em>'),
   texte=('Poids lourd et utilitaire sur place, rampe de chargement, mobilier protégé et cartons préparés : pour une maison, l’équipe et les véhicules sont dimensionnés selon le volume.','A heavy truck and a van on site, a loading ramp, protected furniture and ready boxes: for a house, the team and vehicles are sized to the volume.'),
   points=[('Véhicules capitonnés','Padded vehicles'),('Rampe de chargement','Loading ramp'),('Équipe dimensionnée','Right-sized team')],svc='particuliers'),
- dict(photos=['ancien-16','ancien-02','ancien-20','ancien-06'],tag=('En ville','In town'),lieu=('Paris et Val-de-Marne','Paris and Val-de-Marne'),
+ dict(photos=['chantier-camion','ancien-16','ancien-02','ancien-20'],tag=('En ville','In town'),lieu=('Paris et Val-de-Marne','Paris and Val-de-Marne'),
   titre=('Déménager en ville,<br><em>au pied de l’immeuble.</em>','Moving in town,<br><em>right outside the building.</em>'),
   texte=('Camion stationné au plus près de l’entrée, hayon élévateur, chargement rapide pour libérer la voie : les déménagements en centre-ville se préparent jusqu’à l’emplacement du véhicule.','Truck parked as close to the entrance as possible, tail lift, quick loading to free the street: town-centre moves are planned right down to where the vehicle parks.'),
   points=[('Stationnement anticipé','Parking planned ahead'),('Hayon élévateur','Tail lift'),('Chargement rapide','Quick loading')],svc='zones'),
