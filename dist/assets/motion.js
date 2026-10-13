@@ -67,7 +67,7 @@ const ft=document.querySelector('.ft-control');
 if(ft){
  const range=ft.querySelector('input'),tasks=[...document.querySelectorAll('.ft-tasks .task')],res=document.querySelector('.ft-result');
  const upd=()=>{const i=+range.value;const [name,desc,slug]=ft.dataset['f'+i].split('|');let n=0;
-  tasks.forEach((li,k)=>{const c=li.dataset.codes[i];li.dataset.who=c==='X'?'codem':c==='C'?'you':'tbd';if(c==='X')n++;li.style.transitionDelay=(k*35)+'ms';});
+  let you=0,tbd=0;tasks.forEach((li,k)=>{const c=li.dataset.codes[i];li.dataset.who=c==='X'?'codem':c==='C'?'you':'tbd';if(c==='X')n++;else if(c==='C')you++;else tbd++;li.style.transitionDelay=(k*35)+'ms';});const tot=tasks.length||1,pc=Math.round(n/tot*100),py=Math.round(you/tot*100);const q=s=>res.querySelector(s);if(q('[data-pct-codem]')){q('[data-pct-codem]').textContent=pc+' %';q('[data-pct-you]').textContent=py+' %';q('[data-bar]').style.width=pc+'%';q('[data-tbd-note]').textContent=tbd?(document.documentElement.lang==='en'?` · ${tbd} to confirm`:` · ${tbd} à préciser`):'';}
   res.querySelector('.ft-name').textContent=name;res.querySelector('.ft-desc').textContent=desc;res.querySelector('[data-count]').textContent=n;res.querySelector('.ft-cta-name').textContent=name;
   res.querySelector('.ft-cta').href=`${quoteUrl}?service=particulier&formule=${slug}`;range.style.setProperty('--v',i/4);
   ft.querySelectorAll('.ft-ticks span').forEach((s,k)=>s.classList.toggle('on',k===i));res.classList.remove('pop');void res.offsetWidth;res.classList.add('pop');};

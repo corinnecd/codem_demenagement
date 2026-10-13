@@ -250,3 +250,21 @@ html:not(.apercu) [data-proof-link]{display:none!important}
 @media(max-width:900px){.home-page .trust-line{padding:26px 0 22px!important}}
 .express-switch .btn.outline{transition:border-color .25s,box-shadow .25s,background .25s}
 .express-switch .btn.outline:hover,.express-switch .btn.outline:focus-visible{border-color:var(--green);box-shadow:0 0 0 1px var(--green);background:transparent}
+/* Phase 1 : qualification et réassurance */
+.ex-group{font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green-dark);margin:22px 0 12px;max-width:none}
+.express-card .ex-group:first-of-type{margin-top:6px}
+.express-card .field .check{display:flex;gap:10px;align-items:center;font-size:.88rem;font-weight:500;cursor:pointer}
+.express-card .field .check input{width:18px;height:18px;min-height:0;accent-color:var(--green-dark)}
+.nosurtax{display:block;font-size:.68rem;font-weight:400;opacity:.75;letter-spacing:.02em;margin-top:2px;font-family:Arial,sans-serif}
+.hero-phone .nosurtax{color:#dfe6ef}
+.express-call .nosurtax{color:#cfd3e6}
+.footer-nosurtax{font-size:.75rem!important;color:var(--muted);margin:2px 0 8px}
+.contact-card .footer-nosurtax{margin-top:-6px}
+.step-chip{display:inline-block;background:var(--mint);color:var(--green-dark);font-size:.75rem;font-weight:700;border-radius:20px;padding:5px 12px;margin:-8px 0 14px}
+.ft-split{height:10px;border-radius:10px;background:#22264f1f;overflow:hidden;margin:16px 0 8px}
+.ft-split-codem{display:block;height:100%;background:var(--green);border-radius:10px;transition:width .5s ease}
+.ft-pct{display:flex;justify-content:space-between;font-size:.88rem;margin:0 0 8px}
+.ft-pct strong{font-size:1.15rem;color:var(--navy)}
+.valeur-box{display:grid;grid-template-columns:.9fr 1.1fr;column-gap:6%;row-gap:28px;align-items:start}
+.valeur-box .check-list{margin:22px 0 28px}
+@media(max-width:900px){.valeur-box{grid-template-columns:1fr}}
