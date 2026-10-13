@@ -154,3 +154,93 @@
 .quote-steps li.empty{color:#c9cbe0}
 .groupage-help{margin:-4px 0 14px 34px;max-width:620px}
 @media(max-width:640px){.groupage-help{margin-left:0}}
+/* ===== Conversion : faits, preuves (aperçu), devis express ===== */
+.demo-proof{display:none!important}
+html.apercu .demo-proof{display:block!important}
+html.apercu .public-only{display:none!important}
+html:not(.apercu) [data-proof-link]{display:none!important}
+.demo-badge{display:inline-block;background:#fff4d6;color:#7a5200;border:1px dashed #d9a400;border-radius:30px;font-size:.72rem;font-weight:700;letter-spacing:.04em;padding:5px 12px;margin-bottom:18px}
+.apercu-bar{position:fixed;top:0;left:50%;transform:translateX(-50%);z-index:60;background:#fff4d6;color:#5b3d00;border:1px solid #d9a400;border-top:0;border-radius:0 0 12px 12px;padding:7px 16px;font-size:.78rem;display:flex;gap:14px;align-items:center;max-width:96vw}
+.apercu-bar a{text-decoration:underline;font-weight:700;white-space:nowrap}
+.trust-line{display:block!important;border:0;padding:22px 0}
+.facts-band{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 28px;font-size:.84rem;color:var(--navy)}
+.facts-band li{display:flex;align-items:center;gap:9px}
+.fact-dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0}
+.facts-band.stacked{flex-direction:column;align-items:flex-start;gap:10px;margin:26px 0;padding:22px 0;border-top:1px solid #e3e5ea;border-bottom:1px solid #e3e5ea}
+.hero-promise{font-size:.82rem!important;color:#dfe6ef!important;margin:16px 0 0!important;letter-spacing:.02em}
+.title-promise{font-size:.82rem;color:var(--muted);margin-top:12px}
+.page-title .actions{margin-top:28px}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin:10px 0 40px}
+.stat{background:white;border-radius:18px;padding:26px 24px;border:1px solid #e7e9ee}
+.stat strong{display:block;font-family:var(--serif);font-weight:400;font-size:2.6rem;line-height:1;color:var(--navy);margin-bottom:10px}
+.stat span{font-size:.85rem;color:var(--muted)}
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:34px}
+.review-grid.one{grid-template-columns:minmax(0,640px)}
+.review-card{margin:0;background:white;border-radius:18px;padding:28px;border:1px solid #e7e9ee;display:flex;flex-direction:column;gap:16px}
+.stars{color:#e8a317;letter-spacing:2px;font-size:1rem}
+.review-card blockquote{margin:0;font-size:.98rem;line-height:1.7;color:var(--ink);flex:1}
+.review-card figcaption{display:flex;flex-direction:column;font-size:.84rem;border-top:1px solid #eceef2;padding-top:14px}
+.review-card figcaption span{color:var(--muted)}
+.logo-row{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin:30px 0 34px}
+.logo-ph{display:flex;align-items:center;justify-content:center;height:78px;border:1px dashed #b9bfcc;border-radius:12px;color:#8a90a0;font-size:.8rem;background:#ffffff80}
+.case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.case-card{background:white;border-radius:20px;overflow:hidden;border:1px solid #e7e9ee;display:flex;flex-direction:column}
+.case-card .image-wrap{height:220px;border-radius:0}
+.case-body{padding:26px}
+.case-body h3{font-size:1.45rem;margin-bottom:16px}
+.case-body dl{margin:0 0 18px;font-size:.9rem}.case-body dt{font-weight:700;color:var(--navy);margin-top:10px}.case-body dd{margin:4px 0 0;color:var(--muted)}
+.case-result{background:var(--mint);color:var(--green-dark);font-weight:700;font-size:.88rem;border-radius:10px;padding:10px 14px;margin:0}
+/* Devis express */
+.express-page{padding:96px 0 70px}
+.express-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:34px;align-items:start}
+.express-card{background:white;border-radius:24px;padding:48px 52px;box-shadow:0 30px 70px #14163f14}
+.express-card h1{font-size:clamp(2.4rem,4vw,3.6rem);margin-bottom:14px}
+.express-lead{color:var(--muted);margin-bottom:28px}
+.express-card .fields{gap:18px 20px}
+.express-submit{width:100%;margin-top:6px;min-height:58px;font-size:1rem;border-radius:40px;gap:10px}
+.express-promise{text-align:center;font-size:.82rem;color:var(--muted);margin:12px 0 0;max-width:none}
+.express-done{text-align:center;padding:10px 0}
+.express-done .confirm-icon{margin:0 auto 18px}
+.express-done h2{font-size:2.4rem}
+.express-more{background:var(--glacier);border-radius:16px;padding:22px;margin:26px 0 18px;text-align:left;display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.express-more p{margin:0;font-size:.92rem;max-width:420px}
+.express-side{background:var(--navy);color:white;border-radius:24px;padding:40px 36px;position:sticky;top:110px}
+.express-side h2{font-size:1.9rem;color:white;margin-bottom:22px}
+.express-steps{list-style:none;padding:0;margin:0;counter-reset:ex}
+.express-steps li{counter-increment:ex;position:relative;padding:0 0 18px 46px;display:flex;flex-direction:column;gap:4px;font-size:.9rem}
+.express-steps li:before{content:counter(ex);position:absolute;left:0;top:-2px;width:30px;height:30px;border-radius:50%;background:var(--green);color:var(--green-ink);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:.85rem}
+.express-steps span{color:#cfd3e6}
+.express-side .facts-band{color:white;border-color:#ffffff26}
+.express-call{display:flex;flex-direction:column;gap:2px;background:#ffffff12;border-radius:14px;padding:16px 18px;margin-top:18px}
+.express-call span{font-size:.8rem;color:#cfd3e6}.express-call strong{font-size:1.35rem;font-family:var(--serif);font-weight:400}
+.quote-proof{background:#ffffff10;border-radius:14px;padding:18px;margin-top:6px;font-size:.88rem}
+.quote-proof .qp-rating{display:flex;gap:10px;align-items:center;margin:0 0 10px;flex-wrap:wrap}.quote-proof .qp-rating span{color:#cfd3e6;font-size:.8rem}
+.quote-proof blockquote{margin:0 0 8px;color:#eef0f8;line-height:1.6}.quote-proof cite{font-style:normal;font-size:.8rem;color:#cfd3e6}
+.express-switch{display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap;margin-top:34px;text-align:center}
+.express-switch p{margin:0;color:var(--muted);font-size:.92rem}
+.back-express{display:inline-block;font-size:.82rem;text-decoration:underline;margin-bottom:18px;color:inherit;opacity:.85}
+/* Zones tactiles */
+.lang a{padding:10px 4px;min-height:40px;display:inline-flex;align-items:center}
+.service-tabs a{min-height:44px;display:inline-flex;align-items:center}
+/* Barre mobile : sur la page devis, l'appel devient l'action principale */
+@media(max-width:900px){
+ .page-devis .mobile-bottom{grid-template-columns:1.3fr 1fr!important}
+ .page-devis .mb-quote{display:none!important}
+ .page-devis .mb-call{background:var(--green);border-color:var(--green);color:var(--green-ink)}
+ .express-page{padding:100px 0 50px}
+ .express-grid{grid-template-columns:1fr}
+ .express-side{position:static}
+ .stats-row{grid-template-columns:1fr 1fr}
+ .review-grid,.case-grid{grid-template-columns:1fr}
+ .logo-row{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:640px){
+ .express-card{padding:30px 22px;border-radius:20px}
+ .express-card .fields{grid-template-columns:1fr}
+ .express-side{padding:30px 24px}
+ .facts-band{justify-content:flex-start;flex-direction:column;align-items:flex-start;gap:9px}
+ .trust-line{padding:20px 0}
+ .stat strong{font-size:2rem}
+ .apercu-bar{font-size:.7rem;top:auto;bottom:74px;border-radius:12px;border:1px solid #d9a400}
+}
+.lang{align-items:center}

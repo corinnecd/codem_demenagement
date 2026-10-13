@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://codemdemenagement.vercel.app/sitemap.xml
