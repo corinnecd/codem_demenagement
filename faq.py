@@ -19,7 +19,7 @@ def card(i,theme,q,a,cls=''):
 
 def featured(photo):
  i=FEATURED;theme=META[i];q,a=b.FAQ_DATA()[i];k,anchor,lab=CTA[theme]
- return f'''<article class="qfeature" data-theme="{theme}"><div class="qfeature-img">{b.mascot("montre","feat-mascot",150)}{img(photo,t('Déménageurs CODEM au travail','CODEM movers at work'))}</div><div class="qfeature-body"><span class="qtag qtag-light">{t('La question du moment','Question of the moment')}</span><h3>{q}</h3><p>{a}</p><a class="btn btn-cta" href="{url('devis')}">{t('Recevoir mon devis gratuit','Get my free quote')}</a></div></article>'''
+ return f'''<article class="qfeature" data-theme="{theme}"><div class="qfeature-img">{img(photo,t('Déménageurs CODEM au travail','CODEM movers at work'))}</div><div class="qfeature-body"><span class="qtag qtag-light">{t('La question du moment','Question of the moment')}</span><h3>{q}</h3><p>{a}</p><div class="qf-cta"><a class="btn btn-cta" href="{url('devis')}">{t('Recevoir mon devis gratuit','Get my free quote')}</a>{b.mascot("montre-g","feat-mascot",150)}</div></div></article>'''
 
 def section(pick=None,filters=False,photo='particulier-immeuble',band='band-glacier',more=True,sid='questions',featured_on=True,title=None,eb=None):
  its=[x for x in items() if (x[0]!=FEATURED or not featured_on) and (pick is None or x[0] in pick)]

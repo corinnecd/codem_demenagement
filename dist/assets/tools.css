@@ -553,7 +553,9 @@ html{font-size:106.25%}
 .done-mascot{display:block;height:150px;width:auto;margin:0 auto 12px;animation:mascot-pop .7s cubic-bezier(.2,.9,.3,1.3) both}
 @keyframes mascot-pop{from{opacity:0;transform:translateY(20px) scale(.9)}to{opacity:1;transform:none}}
 .qfeature{position:relative}
-.qfeature-img{position:relative}.qfeature-img img.feat-mascot{position:absolute;z-index:2;bottom:-4px;right:-26px;left:auto;top:auto;height:150px;width:auto;object-fit:contain}
+.qf-cta{display:flex;align-items:center;gap:6px;flex-wrap:nowrap;margin-top:6px}.qf-cta .btn{flex:0 0 auto}.qfeature-body img.feat-mascot{height:128px;width:auto;margin:-14px 0 -26px 0;animation:cody-point 2.4s 1s ease-in-out 2}
+@keyframes cody-point{0%,100%{transform:none}50%{transform:translateX(-8px)}}
+@media(max-width:1100px){.qfeature-body img.feat-mascot{display:none}}
 .guide-intro{position:relative;padding-right:190px}
 .guide-mascot{position:absolute;right:0;top:50%;transform:translateY(-50%);height:210px;width:auto}
 .mascot-host{position:relative}
@@ -567,3 +569,16 @@ html{font-size:106.25%}
 .guide-mascot-box .guide-mascot{position:static;transform:none}
 .guide-bubble{font-size:.85rem;text-align:center;max-width:180px}.guide-bubble:before{left:50%;top:-6px;transform:translateX(-50%) rotate(45deg)}
 @media(max-width:900px){.guide-mascot-box{position:static;transform:none;flex-direction:row;margin-bottom:14px}.guide-bubble:before{left:-6px;top:50%;transform:translateY(-50%) rotate(45deg)}}
+
+/* Camion mascotte */
+.route-rail .rail-truck.rail-face{width:46px;height:46px;margin-left:-23px;transform:translateY(-50%);border-radius:50%;background:#fff;border:2px solid #5fb03a;overflow:hidden;box-shadow:0 6px 14px #1a1f4a33;filter:none}
+.rail-face img{width:64px;height:auto;max-width:none;margin:2px 0 0 -6px;display:block}
+.truck-stage{position:relative;overflow:hidden;padding-bottom:6px}
+.truck-mascot{display:block;width:min(440px,100%);height:auto;filter:drop-shadow(0 18px 22px #0a0d2a40)}
+.truck-road{height:4px;border-radius:4px;background:repeating-linear-gradient(90deg,#5fb03a 0 26px,transparent 26px 44px);opacity:.7;margin-top:-6px}
+.js-motion .truck-stage .truck-mascot{transform:translateX(-115%);transition:transform 1.6s cubic-bezier(.22,.8,.25,1)}
+.js-motion .truck-stage.in .truck-mascot{transform:none;animation:truck-bump .5s 1.5s ease-out}
+@keyframes truck-bump{0%{transform:none}40%{transform:translateY(-4px) rotate(-.6deg)}100%{transform:none}}
+.eu-truck{display:grid;grid-template-columns:1fr 1fr;column-gap:6%;row-gap:24px;align-items:center}
+@media(max-width:900px){.eu-truck{grid-template-columns:1fr}.truck-mascot{width:min(320px,100%)}}
+@media(prefers-reduced-motion:reduce){.js-motion .truck-stage .truck-mascot{transform:none;transition:none;animation:none}}

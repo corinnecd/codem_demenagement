@@ -33,11 +33,14 @@ def lqip(name):
  from PIL import ImageFilter
  im=Image.open(OUT/'assets'/f'{name}-poster.webp').convert('RGB');im.thumbnail((64,64),Image.LANCZOS);im=im.filter(ImageFilter.GaussianBlur(2.2));b=io.BytesIO();im.save(b,'WEBP',quality=70)
  return 'data:image/webp;base64,'+base64.b64encode(b.getvalue()).decode()
-MASCOT={'montre':(1163,1170),'couverture':(949,1212),'salut':(982,1170),'pouce':(929,1164),'checklist':(959,1170)}
+MASCOT={'montre':(1163,1170),'montre-g':(1163,1170),'couverture':(949,1212),'salut':(982,1170),'pouce':(929,1164),'checklist':(959,1170)}
 def mascot(p,cls='',h=200):
  """Cody, la mascotte CODEM (carton) : image décorative."""
  w,hh=MASCOT[p];ww=round(w*h/hh)
  return f'<img class="mascot {cls}" src="/assets/mascotte-{p}-400.webp" srcset="/assets/mascotte-{p}-400.webp 1x, /assets/mascotte-{p}-800.webp 2x" width="{ww}" height="{h}" alt="" aria-hidden="true" loading="lazy" decoding="async">'
+def truck(cls=''):
+ """Camion mascotte CODEM (décoratif), entre en roulant."""
+ return f'<div class="truck-stage {cls}" aria-hidden="true"><img class="truck-mascot" aria-hidden="true" src="/assets/camion-mascotte-500.webp" srcset="/assets/camion-mascotte-500.webp 1x, /assets/camion-mascotte-1000.webp 2x" width="500" height="357" alt="" loading="lazy" decoding="async"><div class="truck-road"></div></div>'
 def video(name,hero=False):
  extra=' src="/assets/'+name+'.mp4"' if hero else ''
  pre='auto' if hero else 'none'

@@ -32,7 +32,7 @@ if(!reduce&&fine){document.querySelectorAll('.btn-cta').forEach(b=>{b.addEventLi
 /* 4. La route CODEM : un camion descend la page et arrive au devis */
 if(!isForm){
  const rail=document.createElement('div');rail.className='route-rail';
- rail.innerHTML=`<span class="rail-a" aria-hidden="true">A</span><span class="rail-line" aria-hidden="true"><span class="rail-fill"></span></span><span class="rail-truck" aria-hidden="true"><svg viewBox="0 0 64 34"><rect x="1" y="2" width="40" height="24" rx="3" fill="#fff" stroke="#22264f" stroke-width="2"/><path d="M41 9h12l9 9v8H41z" fill="#5fb03a" stroke="#22264f" stroke-width="2"/><circle cx="13" cy="28" r="5" fill="#22264f"/><circle cx="51" cy="28" r="5" fill="#22264f"/></svg></span><a class="rail-b" href="${quoteUrl}" aria-label="${tr('Demander un devis','Get a quote')}">B<span>${tr('Devis','Quote')}</span></a>`;
+ rail.innerHTML=`<span class="rail-a" aria-hidden="true">A</span><span class="rail-line" aria-hidden="true"><span class="rail-fill"></span></span><span class="rail-truck rail-face" aria-hidden="true"><img src="/assets/camion-face.webp" width="120" height="104" alt=""></span><a class="rail-b" href="${quoteUrl}" aria-label="${tr('Demander un devis','Get a quote')}">B<span>${tr('Devis','Quote')}</span></a>`;
  const top=document.createElement('div');top.className='route-top';top.setAttribute('aria-hidden','true');top.innerHTML='<span class="rt-fill"></span>';
  body.append(rail,top);
  const line=rail.querySelector('.rail-line'),fill=rail.querySelector('.rail-fill'),truck=rail.querySelector('.rail-truck');
@@ -153,3 +153,6 @@ document.querySelectorAll('[data-carousel]').forEach(sec=>{
  tabs.forEach((t,j)=>{t.addEventListener('click',()=>show(t.getAttribute('aria-controls')));t.addEventListener('keydown',e=>{let n=null;if(e.key==='ArrowRight')n=(j+1)%tabs.length;if(e.key==='ArrowLeft')n=(j-1+tabs.length)%tabs.length;if(e.key==='Home')n=0;if(e.key==='End')n=tabs.length-1;if(n!==null){e.preventDefault();show(tabs[n].getAttribute('aria-controls'),true)}})});
  const h=location.hash.slice(1);if(h&&panels.some(p=>p.id===h))setTimeout(()=>show(h,false,true),60);
  addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(panels.some(p=>p.id===h))show(h,false,true)});})();
+
+/* Camion mascotte : il entre en roulant quand sa section apparaît */
+(()=>{const s=[...document.querySelectorAll('.truck-stage')];if(!s.length)return;const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.35});s.forEach(x=>io.observe(x));})();
