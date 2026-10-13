@@ -32,7 +32,7 @@ def service(key):
  visual=video(film,True)+toggle() if film else img(im,label(key),eager=True)
  tabs='<nav class="wrap service-tabs" aria-label="'+t('Tous les services','All services')+'">'+''.join(link(k,extra='aria-current="page"' if key==k else '') for k in SERVICES)+'</nav>'
  head=crumb(key)+f'<section class="page-intro"><div class="wrap split"><div>{eyebrow(eyfr,eyen)}<h1>{t(fr,en)}</h1><p class="lead">{t(descfr,descen)}</p><div class="actions"><a class="btn btn-cta" href="{url("devis")}?service={PROJECT_OF[key]}">{t("Demander un devis","Get a quote")}</a>{link("contact",t("Être rappelé","Request a callback"),"btn outline")}</div></div><div><div class="image-wrap">{visual}</div>'+'</div></div></section>'+tabs
- if key=='particuliers':return head+particuliers_body()
+ if key=='particuliers':return head+particuliers_body().replace(cta(),'')+__import__('fournitures').strip()+cta()
  data={
  'entreprises':[
  ('Préparer le transfert, poste par poste.','Plan the move, workstation by workstation.','L’inventaire du mobilier, des équipements et des archives permet de préciser le volume, les protections et l’organisation du transfert. Signalez les équipements qui demandent une manutention spécifique.','An inventory of furniture, equipment and records helps define volume, protection and organisation. Tell us about equipment requiring specialist handling.'),
@@ -92,7 +92,8 @@ if __name__=='__main__':
   b.LANG=lang
   for k in SERVICES:b.write(k,service(k),t(SERVICES[k][6],SERVICES[k][7]))
   for k in ['formules','zones','apropos','conseils']:b.write(k,general(k),t('Découvrez '+label(k).lower()+' avec CODEM : des informations utiles pour préparer votre déménagement.','Explore '+label(k).lower()+' with CODEM: useful information for planning your move.'),__import__('faq').jsonld() if k=='conseils' else '')
-  for k in ['avis','realisations']:b.write(k,proof_page(k).replace('<section class="section band-sand">',(conversion.avis_demo() if k=='avis' else conversion.realisations_demo())+'<section class="section band-sand public-only">',1),t('CODEM Déménagements : '+label(k).lower()+', publiés avec leur source et l’accord des clients.','CODEM Moving: '+label(k).lower()+', published with their source and client consent.'))
+  b.write('avis',conversion.avis_page(),t('Avis clients de CODEM Déménagements à Nogent-sur-Marne : avis Google publiés tels quels, avec leur date.','CODEM Moving client reviews: Google reviews shown as written, with their date.'))
+  for k in ['realisations']:b.write(k,proof_page(k).replace('<section class="section band-sand">',(conversion.realisations_demo())+'<section class="section band-sand public-only">',1),t('CODEM Déménagements : '+label(k).lower()+', publiés avec leur source et l’accord des clients.','CODEM Moving: '+label(k).lower()+', published with their source and client consent.'))
   for k in ['legal','privacy','cookies','access']:b.write(k,legal(k),t(*LEGAL_DESC[k]))
-  __import__('villes').write_all()
+  __import__('villes').write_all();__import__('fournitures').write_all()
  import sitemap;sitemap.write()

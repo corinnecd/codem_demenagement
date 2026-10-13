@@ -2,5 +2,67 @@
   "buildCommand": "",
   "installCommand": "",
   "framework": null,
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "redirects": [
+    {
+      "source": "/demenageur-particuliers",
+      "destination": "/fr/demenagement-particuliers/",
+      "permanent": true
+    },
+    {
+      "source": "/transfert-entreprise",
+      "destination": "/fr/demenagement-entreprises/",
+      "permanent": true
+    },
+    {
+      "source": "/demenageur-international",
+      "destination": "/fr/france-europe/",
+      "permanent": true
+    },
+    {
+      "source": "/location-monte-meubles",
+      "destination": "/fr/monte-meubles/",
+      "permanent": true
+    },
+    {
+      "source": "/manutention-specialisee",
+      "destination": "/fr/objets-specialises/",
+      "permanent": true
+    },
+    {
+      "source": "/cartons-emballage",
+      "destination": "/fr/cartons-emballage/",
+      "permanent": true
+    },
+    {
+      "source": "/garde-meubles",
+      "destination": "/fr/garde-meubles/",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/fr/contact/",
+      "permanent": true
+    },
+    {
+      "source": "/page-avis",
+      "destination": "/fr/avis-clients/",
+      "permanent": true
+    },
+    {
+      "source": "/mentionslegales",
+      "destination": "/fr/mentions-legales/",
+      "permanent": true
+    },
+    {
+      "source": "/vieprivee",
+      "destination": "/fr/confidentialite/",
+      "permanent": true
+    },
+    {
+      "source": "/privacy",
+      "destination": "/fr/cookies/",
+      "permanent": true
+    }
+  ]
 }
