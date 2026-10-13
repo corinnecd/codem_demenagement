@@ -541,3 +541,24 @@ html{font-size:106.25%}
 /* Carrousels : la première carte part du bord gauche de l'écran */
 .car-track{padding-left:0;scroll-padding-left:0}
 @media(max-width:760px){.car-track{padding-left:0;scroll-padding-left:0}}
+/* Mascotte CODEM */
+.mascot{height:auto;max-width:none;pointer-events:none;user-select:none;filter:drop-shadow(0 10px 14px #0b0e2a33)}
+.hero-mascot-wrap{position:absolute;bottom:100%;right:30px;height:120px;overflow:hidden;pointer-events:none}
+.hero-mascot{display:block;height:170px;width:auto;filter:none;animation:mascot-peek .9s .9s cubic-bezier(.2,.75,.25,1) both}
+@keyframes mascot-peek{from{transform:translateY(100%)}to{transform:none}}
+.mascot-tip{display:flex;align-items:center;gap:12px;margin:-8px 0 20px}
+.tip-mascot{height:112px;width:auto;flex:0 0 auto}
+.bubble{position:relative;background:#fff;color:var(--navy,#22264f);border-radius:16px;padding:11px 15px;font-weight:700;font-size:.95rem;margin:0;line-height:1.35}
+.bubble:before{content:'';position:absolute;left:-7px;top:50%;width:14px;height:14px;background:#fff;transform:translateY(-50%) rotate(45deg);border-radius:2px}
+.done-mascot{display:block;height:150px;width:auto;margin:0 auto 12px;animation:mascot-pop .7s cubic-bezier(.2,.9,.3,1.3) both}
+@keyframes mascot-pop{from{opacity:0;transform:translateY(20px) scale(.9)}to{opacity:1;transform:none}}
+.qfeature{position:relative}
+.feat-mascot{position:absolute;z-index:2;bottom:-4px;left:calc(47.6% - 118px);height:150px;width:auto}
+.guide-intro{position:relative;padding-right:190px}
+.guide-mascot{position:absolute;right:0;top:50%;transform:translateY(-50%);height:210px;width:auto}
+.mascot-host{position:relative}
+.hero-side-mascot{position:absolute;z-index:2;left:-64px;bottom:-34px;height:230px;width:auto}
+.exit-mascot{display:block;height:120px;width:auto;margin:-6px 0 8px}
+@media(max-width:900px){.feat-mascot{display:none}.guide-intro{padding-right:0}.guide-mascot{position:static;transform:none;height:150px;margin:0 0 14px}.hero-side-mascot{left:-6px;bottom:-24px;height:150px}}
+@media(max-width:640px){.tip-mascot{height:90px}.done-mascot{height:120px}}
+@media(prefers-reduced-motion:reduce){.hero-mascot,.done-mascot{animation:none}}
