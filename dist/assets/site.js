@@ -139,7 +139,7 @@ expertiseButtons.forEach(button=>button.addEventListener('click',()=>{
 
 // Cartes questions : ouverture, filtres, mesure
 document.querySelectorAll('.qsection').forEach(sec=>{
- sec.querySelectorAll('.qcard-btn').forEach(btn=>btn.addEventListener('click',()=>{const card=btn.closest('.qcard'),a=card.querySelector('.qcard-a'),open=btn.getAttribute('aria-expanded')!=='true';btn.setAttribute('aria-expanded',String(open));a.hidden=!open;card.classList.toggle('open',open);if(open)track('faq_ouverte',{question:btn.dataset.q,theme:card.dataset.theme});}));
+ sec.querySelectorAll('.qcard-btn').forEach(btn=>btn.addEventListener('click',()=>{const card=btn.closest('.qcard'),a=card.querySelector('.qcard-a'),open=btn.getAttribute('aria-expanded')!=='true';const y0=btn.getBoundingClientRect().top;if(open)sec.querySelectorAll('.qcard.open').forEach(o=>{if(o===card)return;o.classList.remove('open');o.querySelector('.qcard-a').hidden=true;o.querySelector('.qcard-btn').setAttribute('aria-expanded','false');});btn.setAttribute('aria-expanded',String(open));a.hidden=!open;card.classList.toggle('open',open);const dy=btn.getBoundingClientRect().top-y0;if(Math.abs(dy)>1)window.scrollBy({top:dy,behavior:'instant'});if(open)track('faq_ouverte',{question:btn.dataset.q,theme:card.dataset.theme});}));
  const chips=[...sec.querySelectorAll('.qchip')];chips.forEach(c=>c.addEventListener('click',()=>{const f=c.dataset.filter;chips.forEach(x=>{const on=x===c;x.classList.toggle('on',on);x.setAttribute('aria-pressed',String(on));});sec.querySelectorAll('.qcard').forEach(card=>card.hidden=f!=='all'&&card.dataset.theme!==f);track('faq_filtre',{theme:f});}));
 });
 
