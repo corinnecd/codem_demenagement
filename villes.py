@@ -140,13 +140,34 @@ def trajet_page(key):
  desc=t(f'Déménagement de Paris vers {ART[key]}{pays} avec CODEM : liaisons régulières, groupage possible, équipe multilingue. Devis gratuit, réponse sous 24 h ouvrées.',f'Moving from Paris to {pays} with CODEM: regular routes, shared loads, multilingual team. Free quote, reply within 1 working day.')
  return body,desc,_jsonld(k,pays,faq,t('Déménagement international','International moving'))
 
-def zones_links():
- vs=''.join(f'<a class="loc-chip" href="{url("v-"+x)}">{VILLES[x]["nom"]}</a>' for x in ['paris']+[k for k in VILLES if k!='paris'])
- ts=''.join(f'<a class="loc-chip" href="{url("t-"+x)}">{t("Paris – ","Paris – ")}{t(*TRAJETS[x]["nom"])}</a>' for x in TRAJETS)
- return f'''<section class="section band-ivory loc-near" id="villes"><div class="wrap">{eyebrow("Nos villes","Our towns")}<h2>{t("Déménager près de chez vous,<br><em>ou plus loin.</em>","Moving near you,<br><em>or further away.</em>")}</h2><div class="loc-chips">{vs}</div><p class="loc-sub">{t("Trajets internationaux","International routes")}</p><div class="loc-chips">{ts}</div></div></section>'''
+ORDER=['paris','nogent','vincennes','saintmande','saintmaur','fontenay','perreux','champigny']
+def explorer():
+ """Page Zones desservies : toutes les villes réunies dans un sélecteur animé."""
+ tabs=''.join(f'<button type="button" role="tab" class="vx-tab{" on" if i==0 else ""}" id="vx-t-{k}" aria-controls="{k}" aria-selected="{str(i==0).lower()}" tabindex="{0 if i==0 else -1}"><span class="vx-cp">{VILLES[k]["cp"] if VILLES[k]["cp"]!="75" else "75"}</span>{VILLES[k]["nom"]}</button>' for i,k in enumerate(ORDER))
+ panels=''
+ for i,k in enumerate(ORDER):
+  v=VILLES[k];n=v['nom']
+  cards=[(('Logements et accès','Homes and access'),v['logement']),(('Stationnement du camion','Truck parking'),v['parking']),(('Situation et transports','Location and transport'),v['transport'])]
+  arts=''.join(f'<article class="vx-card" style="--d:{120+j*90}ms"><span class="vx-k">0{j+1}</span><h4>{t(*h)}</h4><p>{t(*p)}</p></article>' for j,(h,p) in enumerate(cards))
+  fq=v['faq'][0]
+  panels+=f'<div class="vx-panel{" on" if i==0 else ""}" role="tabpanel" id="{k}" aria-labelledby="vx-t-{k}" tabindex="-1"{"" if i==0 else " hidden"}><div class="vx-top"><div class="vx-photo">{img(v["photo"],t("Déménageurs CODEM","CODEM movers")+" · "+n)}<span class="vx-badge">{v["cp"] if v["cp"]!="75" else "Paris"}</span></div><div class="vx-intro">{_eb(t("Déménager ","Moving ")+_a(k))}<h3>{n}</h3><p class="lead">{t(*v["lead"])}</p><div class="vx-faq"><strong>{t(fq[0],fq[1])}</strong><p>{t(fq[2],fq[3])}</p></div><div class="actions"><a class="btn btn-cta" href="{_cta(depart=n)}">{t("Devis au départ de ","Quote from ")}{n}</a><a class="text-link" href="{b.PHONE_HREF}">{b.PHONE}</a></div></div></div><div class="vx-cards">{arts}</div></div>'
+ return f'''<section class="section band-sand vx" id="villes" data-vx><div class="wrap"><div class="vx-head">{eyebrow("Nos villes","Our towns")}<h2>{t("Votre ville,<br><em>nos repères sur place.</em>","Your town,<br><em>our local know-how.</em>")}</h2><p class="lead">{t("Choisissez votre commune : logements, stationnement du camion et accès, tout ce qu’il faut savoir avant le jour J.","Pick your town: housing, truck parking and access, everything to know before moving day.")}</p></div><div class="vx-tabs" role="tablist" aria-label="{t("Choisir une ville","Choose a town")}">{tabs}</div><div class="vx-panels">{panels}</div><p class="vx-more">{t("Votre commune n’est pas dans la liste ? CODEM intervient dans toute l’Île-de-France, en France et en Europe.","Your town is not listed? CODEM covers all of Greater Paris, France and Europe.")} {link("devis",t("Faire vérifier mon trajet","Check my route"),"text-link")}</p></div></section>'''
+
+def trajets_band():
+ cards=''.join(f'<a class="dest-card dest-intl" href="{url("t-"+k)}"><span class="dest-k">{t("International","International")}</span><span class="dest-name">Paris → {t(*d["nom"])}</span><span class="dest-txt">{t(*d["distance"])}</span><span class="dest-go">{t("Voir le trajet","See the route")} →</span></a>' for k,d in TRAJETS.items())
+ return f'<section class="section band-ivory vx-intl"><div class="wrap">{eyebrow("Trajets internationaux","International routes")}<h2>{t("Et plus loin,<br><em>nos liaisons régulières.</em>","And further,<br><em>our regular routes.</em>")}</h2><div class="vx-intl-grid">{cards}</div></div></section>'
+
+def zones_jsonld():
+ d={"@context":"https://schema.org","@type":"Service","serviceType":t("Déménagement","Moving"),"provider":{"@type":"MovingCompany","name":"CODEM Déménagements","telephone":"+33171361838","address":{"@type":"PostalAddress","streetAddress":"39 boulevard de Strasbourg","postalCode":"94130","addressLocality":"Nogent-sur-Marne","addressCountry":"FR"}},"areaServed":[{"@type":"City","name":VILLES[k]["nom"]} for k in ORDER]+[{"@type":"Country","name":c} for c in ("France","Portugal","España","Italia")]}
+ return '<script type="application/ld+json">'+json.dumps(d,ensure_ascii=False)+'</script>'
+
+def _stub(dest):
+ return f'<!doctype html><html><head><meta charset="utf-8"><title>CODEM</title><meta name="robots" content="noindex"><link rel="canonical" href="{b.SITE_URL}{dest}"><meta http-equiv="refresh" content="0;url={dest}"></head><body><a href="{dest}">{dest}</a></body></html>'
 
 def write_all():
- for key in VILLES:
-  body,desc,head=ville_page(key);b.write('v-'+key,body,desc,head)
+ # anciennes pages ville : redirection vers la page Zones desservies (ancre de la ville)
+ for key,v in VILLES.items():
+  for i,lang in enumerate(('fr','en')):
+   p=b.OUT/lang/v['slug'][i];p.mkdir(parents=True,exist_ok=True);(p/'index.html').write_text(_stub(b.url('zones',lang)+'#'+key))
  for key in TRAJETS:
   body,desc,head=trajet_page(key);b.write('t-'+key,body,desc,head)

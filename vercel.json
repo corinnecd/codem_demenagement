@@ -63,6 +63,166 @@
       "source": "/privacy",
       "destination": "/fr/cookies/",
       "permanent": true
+    },
+    {
+      "source": "/fr/demenagement-nogent-sur-marne/",
+      "destination": "/fr/zones-desservies/#nogent",
+      "permanent": true
+    },
+    {
+      "source": "/en/moving-nogent-sur-marne/",
+      "destination": "/en/areas-covered/#nogent",
+      "permanent": true
+    },
+    {
+      "source": "/fr/demenagement-vincennes/",
+      "destination": "/fr/zones-desservies/#vincennes",
+      "permanent": true
+    },
+    {
+      "source": "/en/moving-vincennes/",
+      "destination": "/en/areas-covered/#vincennes",
+      "permanent": true
+    },
+    {
+      "source": "/fr/demenagement-saint-mande/",
+      "destination": "/fr/zones-desservies/#saintmande",
+      "permanent": true
+    },
+    {
+      "source": "/en/moving-saint-mande/",
+      "destination": "/en/areas-covered/#saintmande",
+      "permanent": true
+    },
+    {
+      "source": "/fr/demenagement-saint-maur-des-fosses/",
+      "destination": "/fr/zones-desservies/#saintmaur",
+      "permanent": true
+    },
+    {
+      "source": "/en/moving-saint-maur-des-fosses/",
+      "destination": "/en/areas-covered/#saintmaur",
+      "permanent": true
+    },
+    {
+      "source": "/fr/demenagement-fontenay-sous-bois/",
+      "destination": "/fr/zones-desservies/#fontenay",
+      "permanent": true
+    },
+    {
+      "source": "/en/moving-fontenay-sous-bois/",
+      "destination": "/en/areas-covered/#fontenay",
+      "permanent": true
+    },
+    {
+      "source": "/fr/demenagement-le-perreux-sur-marne/",
+      "destination": "/fr/zones-desservies/#perreux",
+      "permanent": true
+    },
+    {
+      "source": "/en/moving-le-perreux-sur-marne/",
+      "destination": "/en/areas-covered/#perreux",
+      "permanent": true
+    },
+    {
+      "source": "/fr/demenagement-champigny-sur-marne/",
+      "destination": "/fr/zones-desservies/#champigny",
+      "permanent": true
+    },
+    {
+      "source": "/en/moving-champigny-sur-marne/",
+      "destination": "/en/areas-covered/#champigny",
+      "permanent": true
+    },
+    {
+      "source": "/fr/demenagement-paris/",
+      "destination": "/fr/zones-desservies/#paris",
+      "permanent": true
+    },
+    {
+      "source": "/en/moving-paris/",
+      "destination": "/en/areas-covered/#paris",
+      "permanent": true
+    },
+    {
+      "source": "/fr/demenagement-nogent-sur-marne",
+      "destination": "/fr/zones-desservies/#nogent",
+      "permanent": true
+    },
+    {
+      "source": "/en/moving-nogent-sur-marne",
+      "destination": "/en/areas-covered/#nogent",
+      "permanent": true
+    },
+    {
+      "source": "/fr/demenagement-vincennes",
+      "destination": "/fr/zones-desservies/#vincennes",
+      "permanent": true
+    },
+    {
+      "source": "/en/moving-vincennes",
+      "destination": "/en/areas-covered/#vincennes",
+      "permanent": true
+    },
+    {
+      "source": "/fr/demenagement-saint-mande",
+      "destination": "/fr/zones-desservies/#saintmande",
+      "permanent": true
+    },
+    {
+      "source": "/en/moving-saint-mande",
+      "destination": "/en/areas-covered/#saintmande",
+      "permanent": true
+    },
+    {
+      "source": "/fr/demenagement-saint-maur-des-fosses",
+      "destination": "/fr/zones-desservies/#saintmaur",
+      "permanent": true
+    },
+    {
+      "source": "/en/moving-saint-maur-des-fosses",
+      "destination": "/en/areas-covered/#saintmaur",
+      "permanent": true
+    },
+    {
+      "source": "/fr/demenagement-fontenay-sous-bois",
+      "destination": "/fr/zones-desservies/#fontenay",
+      "permanent": true
+    },
+    {
+      "source": "/en/moving-fontenay-sous-bois",
+      "destination": "/en/areas-covered/#fontenay",
+      "permanent": true
+    },
+    {
+      "source": "/fr/demenagement-le-perreux-sur-marne",
+      "destination": "/fr/zones-desservies/#perreux",
+      "permanent": true
+    },
+    {
+      "source": "/en/moving-le-perreux-sur-marne",
+      "destination": "/en/areas-covered/#perreux",
+      "permanent": true
+    },
+    {
+      "source": "/fr/demenagement-champigny-sur-marne",
+      "destination": "/fr/zones-desservies/#champigny",
+      "permanent": true
+    },
+    {
+      "source": "/en/moving-champigny-sur-marne",
+      "destination": "/en/areas-covered/#champigny",
+      "permanent": true
+    },
+    {
+      "source": "/fr/demenagement-paris",
+      "destination": "/fr/zones-desservies/#paris",
+      "permanent": true
+    },
+    {
+      "source": "/en/moving-paris",
+      "destination": "/en/areas-covered/#paris",
+      "permanent": true
     }
   ]
 }

@@ -18,6 +18,7 @@ class Check(HTMLParser):
     if ref.endswith('/'):target=target/'index.html'
     if not target.exists():errors.append(f'Missing {ref} from {self.path}')
 for p in root.rglob('*.html'):
+ if 'http-equiv="refresh"' in p.read_text():continue  # anciennes adresses redirigées
  c=Check(p);c.feed(p.read_text());count+=1
  if c.h1!=1:errors.append(f'H1 count {p}: {c.h1}')
 for p in root.rglob('*'):

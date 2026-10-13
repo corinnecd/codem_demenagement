@@ -135,3 +135,17 @@ document.querySelectorAll('[data-carousel]').forEach(sec=>{
  addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(upd)},{passive:true});addEventListener('resize',upd);upd();})();
 /* Accueil : cartes à retourner */
 document.querySelectorAll('.flip').forEach(b=>b.addEventListener('click',()=>{const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',String(on));b.classList.toggle('flipped',on)}));
+/* Accueil : « Tous les intérieurs », la photo et le point actif suivent le défilement */
+(()=>{const s=document.querySelector('[data-interieurs]');if(!s)return;const pts=[...s.querySelectorAll('.it-pt')],phs=[...s.querySelectorAll('.it-ph')],bar=s.querySelector('.it-bar');let cur=0,raf=0;
+ const set=n=>{if(n===cur)return;cur=n;pts.forEach((p,k)=>p.classList.toggle('on',k===n));phs.forEach((p,k)=>p.classList.toggle('on',k===n));};
+ const upd=()=>{raf=0;if(getComputedStyle(s.querySelector('.it-sticky')).position!=='sticky')return;const r=s.getBoundingClientRect(),tot=r.height-innerHeight;let p=tot>0?-r.top/tot:0;p=Math.max(0,Math.min(1,p));bar&&bar.style.setProperty('--p',p);set(Math.min(pts.length-1,Math.floor(p*pts.length*0.999)));};
+ addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(upd)},{passive:true});addEventListener('resize',upd);upd();})();
+/* Zones desservies : sélecteur de villes (onglets) */
+(()=>{const box=document.querySelector('[data-vx]');if(!box)return;const tabs=[...box.querySelectorAll('.vx-tab')],panels=[...box.querySelectorAll('.vx-panel')];
+ const show=(id,focus,scroll)=>{const k=panels.findIndex(p=>p.id===id);if(k<0)return;tabs.forEach((t,j)=>{const on=j===k;t.classList.toggle('on',on);t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1});
+  panels.forEach((p,j)=>{const on=j===k;p.hidden=!on;p.classList.toggle('on',on);if(on){p.style.animation='none';void p.offsetWidth;p.style.animation='';p.querySelectorAll('.vx-card,.vx-photo img').forEach(c=>{c.style.animation='none';void c.offsetWidth;c.style.animation=''})}});
+  tabs[k].scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});if(focus)tabs[k].focus();if(scroll)box.scrollIntoView({block:'start'});
+  if(history.replaceState)history.replaceState(null,'','#'+id);};
+ tabs.forEach((t,j)=>{t.addEventListener('click',()=>show(t.getAttribute('aria-controls')));t.addEventListener('keydown',e=>{let n=null;if(e.key==='ArrowRight')n=(j+1)%tabs.length;if(e.key==='ArrowLeft')n=(j-1+tabs.length)%tabs.length;if(e.key==='Home')n=0;if(e.key==='End')n=tabs.length-1;if(n!==null){e.preventDefault();show(tabs[n].getAttribute('aria-controls'),true)}})});
+ const h=location.hash.slice(1);if(h&&panels.some(p=>p.id===h))setTimeout(()=>show(h,false,true),60);
+ addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(panels.some(p=>p.id===h))show(h,false,true)});})();

@@ -45,7 +45,7 @@ def protection():
  return f'<section class="section band-ivory prot"><div class="wrap"><div class="ap-head reveal"><div>{eyebrow("La protection de vos biens","Protecting your belongings")}<h2>{t("Le soin commence<br><em>avant le transport.</em>","Care begins<br><em>before the journey.</em>")}</h2></div><p class="lead">{t("Chaque objet a sa protection. Retournez les cartes pour voir comment nous préparons vos biens.","Every item gets its own protection. Flip the cards to see how we prepare your belongings.")}</p></div><ul class="flip-grid">{cards}</ul><p class="prot-link">{link("piano",t("Confier un objet particulier","Arrange care for a specialist item"),"text-link")}</p></div></section>'
 
 # 5. Bande de photos réelles qui défile
-TERRAIN=['ancien-02','ancien-19','ancien-24','ancien-26','ancien-16','ancien-29','ancien-22','ancien-12','ancien-33','ancien-20','ancien-25','ancien-06']
+TERRAIN=['ancien-02','ancien-19','ancien-26','ancien-16','ancien-29','ancien-22','ancien-12','ancien-33','ancien-20','ancien-25','ancien-06']
 def terrain():
  alt=t('Chantier CODEM','CODEM job')
  row=''.join(f'<li><a href="{url("realisations")}">{img(p,alt)}</a></li>' for p in TERRAIN);row2=row.replace('<a ','<a tabindex="-1" ')
@@ -58,8 +58,17 @@ def destinations():
  order=['paris','nogent','vincennes','saintmande','saintmaur','fontenay','perreux','champigny']
  for k in order:
   d=v.VILLES[k];cp=d['cp'] if d['cp']!='75' else 'Paris'
-  cards+=f'<a class="dest-card" href="{url("v-"+k)}"><span class="dest-k">{cp}</span><span class="dest-name">{d["nom"]}</span><span class="dest-txt">{t(*d["lead"]).split(". ")[0].rstrip(".")}.</span><span class="dest-go">{t("Déménager ","Moving ")}{v._a(k)} →</span></a>'
+  cards+=f'<a class="dest-card" href="{url("zones")}#{k}"><span class="dest-k">{cp}</span><span class="dest-name">{d["nom"]}</span><span class="dest-txt">{t(*d["lead"]).split(". ")[0].rstrip(".")}.</span><span class="dest-go">{t("Déménager ","Moving ")}{v._a(k)} →</span></a>'
  for k,d in v.TRAJETS.items():
   cards+=f'<a class="dest-card dest-intl" href="{url("t-"+k)}"><span class="dest-k">{t("International","International")}</span><span class="dest-name">Paris → {t(*d["nom"])}</span><span class="dest-txt">{t(*d["distance"])}</span><span class="dest-go">{t("Voir le trajet","See the route")} →</span></a>'
  n=len(order)+len(v.TRAJETS)
  return f'<section class="section band-sand car dest-car" data-carousel aria-roledescription="{t("carrousel","carousel")}" aria-label="{t("Nos destinations","Our destinations")}"><div class="wrap car-head"><div>{eyebrow("Zones desservies","Areas covered")}<h2>{t("Près de chez vous<br><em>ou à l’autre bout de l’Europe.</em>","Close to home<br><em>or across Europe.</em>")}</h2></div>{_ctrl(n,("Destination","Destination"))}</div><div class="car-track" data-track tabindex="0">{cards}</div><div class="wrap car-foot">{link("devis",t("Faire vérifier mon trajet","Check my route"),"btn btn-cta")}{link("zones",t("Toutes les zones desservies","All areas covered"),"text-link")}</div></section>'
+
+# 3 bis. « Ce n'est pas seulement une question d'adresse » : photos qui changent au défilement
+INTERIEURS=[('ancien-14','Des protections adaptées à vos biens','Protection suited to your belongings','Mobilier ancien, objets fragiles : chaque pièce est emballée selon sa nature.','Antique furniture, fragile items: each piece is packed according to its nature.'),
+ ('ancien-24','Des accès étudiés avant le déménagement','Access assessed before moving day','Étages, escaliers, stationnement, monte-meubles : tout est vérifié en amont.','Floors, stairs, parking, furniture lift: everything is checked beforehand.'),
+ ('ancien-03','Une organisation selon vos prestations','A plan built around your services','Véhicules, équipe et planning sont adaptés à votre volume et à votre formule.','Vehicles, team and schedule are matched to your volume and package.')]
+def interieurs():
+ pts=''.join(f'<li class="it-pt{" on" if i==0 else ""}" data-i="{i}"><span class="it-n">0{i+1}</span><div><strong>{t(a,c)}</strong><p>{t(d,e)}</p></div><div class="it-ph-m">{img(im,t(a,c))}</div></li>' for i,(im,a,c,d,e) in enumerate(INTERIEURS))
+ ph=''.join(f'<figure class="it-ph{" on" if i==0 else ""}" data-i="{i}">{img(im,t(a,c))}</figure>' for i,(im,a,c,d,e) in enumerate(INTERIEURS))
+ return f'<section class="interieurs dark" data-interieurs><div class="it-sticky"><div class="wrap it-grid"><div class="it-text">{eyebrow("Tous les intérieurs, la même attention","Every home, the same care")}<h2>{t("Ce n’est pas seulement<br><em>une question d’adresse.</em>","It’s about more<br><em>than an address.</em>")}</h2><p class="it-lead">{t("Un premier appartement, une maison de famille, un intérieur d’exception : le même soin pour les biens qui font votre vie.","A first flat, a family home, an exceptional interior: the same care for the belongings that make up your life.")}</p><ol class="it-pts">{pts}</ol><div class="it-bar" aria-hidden="true"><i></i></div>{link("particuliers",t("Découvrir notre accompagnement","Discover how we help"),"btn light")}</div><div class="it-stage" aria-hidden="true">{ph}</div></div></div></section>'
