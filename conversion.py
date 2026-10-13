@@ -11,7 +11,6 @@ def reponse():return t(*REPONSE)
 FAITS=[('Note Google 4,9/5 · 65 avis','Google rating 4.9/5 · 65 reviews'),('Agence à Nogent-sur-Marne','Office in Nogent-sur-Marne'),
  ('Devis gratuit et sans engagement','Free quote, no obligation'),
  REPONSE,
- ('Équipe FR · PT · ES · EN','Team speaks FR · PT · ES · EN'),
  ('5 formules, de Self à Grand Confort','5 packages, from Self to Grand Confort')]
 def faits_band(cls='',sans=()):
  return f'<ul class="facts-band {cls}" aria-label="{t("Pourquoi CODEM","Why CODEM")}">'+''.join(f'<li><span class="fact-dot" aria-hidden="true"></span>{t(a,c)}</li>' for a,c in FAITS if a not in sans)+'</ul>'
