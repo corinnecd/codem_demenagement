@@ -1,7 +1,7 @@
 """Génère sitemap.xml et robots.txt à partir des routes du site."""
 import build as b
 def write():
- skip={'realisations'}  # pages sans contenu réel : non indexées pour l'instant
+ skip=set()  # pages sans contenu réel : non indexées pour l'instant
  rows=[]
  for k in b.routes:
   if k in skip:continue

@@ -93,7 +93,7 @@ if __name__=='__main__':
   for k in SERVICES:b.write(k,service(k),t(SERVICES[k][6],SERVICES[k][7]))
   for k in ['formules','zones','apropos','conseils']:b.write(k,general(k),t('Découvrez '+label(k).lower()+' avec CODEM : des informations utiles pour préparer votre déménagement.','Explore '+label(k).lower()+' with CODEM: useful information for planning your move.'),__import__('faq').jsonld() if k=='conseils' else '')
   b.write('avis',conversion.avis_page(),t('Avis clients de CODEM Déménagements à Nogent-sur-Marne : avis Google publiés tels quels, avec leur date.','CODEM Moving client reviews: Google reviews shown as written, with their date.'))
-  for k in ['realisations']:b.write(k,proof_page(k),t('CODEM Déménagements : '+label(k).lower()+', publiés avec leur source et l’accord des clients.','CODEM Moving: '+label(k).lower()+', published with their source and client consent.'))
+  __import__('realisations').write_all()
   for k in ['legal','privacy','cookies','access']:b.write(k,legal(k),t(*LEGAL_DESC[k]))
   __import__('villes').write_all();__import__('fournitures').write_all()
  import sitemap;sitemap.write()
