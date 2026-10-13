@@ -59,6 +59,7 @@ if(stage){
  set(1);
  const aio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)set(e.target.dataset.act);}),{rootMargin:'-45% 0px -45% 0px'});
  acts.forEach(a=>aio.observe(a));
+ dots.forEach(d=>d.addEventListener('click',()=>{const n=d.dataset.dot;set(n);const a=acts.find(x=>x.dataset.act==n);if(a){const r=a.getBoundingClientRect();scrollTo({top:scrollY+r.top+r.height/2-innerHeight/2,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});}}));
 }
 
 /* 8. Curseur « Je fais / CODEM fait » */
