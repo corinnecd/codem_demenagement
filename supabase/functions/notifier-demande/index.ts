@@ -25,7 +25,7 @@ const LABELS: Record<string, string> = {
   arrivee_commune: "Commune", arrivee_pays: "Pays", arrivee_type: "Type de logement", arrivee_etage: "Étage",
   arrivee_ascenseur: "Ascenseur", arrivee_portage: "Portage", arrivee_stationnement: "Stationnement", arrivee_rue_etroite: "Accès",
   groupage: "Groupage", date: "Date souhaitée", flexibilite: "Flexibilité", urgent: "Urgence", contraintes: "Contraintes horaires",
-  volume_mode: "Estimation", taille: "Taille du logement", surface_tranche: "Surface approximative", surface: "Surface", arrivee_inconnue: "Adresse d'arrivée", mode: "Type de demande", volume: "Volume estimé",
+  volume_mode: "Estimation", taille: "Taille du logement", surface_tranche: "Surface approximative", surface: "Surface", arrivee_inconnue: "Adresse d'arrivée", mode: "Type de demande", mutation: "Mutation professionnelle", echeance: "Déménagement prévu", volume: "Volume estimé",
   annexes: "Annexes", formule: "Formule", prestations: "Prestations", duree_stockage: "Garde-meubles",
   objets: "Objets et informations utiles", fichiers_echec: "Fichiers non reçus", message: "Message",
   marketing: "Informations commerciales",
@@ -52,7 +52,9 @@ const VALUES: Record<string, Record<string, string>> = {
   taille: { studio: "Studio / T1", "t2-t3": "T2 – T3", t4: "T4 et plus", maison: "Maison", bureaux: "Bureaux", inconnu: "Non précisée" },
   surface_tranche: { "moins-30": "Moins de 30 m²", "30-50": "30 à 50 m²", "50-80": "50 à 80 m²", "80-120": "80 à 120 m²", "120-180": "120 à 180 m²", "plus-180": "Plus de 180 m²", inconnu: "Non précisée" },
   arrivee_inconnue: { oui: "Pas encore connue" },
-  mode: { express: "Devis express (rappel pour compléter)" },
+  mode: { express: "Devis express (rappel pour compléter)", guide: "Téléchargement de la checklist" },
+  mutation: { "employeur-total": "Oui, pris en charge par l'employeur", "employeur-partiel": "Oui, en partie pris en charge", "a-verifier": "Oui, prise en charge à vérifier" },
+  echeance: { "moins-1-mois": "Dans moins d'1 mois", "1-3-mois": "Dans 1 à 3 mois", "3-6-mois": "Dans 3 à 6 mois", "plus-6-mois": "Dans plus de 6 mois", inconnu: "Pas encore défini" },
   formule: { self: "Self", "self-plus": "Self plus", confort: "Confort", "confort-plus": "Confort plus", "grand-confort": "Grand Confort", "a-definir": "À définir avec CODEM" },
   prestations: { emballage: "Emballage", demontage: "Démontage / remontage", fragiles: "Objets fragiles", "monte-meubles": "Monte-meubles", "garde-meubles": "Garde-meubles", cartons: "Cartons" },
   marketing: { oui: "Accepte de les recevoir" },
@@ -258,7 +260,7 @@ async function buildPdf(r: any, d: Record<string, unknown>, photos: string[]): P
     "Vos coordonnées",
     [["Nom", nom], ...rows(["organisation"]), ["Téléphone", r.telephone ?? ""], ["E-mail", r.email ?? ""], ...rows(["canal", "creneau"])],
     "Le projet",
-    rows(["mode", "projet", "date", "flexibilite", "urgent", "groupage"]),
+    rows(["mode", "projet", "mutation", "date", "flexibilite", "urgent", "groupage"]),
   );
   section("Contraintes", rows(["contraintes"]));
   pair(
@@ -346,7 +348,7 @@ Deno.serve(async (req) => {
   const codemTo = to.split(",").map((s) => s.trim());
 
   const d: Record<string, unknown> = r.donnees ?? {};
-  const titre = TYPES[r.type] ?? "Demande";
+  const titre = d.mode === "guide" ? "Checklist téléchargée (contact à relancer)" : (TYPES[r.type] ?? "Demande");
   const quand = new Date(r.created_at).toLocaleString("fr-FR", { timeZone: "Europe/Paris", dateStyle: "full", timeStyle: "short" });
   const tel = r.telephone ? `<a href="tel:${esc(r.telephone)}" style="color:#2f7d1e">${esc(r.telephone)}</a>` : "Non renseigné";
   const mail = r.email ? `<a href="mailto:${esc(r.email)}" style="color:#2f7d1e">${esc(r.email)}</a>` : "Non renseigné";
@@ -428,7 +430,7 @@ ${blocPhotos}`);
   }
 
   // ----- Rappel, visite, message : récapitulatif à CODEM -----
-  const ordre = ["projet", "type", "preference", "creneau", "depart", "arrivee", "periode", "message"];
+  const ordre = ["mode", "echeance", "projet", "type", "preference", "creneau", "depart", "arrivee", "periode", "message", "marketing"];
   const lignes = ordre.filter((k) => show(d, k)).map((k) => row(LABELS[k], show(d, k))).join("");
   const html = shell(`
 <p style="margin:0 0 4px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#5fb03a;font-weight:bold">Site CODEM</p>
