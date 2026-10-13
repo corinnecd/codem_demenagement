@@ -553,7 +553,7 @@ html{font-size:106.25%}
 .done-mascot{display:block;height:150px;width:auto;margin:0 auto 12px;animation:mascot-pop .7s cubic-bezier(.2,.9,.3,1.3) both}
 @keyframes mascot-pop{from{opacity:0;transform:translateY(20px) scale(.9)}to{opacity:1;transform:none}}
 .qfeature{position:relative}
-.feat-mascot{position:absolute;z-index:2;bottom:-4px;left:calc(47.6% - 118px);height:150px;width:auto}
+.qfeature-img{position:relative}.qfeature-img img.feat-mascot{position:absolute;z-index:2;bottom:-4px;right:-26px;left:auto;top:auto;height:150px;width:auto;object-fit:contain}
 .guide-intro{position:relative;padding-right:190px}
 .guide-mascot{position:absolute;right:0;top:50%;transform:translateY(-50%);height:210px;width:auto}
 .mascot-host{position:relative}
@@ -562,3 +562,8 @@ html{font-size:106.25%}
 @media(max-width:900px){.feat-mascot{display:none}.guide-intro{padding-right:0}.guide-mascot{position:static;transform:none;height:150px;margin:0 0 14px}.hero-side-mascot{left:-6px;bottom:-24px;height:150px}}
 @media(max-width:640px){.tip-mascot{height:90px}.done-mascot{height:120px}}
 @media(prefers-reduced-motion:reduce){.hero-mascot,.done-mascot{animation:none}}
+.bubble-name{display:block;font:500 .68rem/1.2 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--green-dark,#3d7a22);margin-bottom:3px}
+.guide-mascot-box{position:absolute;right:0;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:6px}
+.guide-mascot-box .guide-mascot{position:static;transform:none}
+.guide-bubble{font-size:.85rem;text-align:center;max-width:180px}.guide-bubble:before{left:50%;top:-6px;transform:translateX(-50%) rotate(45deg)}
+@media(max-width:900px){.guide-mascot-box{position:static;transform:none;flex-direction:row;margin-bottom:14px}.guide-bubble:before{left:-6px;top:50%;transform:translateY(-50%) rotate(45deg)}}
