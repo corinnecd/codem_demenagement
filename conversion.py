@@ -8,7 +8,7 @@ def reponse():return t(*REPONSE)
 
 # ---------------------------------------------------------------------------
 # 1. Faits VRAIS, visibles par tous
-FAITS=[('Note Google 4,9/5 · 65 avis','Google rating 4.9/5 · 65 reviews'),('Agence à Nogent-sur-Marne','Office in Nogent-sur-Marne'),
+FAITS=[('Note Google 4,9/5 · 66 avis','Google rating 4.9/5 · 66 reviews'),('Agence à Nogent-sur-Marne','Office in Nogent-sur-Marne'),
  ('Devis gratuit et sans engagement','Free quote, no obligation'),
  REPONSE,
  ('5 formules, de Self à Grand Confort','5 packages, from Self to Grand Confort')]
@@ -18,15 +18,22 @@ def faits_band(cls='',sans=()):
 STARS='<span class="stars" aria-hidden="true">★★★★★</span>'
 # ---------------------------------------------------------------------------
 # 2. Avis Google de CODEM (confirmés par CODEM) de CODEM (texte d'origine, non modifié ; relevés le 13/10/2026)
-GOOGLE_COUNT=65
+GOOGLE_COUNT=66
 GOOGLE_NOTE=('4,9','4.9')
-GOOGLE_URL='https://www.google.com/maps/search/?api=1&query=CODEM+D%C3%A9m%C3%A9nagements+39+boulevard+de+Strasbourg+Nogent-sur-Marne'
+GOOGLE_URL='https://maps.google.com/?cid=6765794726428957499'
+# Relevé sur la fiche Google de CODEM le 13/10/2026 (tri : plus récents). Textes non modifiés.
+# home=True : affichés dans le carrousel de l'accueil.
 AVIS_GOOGLE=[
- ('Benjamin Benhamo','août 2026','August 2026','Excellente expérience avec cette équipe de déménageurs ! Ils ont été ponctuels, rapides, efficaces et très soigneux avec nos meubles et nos cartons. Toute l’équipe était également très sympathique, professionnelle et agréable tout au long du déménagement. Tout s’est déroulé dans de très bonnes conditions, sans stress et avec beaucoup de sérieux. Nous sommes vraiment satisfaits de leur prestation et nous les recommandons sans hésiter !'),
- ('Sylvain A.','novembre 2025','November 2025','Déménagement de 35 m2 avec un passage par garde meuble pendant 2 mois : nous sommes très satisfaits, du devis jusqu’à la livraison de nos affaires. Amabilité, ponctualité, bonne protection, et ils ont réussi à s’arranger pour être dispo après un changement de date tardif de notre part. Au final un très bon rapport qualité / prix avec une équipe très pro.'),
- ('Hélène Olive','octobre 2025','October 2025','CODEM a réalisé notre déménagement et tout s’est très bien passé ! Ponctuels, précautionneux avec les affaires, nous sommes très satisfaits de la prestation, avec un prix très compétitif. Encore merci !'),
- ('LN Ako','septembre 2025','September 2025','Je vous recommande fortement cette entreprise de déménagements. Équipe au top, très professionnelle, rapide et efficace et prix très attractifs par rapport à la concurrence. Équipe vraiment sympathique et ponctuelle. Bravo !'),
- ('Marion Coudeyre','octobre 2025','October 2025','Nous avons été ravis de la prestation réalisée cette été, par une équipe efficace et sympathique. Quel plaisir de faire travailler une entreprise locale qui en plus a les meilleurs tarifs !'),
+ ('carmelina manfredi','octobre 2026','October 2026','Arezki, Ahmed, Mouloud et Samy ont réalisé mon déménagement, et c’est vraiment une équipe de choc. Il y avait des pots d’arbustes très lourds et tout a été fait dans le respect des biens et des lieux. Un très grand merci à eux, je les recommande vivement',True),
+ ('Damien D.','septembre 2026','September 2026','Bonjour, un petit message pour vous remercier. Tout s’est parfaitement bien passé pour notre déménagement, aussi bien hier au chargement qu’aujourd’hui à la livraison. L’équipe a été très efficace et très professionnelle. Merci encore à vous et à toute l’équipe CODEM !',True),
+ ('Marc OLL.','août 2026','August 2026','Très efficace. Devis correct pour un 20m3 (formule SELF +), bon suivi du dossier. Équipe rapide, gentille, efficace. 5 étoiles méritées',True),
+ ('Benjamin Benhamo','août 2026','August 2026','Excellente expérience avec cette équipe de déménageurs ! Ils ont été ponctuels, rapides, efficaces et très soigneux avec nos meubles et nos cartons. Toute l’équipe était également très sympathique, professionnelle et agréable tout au long du déménagement. Tout s’est déroulé dans de très bonnes conditions, sans stress et avec beaucoup de sérieux. Nous sommes vraiment satisfaits de leur prestation et nous les recommandons sans hésiter !',True),
+ ('Syla','novembre 2025','November 2025','Déménagement de 35 m2 avec un passage par garde meuble pendant 2 mois : nous sommes très satisfaits, du devis jusqu’à la livraison de nos affaires. Amabilité, ponctualité, bonne protection, et ils ont réussi à s’arranger pour être dispo après un changement de date tardif de notre part. Au final un très bon rapport qualité / prix avec une équipe très pro.',True),
+ ('Hélène Olive','octobre 2025','October 2025','CODEM a réalisé notre déménagement et tout s’est très bien passé ! Ponctuels, précautionneux avec les affaires, nous sommes très satisfaits de la prestation, avec un prix très compétitif. Encore merci !',False),
+ ('Christelle LIONNET','2024','2024','Famille Lionnet. Nous avons fait appel à ces professionnels pour notre déménagement et nous en sommes extrêmements satisfaits. De l’accueil par une secrétaire trés sympathique à une équipe de grands professionnels, en passant par le boss ultra disponible et efficace. Une équipe qui manipule vos meubles avec une grande précaution, qui protège minutieusement chacun de vos objets prècieux, le tout dans une ambiance conviviale et rassurante. Je me permets un petit clin d’oeil à Jason qui a été vraiment au top durant ces 3 jours. 1000 mercis à lui et à toute l’équipe Codem. Nous recommandons sans aucune hésitation.',False),
+ ('P. Jezequel','2024','2024','Nous sommes extrêmement satisfaits des conditions dans lesquelles notre déménagement s’est déroulé. L’équipe de CODEM Nogent-sur-Marne a fait preuve d’un grand professionnalisme et d’une remarquable fiabilité tant en amont (visite préparatoire, fourniture des cartons, établissement du devis ...) que pendant l’opération de transfert en elle-même. Une efficacité qui nous a vraiment facilité les choses !',False),
+ ('Stefano Sciotti','2023','2023','Nous avons utilisé Codem pour un déménagement qui a aussi requis une période d’entreposage des meubles chez un garde meuble. Dès le premier rendez-vous Daniel a été à l’écoute et nous a mis à l’aise en répondant clairement à nos questions et nos besoins. L’équipe est très professionnelle, les emballages très solides et rien n’est arrivé abîmé lors de l’emménagement. Le rapport qualité prix est excellent. Faites leur confiance les yeux fermés.',False),
+ ('Clara LEROY PEREIRA','2020','2020','Nous avons déménagé grâce à Mr Diogo et ses collaborateurs et ça a été un plaisir. Un déménagement efficace, malgré un piano très lourd que l’on a du passer par monte meuble. Tout à été impeccable. Je recommande CODEM sans souci !',False),
 ]
 def google_cards(idx):
  lang='' if b.LANG=='fr' else ' lang="fr"'
@@ -34,15 +41,15 @@ def google_cards(idx):
 def google_note():
  return f'<p class="google-note"><span class="gn-score"><strong>{t(*GOOGLE_NOTE)}/5</strong>{STARS}</span><span class="gn-count">{t("Note Google","Google rating")} · {GOOGLE_COUNT} {t("avis clients","client reviews")}</span><a class="text-link" href="{GOOGLE_URL}" target="_blank" rel="noopener">{t("Voir tous les avis sur Google","See all reviews on Google")}</a></p>'+('' if b.LANG=='fr' else '<p class="fine-print">Reviews shown in their original French.</p>')
 def home_reviews():
- n=len(AVIS_GOOGLE);lg='' if b.LANG=='fr' else ' lang="fr"'
- cards=''.join(f'<figure class="review-card real-review rv-card"><blockquote{lg} class="rv-text">« {a[3]} »</blockquote><button type="button" class="rv-more" hidden>{t("Lire la suite","Read more")}</button><figcaption><strong>{a[0]}</strong><span>{t("Avis Google","Google review")} · {t(a[1],a[2])}</span></figcaption></figure>' for a in AVIS_GOOGLE)
+ HOME=[a for a in AVIS_GOOGLE if a[4]];n=len(HOME);lg='' if b.LANG=='fr' else ' lang="fr"'
+ cards=''.join(f'<figure class="review-card real-review rv-card"><blockquote{lg} class="rv-text">« {a[3]} »</blockquote><button type="button" class="rv-more" hidden>{t("Lire la suite","Read more")}</button><figcaption><strong>{a[0]}</strong><span>{t("Avis Google","Google review")} · {t(a[1],a[2])}</span></figcaption></figure>' for a in HOME)
  ctrl=f'<div class="car-ctrl"><span class="car-count" aria-live="polite"><b data-cur>01</b> / {str(n).zfill(2)}</span><button class="car-arrow" type="button" data-prev aria-label="{t("Avis précédent","Previous review")}">←</button><button class="car-arrow" type="button" data-next aria-label="{t("Avis suivant","Next review")}">→</button></div>'
  return f'<section class="section band-ivory real-proofs car rv-car" data-carousel data-autoplay="7000" aria-roledescription="{t("carrousel","carousel")}" aria-label="{t("Avis clients","Client reviews")}"><div class="wrap car-head"><div>{eyebrow("Ils nous ont confié leur déménagement","They trusted us with their move")}<h2>{t("Ce que nos clients<br><em>disent de CODEM.</em>","What our clients<br><em>say about CODEM.</em>")}</h2></div>{ctrl}</div><div class="wrap">{google_note()}</div><div class="car-track" data-track tabindex="0">{cards}</div><div class="wrap"><div class="car-progress" data-progress></div><div class="car-foot">{link("devis",t("Recevoir mon devis gratuit","Get my free quote"),"btn btn-cta")}{link("avis",t("Lire tous les avis","Read all reviews"),"text-link")}{link("realisations",t("Voir nos réalisations","See our case studies"),"text-link")}</div></div></section>'
 def avis_page():
  from pages import crumb
  return crumb('avis')+f'<section class="page-title band-ivory"><div class="wrap">{eyebrow(*b.labels["avis"])}<h1>{t("Ils nous ont confié<br><em>leur déménagement.</em>","They trusted us<br><em>with their move.</em>")}</h1><p class="lead">{t("Des avis laissés par nos clients sur Google, reproduits tels quels avec le nom affiché par leur auteur et la date de publication.","Reviews left by our clients on Google, shown as written, with the name displayed by their author and the date of publication.")}</p>{google_note()}</div></section><section class="section band-sand"><div class="wrap"><div class="review-grid">{google_cards(range(len(AVIS_GOOGLE)))}</div></div></section>'+b.cta(t('Votre déménagement,<br><em>le prochain avis ?</em>','Your move,<br><em>the next review?</em>'))
 def quote_proof():
- a=AVIS_GOOGLE[2];lg='' if b.LANG=='fr' else ' lang="fr"'
+ a=AVIS_GOOGLE[1];lg='' if b.LANG=='fr' else ' lang="fr"'
  return f'<div class="quote-proof real-review"><p class="qp-rating"><strong>{t(*GOOGLE_NOTE)}/5</strong>{STARS}<span>{GOOGLE_COUNT} {t("avis Google","Google reviews")}</span></p><blockquote{lg}>« {a[3]} »</blockquote><cite>{a[0]} · {t("Avis Google","Google review")}</cite></div>'
 
 # ---------------------------------------------------------------------------
