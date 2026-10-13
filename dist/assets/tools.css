@@ -451,8 +451,8 @@ html{font-size:106.25%}
 .flip.flipped .flip-in{transform:rotateY(180deg)}
 .flip-front,.flip-back{transform-style:flat}.flip-front{transform:rotateY(0deg) translateZ(1px);transition:opacity 0s .3s}.flip-back{transition:opacity 0s .3s;opacity:0}
 .flip.flipped .flip-front{opacity:0}.flip.flipped .flip-back{opacity:1}
-@media(hover:hover){.flip:hover .flip-front{opacity:0}.flip:hover .flip-back{opacity:1}}
-@media(hover:hover){.flip:hover .flip-in{transform:rotateY(180deg)}.flip.flipped:hover .flip-in{transform:rotateY(180deg)}}
+
+
 .prot-link{margin:28px 0 0}
 /* bande de photos réelles */
 .terrain .ap-head{margin-bottom:40px}.terrain .ap-head>div:last-child{justify-self:end}

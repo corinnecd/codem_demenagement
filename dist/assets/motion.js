@@ -134,7 +134,11 @@ document.querySelectorAll('[data-carousel]').forEach(sec=>{
  const upd=()=>{raf=0;const r=wrap.getBoundingClientRect(),vh=innerHeight;let p=(vh*0.75-r.top)/(r.height+vh*0.15);p=Math.max(0,Math.min(1,p));if(reduce)p=1;wrap.style.setProperty('--p',p);steps.forEach((s,k)=>s.classList.toggle('lit',p>=(k/(steps.length-1))*0.92+0.02||reduce));};
  addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(upd)},{passive:true});addEventListener('resize',upd);upd();})();
 /* Accueil : cartes à retourner */
-document.querySelectorAll('.flip').forEach(b=>b.addEventListener('click',()=>{const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',String(on));b.classList.toggle('flipped',on)}));
+(()=>{const fl=[...document.querySelectorAll('.flip')];if(!fl.length)return;const hov=matchMedia('(hover:hover)').matches;
+ const set=(b,on)=>{fl.forEach(x=>{const v=x===b&&on;x.classList.toggle('flipped',v);x.setAttribute('aria-pressed',String(v))});};
+ fl.forEach(b=>{if(hov){b.addEventListener('mouseenter',()=>set(b,true));b.addEventListener('mouseleave',()=>set(b,false));b.addEventListener('click',()=>set(b,true));}
+  else b.addEventListener('click',()=>set(b,!b.classList.contains('flipped')));
+  b.addEventListener('blur',()=>{if(!hov)return;set(b,false)});});})();
 /* Accueil : « Tous les intérieurs », la photo et le point actif suivent le défilement */
 (()=>{const s=document.querySelector('[data-interieurs]');if(!s)return;const pts=[...s.querySelectorAll('.it-pt')],phs=[...s.querySelectorAll('.it-ph')],bar=s.querySelector('.it-bar');let cur=0,raf=0;
  const set=n=>{if(n===cur)return;cur=n;pts.forEach((p,k)=>p.classList.toggle('on',k===n));phs.forEach((p,k)=>p.classList.toggle('on',k===n));};
