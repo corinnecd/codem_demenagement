@@ -21,7 +21,7 @@ if(!reduce){
 
 /* 2. Parallaxe douce des photos */
 if(!reduce&&fine){
- const imgs=[...document.querySelectorAll('.page-intro .image-wrap img,.split .image-wrap img,.layered-media img,.real-grid img,.europe-teaser img')].filter(i=>!i.classList.contains('video-poster'));
+ const imgs=[...document.querySelectorAll('.page-intro .image-wrap img,.split .image-wrap img,.layered-media img,.real-grid .image-wrap img,.europe-teaser img')].filter(i=>!i.classList.contains('video-poster'));
  imgs.forEach(i=>i.classList.add('plx'));
  onScroll.push(()=>{const vh=innerHeight;for(const i of imgs){const r=i.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>vh)continue;const k=((r.top+r.height/2)-vh/2)/vh;i.style.transform=`translate3d(0,${(k*-34).toFixed(1)}px,0) scale(1.1)`;}});
 }
