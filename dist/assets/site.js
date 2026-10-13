@@ -2,8 +2,7 @@
 const en=document.documentElement.lang==='en';
 const tr=(fr,eng)=>en?eng:fr;
 // Mode aperçu : affiche les blocs d'exemple (avis, chiffres, réalisations), jamais visibles du public
-const apercu=(()=>{try{const p=new URLSearchParams(location.search);if(p.has('apercu'))sessionStorage.setItem('codem-apercu',p.get('apercu')==='0'?'':'1');if(p.has('apercu')){p.delete('apercu');history.replaceState(null,'',location.pathname+(p.toString()?'?'+p:'')+location.hash);}return !!sessionStorage.getItem('codem-apercu');}catch{return false;}})();
-if(apercu){document.documentElement.classList.add('apercu');addEventListener('DOMContentLoaded',()=>{const bar=document.createElement('div');bar.className='apercu-bar';bar.innerHTML=`<span>${tr('Mode aperçu : les éléments « Exemple » ne sont pas visibles du public.','Preview mode: “Example” items are hidden from the public.')}</span><a href="?apercu=0">${tr('Quitter l’aperçu','Exit preview')}</a>`;document.body.append(bar);});}
+const apercu=false;try{sessionStorage.removeItem('codem-apercu');}catch{}
 // Mesure d'audience anonyme, sans cookie (table Supabase « evenements »), désactivée par « Tout refuser » et en aperçu
 const EV_URL='https://hzeohzbdckhehbkjxxws.supabase.co/rest/v1/evenements';
 const EV_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh6ZW9oemJkY2toZWhia2p4eHdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEyODkxMTUsImV4cCI6MjEwNjg2NTExNX0.Wv4wepsJGI-dMgFtIn6avxc2i2pChYvYuI-NLj-a-6A';

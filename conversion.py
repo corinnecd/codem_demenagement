@@ -1,4 +1,4 @@
-"""Blocs de conversion : faits de confiance, preuves (exemples en mode aperçu), devis express."""
+"""Blocs de conversion : faits de confiance, avis Google, devis express."""
 import build as b
 from build import t,url,link,img,eyebrow,PHONE,PHONE_HREF
 
@@ -8,7 +8,7 @@ def reponse():return t(*REPONSE)
 
 # ---------------------------------------------------------------------------
 # 1. Faits VRAIS, visibles par tous
-FAITS=[('Agence à Nogent-sur-Marne','Office in Nogent-sur-Marne'),
+FAITS=[('Note Google 4,9/5 · 65 avis','Google rating 4.9/5 · 65 reviews'),('Agence à Nogent-sur-Marne','Office in Nogent-sur-Marne'),
  ('Devis gratuit et sans engagement','Free quote, no obligation'),
  REPONSE,
  ('Équipe FR · PT · ES · EN','Team speaks FR · PT · ES · EN'),
@@ -16,22 +16,11 @@ FAITS=[('Agence à Nogent-sur-Marne','Office in Nogent-sur-Marne'),
 def faits_band(cls='',sans=()):
  return f'<ul class="facts-band {cls}" aria-label="{t("Pourquoi CODEM","Why CODEM")}">'+''.join(f'<li><span class="fact-dot" aria-hidden="true"></span>{t(a,c)}</li>' for a,c in FAITS if a not in sans)+'</ul>'
 
+STARS='<span class="stars" aria-hidden="true">★★★★★</span>'
 # ---------------------------------------------------------------------------
-# 2. Preuves d'EXEMPLE : visibles uniquement en mode aperçu (?apercu=1), jamais au public.
-#    À remplacer par les vraies données CODEM, puis retirer la classe demo-proof.
-def badge():return f'<span class="demo-badge">{t("Exemple à remplacer","Example to replace")}</span>'
-STARS='<span class="stars" aria-label="5/5">★★★★★</span>'
-AVIS=[
- ('Sophie M.','Paris 11e → Nogent-sur-Marne · T3','Paris 11th → Nogent-sur-Marne · 2-bed flat','Équipe ponctuelle et très soigneuse. Rien d’abîmé, même le miroir ancien de ma grand-mère. Le conseiller avait tout anticipé.','Punctual, very careful team. Nothing damaged, not even my grandmother’s antique mirror. The adviser had planned everything.'),
- ('Karim B.','Vincennes → Lyon · Maison','Vincennes → Lyon · House','Devis clair, conseiller joignable du début à la fin, et le camion était devant chez nous à 8 h pile.','Clear quote, an adviser who was always reachable, and the truck was outside at 8 am sharp.'),
- ('Cabinet Delorme','Transfert de bureaux · 25 postes','Office relocation · 25 workstations','Déménagement de nos bureaux un vendredi soir : tout était réinstallé et étiqueté le lundi matin. Aucune journée perdue.','Our office moved on a Friday evening: everything was set up and labelled by Monday morning. Not a single day lost.'),
- ('Ana P.','Paris → Porto · Groupage','Paris → Porto · Shared load','Une équipe qui parle portugais, c’est très rassurant pour un déménagement à l’étranger. Livraison dans les délais annoncés.','A team that speaks Portuguese is very reassuring for a move abroad. Delivered on the date we were given.'),
- ('Thomas L.','Garde-meubles · 4 mois','Storage · 4 months','Stockage entre deux appartements, meubles rendus dans l’état exact où je les avais laissés. Simple et sans surprise.','Storage between two flats; furniture returned exactly as I left it. Simple, no surprises.'),
- ('Hélène D.','Piano droit · 4e sans ascenseur','Upright piano · 4th floor, no lift','J’avais très peur pour le piano. Ils ont pris le temps d’étudier l’escalier et tout s’est passé parfaitement.','I was very worried about the piano. They took the time to study the staircase and everything went perfectly.'),
-]
-# ---------------------------------------------------------------------------
-# 1 bis. VRAIS avis Google de CODEM (texte d'origine, non modifié ; relevés le 13/10/2026)
+# 2. Avis Google de CODEM (confirmés par CODEM) de CODEM (texte d'origine, non modifié ; relevés le 13/10/2026)
 GOOGLE_COUNT=65
+GOOGLE_NOTE=('4,9','4.9')
 GOOGLE_URL='https://www.google.com/maps/search/?api=1&query=CODEM+D%C3%A9m%C3%A9nagements+39+boulevard+de+Strasbourg+Nogent-sur-Marne'
 AVIS_GOOGLE=[
  ('Benjamin Benhamo','août 2026','August 2026','Excellente expérience avec cette équipe de déménageurs ! Ils ont été ponctuels, rapides, efficaces et très soigneux avec nos meubles et nos cartons. Toute l’équipe était également très sympathique, professionnelle et agréable tout au long du déménagement. Tout s’est déroulé dans de très bonnes conditions, sans stress et avec beaucoup de sérieux. Nous sommes vraiment satisfaits de leur prestation et nous les recommandons sans hésiter !'),
@@ -44,39 +33,15 @@ def google_cards(idx):
  lang='' if b.LANG=='fr' else ' lang="fr"'
  return ''.join(f'<figure class="review-card real-review"><blockquote{lang}>« {a[3]} »</blockquote><figcaption><strong>{a[0]}</strong><span>{t("Avis Google","Google review")} · {t(a[1],a[2])}</span></figcaption></figure>' for a in (AVIS_GOOGLE[i] for i in idx))
 def google_note():
- return f'<p class="google-note"><strong>{GOOGLE_COUNT} {t("avis clients sur Google","client reviews on Google")}</strong><a class="text-link" href="{GOOGLE_URL}" target="_blank" rel="noopener">{t("Voir tous les avis sur Google","See all reviews on Google")}</a></p>'+('' if b.LANG=='fr' else '<p class="fine-print">Reviews shown in their original French.</p>')
+ return f'<p class="google-note"><span class="gn-score"><strong>{t(*GOOGLE_NOTE)}/5</strong>{STARS}</span><span class="gn-count">{t("Note Google","Google rating")} · {GOOGLE_COUNT} {t("avis clients","client reviews")}</span><a class="text-link" href="{GOOGLE_URL}" target="_blank" rel="noopener">{t("Voir tous les avis sur Google","See all reviews on Google")}</a></p>'+('' if b.LANG=='fr' else '<p class="fine-print">Reviews shown in their original French.</p>')
 def home_reviews():
- return f'<section class="section band-ivory real-proofs"><div class="wrap"><div class="section-heading"><div>{eyebrow("Ils nous ont confié leur déménagement","They trusted us with their move")}<h2>{t("Ce que nos clients<br><em>disent de CODEM.</em>","What our clients<br><em>say about CODEM.</em>")}</h2></div></div>{google_note()}<div class="demo-proof" data-demo>{badge()}{chiffres()}</div><div class="review-grid">{google_cards([0,1,2])}</div><div class="actions">{link("devis",t("Recevoir mon devis gratuit","Get my free quote"),"btn btn-cta")}{link("avis",t("Lire tous les avis","Read all reviews"),"text-link")}</div></div></section>'
+ return f'<section class="section band-ivory real-proofs"><div class="wrap"><div class="section-heading"><div>{eyebrow("Ils nous ont confié leur déménagement","They trusted us with their move")}<h2>{t("Ce que nos clients<br><em>disent de CODEM.</em>","What our clients<br><em>say about CODEM.</em>")}</h2></div></div>{google_note()}<div class="review-grid">{google_cards([0,1,2])}</div><div class="actions">{link("devis",t("Recevoir mon devis gratuit","Get my free quote"),"btn btn-cta")}{link("avis",t("Lire tous les avis","Read all reviews"),"text-link")}</div></div></section>'
 def avis_page():
  from pages import crumb
  return crumb('avis')+f'<section class="page-title band-ivory"><div class="wrap">{eyebrow(*b.labels["avis"])}<h1>{t("Ils nous ont confié<br><em>leur déménagement.</em>","They trusted us<br><em>with their move.</em>")}</h1><p class="lead">{t("Des avis laissés par nos clients sur Google, reproduits tels quels avec le nom affiché par leur auteur et la date de publication.","Reviews left by our clients on Google, shown as written, with the name displayed by their author and the date of publication.")}</p>{google_note()}</div></section><section class="section band-sand"><div class="wrap"><div class="review-grid">{google_cards(range(len(AVIS_GOOGLE)))}</div></div></section>'+b.cta(t('Votre déménagement,<br><em>le prochain avis ?</em>','Your move,<br><em>the next review?</em>'))
-def avis_cards(idx):
- return ''.join(f'<figure class="review-card">{STARS}<blockquote>« {t(a[3],a[4])} »</blockquote><figcaption><strong>{a[0]}</strong><span>{t(a[1],a[2])}</span></figcaption></figure>' for a in (AVIS[i] for i in idx))
-CHIFFRES=[('4,9/5','4.9/5','Note Google · 180 avis','Google rating · 180 reviews'),('1 500+','1,500+','Déménagements réalisés','Moves completed'),('15 ans','15 years','D’expérience à Nogent-sur-Marne','Of experience in Nogent-sur-Marne'),('98 %','98%','Clients qui nous recommandent','Clients who recommend us')]
-def chiffres():
- return '<div class="stats-row">'+''.join(f'<div class="stat"><strong>{t(a,b2)}</strong><span>{t(c,d)}</span></div>' for a,b2,c,d in CHIFFRES)+'</div>'
-def logos():
- return f'<div class="logo-row" aria-label="{t("Entreprises clientes","Business clients")}">'+''.join(f'<span class="logo-ph">{t("Logo client","Client logo")} {i}</span>' for i in range(1,7))+'</div>'
-CAS=[('entreprise-camion','Transfert de bureaux · 25 postes','Office relocation · 25 workstations','Paris 8e → Montreuil','Paris 8th → Montreuil','Déménager sans interrompre l’activité.','Move without interrupting business.','Inventaire et étiquetage par service, chargement le vendredi à 18 h, réinstallation pendant le week-end.','Inventory and labelling by department, loading on Friday at 6 pm, set-up over the weekend.','Bureaux opérationnels le lundi 9 h','Offices up and running Monday 9 am'),
- ('particulier-immeuble','Appartement T4 · Paris → Porto','3-bed flat · Paris → Porto','Paris 16e → Porto','Paris 16th → Porto','Un départ à l’étranger avec un budget maîtrisé.','A move abroad on a controlled budget.','Groupage sur poids lourd, emballage du fragile, échanges en portugais avec la famille.','Shared heavy-goods load, fragile items packed, communication in Portuguese with the family.','Livré en 6 jours, budget respecté','Delivered in 6 days, on budget'),
- ('piano','Piano droit · 4e étage sans ascenseur','Upright piano · 4th floor, no lift','Vincennes','Vincennes','Descendre un piano de 230 kg par un escalier étroit.','Bring a 230 kg piano down a narrow staircase.','Visite technique, sangles et protections sur mesure, équipe de quatre déménageurs.','Technical visit, custom straps and protection, a team of four movers.','Zéro rayure, accordage préservé','Not a scratch, tuning preserved')]
-def cas_cards():
- return '<div class="case-grid">'+''.join(f'<article class="case-card"><div class="image-wrap">{img(im,t(a,c))}</div><div class="case-body"><span class="eyebrow">{t(d,e)}</span><h3>{t(a,c)}</h3><dl><dt>{t("Le besoin","The need")}</dt><dd>{t(f,g)}</dd><dt>{t("La solution","The solution")}</dt><dd>{t(h,i)}</dd></dl><p class="case-result">{t(j,k)}</p></div></article>' for im,a,c,d,e,f,g,h,i,j,k in CAS)+'</div>'
-
-def demo(inner,cls='section band-ivory'):
- return f'<section class="demo-proof {cls}" data-demo><div class="wrap">{badge()}{inner}</div></section>'
-
-def home_proofs():
- return demo(f'<div class="section-heading"><div>{eyebrow("Ils nous ont confié leur déménagement","They trusted us with their move")}<h2>{t("Ce que nos clients<br><em>retiennent de CODEM.</em>","What our clients<br><em>remember about CODEM.</em>")}</h2></div></div>{chiffres()}<div class="review-grid">{avis_cards([0,1,2])}</div><div class="actions">{link("devis",t("Recevoir mon devis gratuit","Get my free quote"),"btn btn-cta")}{link("avis",t("Lire tous les avis","Read all reviews"),"text-link")}</div>')
-def entreprises_proofs():
- return demo(f'{eyebrow("Ils nous font confiance","They trust us")}<h2>{t("Des entreprises<br><em>qui ont déménagé avec CODEM.</em>","Businesses<br><em>that moved with CODEM.</em>")}</h2>{logos()}<div class="review-grid one">{avis_cards([2])}</div>','section band-glacier')
-def avis_demo():
- return demo(f'{chiffres()}<div class="review-grid">{avis_cards(range(len(AVIS)))}</div>')
-def realisations_demo():
- return demo(cas_cards())
 def quote_proof():
  a=AVIS_GOOGLE[2];lg='' if b.LANG=='fr' else ' lang="fr"'
- return f'<div class="quote-proof real-review"><p class="qp-rating"><strong>{GOOGLE_COUNT}</strong><span>{t("avis clients sur Google","client reviews on Google")}</span></p><blockquote{lg}>« {a[3]} »</blockquote><cite>{a[0]} · {t("Avis Google","Google review")}</cite></div>'
+ return f'<div class="quote-proof real-review"><p class="qp-rating"><strong>{t(*GOOGLE_NOTE)}/5</strong>{STARS}<span>{GOOGLE_COUNT} {t("avis Google","Google reviews")}</span></p><blockquote{lg}>« {a[3]} »</blockquote><cite>{a[0]} · {t("Avis Google","Google review")}</cite></div>'
 
 # ---------------------------------------------------------------------------
 # 3. Devis express
