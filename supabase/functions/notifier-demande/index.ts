@@ -1,4 +1,4 @@
-// CODEM — notification de chaque nouvelle demande du site
+// CODEM : notification de chaque nouvelle demande du site
 // - Devis : dossier PDF premium joint, envoyé à CODEM et en copie au client
 // - Rappel, visite, message : e-mail récapitulatif à CODEM
 // Secrets : RESEND_API_KEY, NOTIFY_EMAIL (destinataire CODEM), WEBHOOK_SECRET, NOTIFY_FROM (facultatif)
@@ -121,7 +121,7 @@ function wrap(font: PDFFont, size: number, text: string, width: number): string[
 
 async function buildPdf(r: any, d: Record<string, unknown>, photos: string[]): Promise<Uint8Array> {
   const pdf = await PDFDocument.create();
-  pdf.setTitle(`CODEM — Dossier de demande ${r.reference ?? ""}`);
+  pdf.setTitle(`CODEM | Dossier de demande ${r.reference ?? ""}`);
   pdf.setAuthor("CODEM Déménagement");
   const sans = await pdf.embedFont(StandardFonts.Helvetica);
   const bold = await pdf.embedFont(StandardFonts.HelveticaBold);
@@ -177,13 +177,13 @@ async function buildPdf(r: any, d: Record<string, unknown>, photos: string[]): P
   text(d.projet === "stockage" ? "Votre projet de garde-meubles" : "Votre projet de déménagement", M, y, 28, serif);
   y -= 22;
   const nom = r.nom || "";
-  if (nom) { text("Préparé pour " + nom + (d.organisation ? " — " + String(d.organisation) : ""), M, y, 13, serifIt, GREY); y -= 8; }
+  if (nom) { text("Préparé pour " + nom + (d.organisation ? ", " + String(d.organisation) : ""), M, y, 13, serifIt, GREY); y -= 8; }
   y -= 22;
 
   // Bandeau trajet
-  const dep = show(d, "depart_commune") || show(d, "depart") || "—";
+  const dep = show(d, "depart_commune") || show(d, "depart") || "À préciser";
   const seul = stockageSeul(d);
-  const arr = seul ? "Garde-meubles CODEM" : show(d, "arrivee_commune") || show(d, "arrivee") || "—";
+  const arr = seul ? "Garde-meubles CODEM" : show(d, "arrivee_commune") || show(d, "arrivee") || "À préciser";
   const depP = show(d, "depart_pays"), arrP = seul ? show(d, "duree_stockage") : show(d, "arrivee_pays");
   const bh = 104;
   page.drawRectangle({ x: M, y: y - bh, width: CW, height: bh, color: NAVY });
@@ -308,7 +308,7 @@ async function buildPdf(r: any, d: Record<string, unknown>, photos: string[]): P
     const l1 = clean(bold, "CODEM Déménagement") ;
     p.drawText(l1, { x: M, y: 42, size: 8.5, font: bold, color: NAVY });
     p.drawText(clean(sans, `${CODEM.adresse}  ·  ${CODEM.tel}  ·  ${CODEM.mobile}`), { x: M + bold.widthOfTextAtSize(l1, 8.5) + 8, y: 42, size: 8.5, font: sans, color: GREY });
-    p.drawText(clean(sans, "Récapitulatif de votre demande — ce document n'est pas un devis chiffré."), { x: M, y: 29, size: 7.5, font: sans, color: GREY });
+    p.drawText(clean(sans, "Récapitulatif de votre demande. Ce document n'est pas un devis chiffré."), { x: M, y: 29, size: 7.5, font: sans, color: GREY });
     const num = `${i + 1} / ${pages.length}`;
     p.drawText(num, { x: W - M - sans.widthOfTextAtSize(num, 8), y: 29, size: 8, font: sans, color: GREY });
   });
@@ -345,8 +345,8 @@ Deno.serve(async (req) => {
   const d: Record<string, unknown> = r.donnees ?? {};
   const titre = TYPES[r.type] ?? "Demande";
   const quand = new Date(r.created_at).toLocaleString("fr-FR", { timeZone: "Europe/Paris", dateStyle: "full", timeStyle: "short" });
-  const tel = r.telephone ? `<a href="tel:${esc(r.telephone)}" style="color:#2f7d1e">${esc(r.telephone)}</a>` : "—";
-  const mail = r.email ? `<a href="mailto:${esc(r.email)}" style="color:#2f7d1e">${esc(r.email)}</a>` : "—";
+  const tel = r.telephone ? `<a href="tel:${esc(r.telephone)}" style="color:#2f7d1e">${esc(r.telephone)}</a>` : "Non renseigné";
+  const mail = r.email ? `<a href="mailto:${esc(r.email)}" style="color:#2f7d1e">${esc(r.email)}</a>` : "Non renseigné";
 
   // Photos : liens privés valables 30 jours (pour CODEM uniquement)
   const photos: string[] = Array.isArray(d.fichiers) ? (d.fichiers as string[]) : [];
@@ -385,7 +385,7 @@ Deno.serve(async (req) => {
     try { pdfB64 = b64(await buildPdf(r, d, photos)); } catch (e) { console.error("PDF", e); }
     const fichier = `CODEM-dossier-${r.reference ?? "devis"}.pdf`;
     const pj = pdfB64 ? [{ filename: fichier, content: pdfB64 }] : undefined;
-    const trajet = `${show(d, "depart_commune") || "—"} → ${stockageSeul(d) ? "Garde-meubles CODEM" : show(d, "arrivee_commune") || "—"}`;
+    const trajet = `${show(d, "depart_commune") || "À préciser"} → ${stockageSeul(d) ? "Garde-meubles CODEM" : show(d, "arrivee_commune") || "À préciser"}`;
     const dateV = show(d, "date") || "à définir";
 
     const htmlCodem = shell(`
@@ -403,7 +403,7 @@ ${row("Trajet", trajet)}${row("Date souhaitée", dateV)}${show(d, "formule") ? r
 <p style="margin:18px 0 0">Le dossier complet est joint en PDF${pdfB64 ? "" : " (PDF indisponible : voir la table demandes dans Supabase)"}.</p>
 ${blocPhotos}`);
 
-    const res = await send({ to: codemTo, reply_to: r.email || undefined, subject: `Devis ${r.reference ?? ""} — ${r.nom ?? "site CODEM"} · ${trajet}`, html: htmlCodem, attachments: pj });
+    const res = await send({ to: codemTo, reply_to: r.email || undefined, subject: `Devis ${r.reference ?? ""} · ${r.nom ?? "site CODEM"} · ${trajet}`, html: htmlCodem, attachments: pj });
 
     // Copie au client (nécessite un domaine vérifié dans Resend pour écrire à n'importe quelle adresse)
     let client = "pas d'e-mail client";
@@ -417,7 +417,7 @@ ${blocPhotos}`);
 <p style="margin:0 0 22px">Une précision à apporter ? Répondez simplement à cet e-mail ou appelez-nous au <a href="tel:+33171361838" style="color:#2f7d1e">${CODEM.tel}</a>.</p>
 <p style="margin:0">À très bientôt,<br><strong>L'équipe CODEM Déménagement</strong></p>
 <p style="margin:26px 0 0;padding-top:14px;border-top:1px solid #e3e5ea;color:#888;font-size:12px">CODEM · ${esc(CODEM.adresse)} · ${CODEM.tel}</p>`);
-      const rc = await send({ to: [r.email], reply_to: codemTo[0], subject: `Votre demande de devis CODEM — ${r.reference ?? ""}`, html: htmlClient, attachments: pj });
+      const rc = await send({ to: [r.email], reply_to: codemTo[0], subject: `Votre demande de devis CODEM · ${r.reference ?? ""}`, html: htmlClient, attachments: pj });
       client = rc.ok ? "copie client envoyée" : "copie client refusée : " + (await rc.text());
       console.log(client);
     }
@@ -437,6 +437,6 @@ ${blocPhotos}`);
 <p style="margin:0">E-mail : ${mail}</p>
 </div>
 <table style="border-collapse:collapse;font-size:14px;width:100%">${lignes}</table>`);
-  const res = await send({ to: codemTo, reply_to: r.email || undefined, subject: `${titre} — ${r.nom ?? "site CODEM"}`, html });
+  const res = await send({ to: codemTo, reply_to: r.email || undefined, subject: `${titre} · ${r.nom ?? "site CODEM"}`, html });
   return new Response(await res.text(), { status: res.ok ? 200 : 502 });
 });

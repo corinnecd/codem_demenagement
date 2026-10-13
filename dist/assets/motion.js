@@ -1,4 +1,4 @@
-/* CODEM — couche de mouvement : route CODEM, titres révélés, parallaxe, boutons magnétiques,
+/* CODEM : couche de mouvement : route CODEM, titres révélés, parallaxe, boutons magnétiques,
    pastille devis, aperçus de services, page Particuliers (4 actes, curseur de formule, galerie horizontale). */
 (()=>{'use strict';
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -51,7 +51,7 @@ if(!isForm){
  onScroll.push(()=>{const H=document.documentElement.scrollHeight-innerHeight;pill.classList.toggle('show',H>0&&scrollY/H>.3&&!ctaVisible);});
 }
 
-/* 7. Particuliers — les 4 actes */
+/* 7. Particuliers : les 4 actes */
 const stage=document.querySelector('[data-act-stage]');
 if(stage){
  const acts=[...document.querySelectorAll('.act')],dots=[...stage.querySelectorAll('.act-dot')];

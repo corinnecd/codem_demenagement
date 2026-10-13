@@ -1,4 +1,4 @@
-/* CODEM — couche de marque : vert du logo pour l'action, bandes de couleur, devis 9 étapes */
+/* CODEM : couche de marque : vert du logo pour l'action, bandes de couleur, devis 9 étapes */
 :root{--green:#5fb03a;--green-hover:#52a02f;--green-ink:#14163f;--green-dark:#2f7d1e;--navy:#22264f;--ivory:#fafaf8;--sand:#f4efe6;--glacier:#e8f1f7;--mint:#edf6e8}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 

@@ -1,4 +1,4 @@
-/* CODEM — outils interactifs des pages intérieures (orientation, jamais de prix) */
+/* CODEM : outils interactifs des pages intérieures (orientation, jamais de prix) */
 (()=>{'use strict';
 const en=document.documentElement.lang==='en';const tr=(a,b)=>en?b:a;
 const DEVIS=en?'/en/quote/':'/fr/devis/';
@@ -28,7 +28,7 @@ if(mt){const f=mt.querySelector('form'),res=mt.querySelector('.tool-result');con
   res.querySelector('[data-out=name]').textContent=ok?tr('Faisable a priori','Likely feasible'):tr('À étudier avec un conseiller','To review with an adviser');
   res.querySelector('[data-out=desc]').textContent=ok?tr('Votre configuration se prête au monte-meubles. Le conseiller confirme l’équipement, le créneau et l’autorisation de stationnement.','Your setup suits a furniture lift. The adviser confirms equipment, timing and parking permit.'):tr('Certains points demandent une vérification sur place : hauteur, ouverture ou stationnement. Une étude gratuite permet de trouver la bonne solution.','Some points need an on-site check: height, opening or parking. A free assessment finds the right solution.');
   const et={'1-2':'2','3-5':'4','6+':'6+'}[e];const ob={canape:tr('Canapé, armoire','Sofa, wardrobe'),piano:'Piano',tout:tr('Déménagement complet','Full move')}[o];
-  res.querySelector('[data-out=cta]').href=`${DEVIS}?${qs({service:'monte-meubles',etage:et,prestation:'monte-meubles',objets:`${ob} — ${tr('fenêtre côté rue','street-side window')} : ${lab('fenetre')}, ${tr('stationnement','parking')} : ${lab('stationnement')}`})}`;reveal(res);});
+  res.querySelector('[data-out=cta]').href=`${DEVIS}?${qs({service:'monte-meubles',etage:et,prestation:'monte-meubles',objets:`${ob}, ${tr('fenêtre côté rue','street-side window')} : ${lab('fenetre')}, ${tr('stationnement','parking')} : ${lab('stationnement')}`})}`;reveal(res);});
  mt.querySelector('.tool-reset').addEventListener('click',()=>{f.reset();res.hidden=true;mt.querySelectorAll('.tool-q').forEach(q=>q.classList.remove('done'));});}
 
 /* Jauge d'étages du monte-meubles (avancement au scroll) */
@@ -59,7 +59,7 @@ if(bx){const r=bx.querySelector('#box-range'),fill=bx.querySelector('.box-fill')
 
 /* Fiche objet */
 const ob=document.querySelector('.objet-form');
-if(ob)ob.addEventListener('submit',()=>{const ty=val(ob,'type')||'';const d=ob.querySelector('[data-objet=dim]').value;ob.querySelector('[data-objet-out]').value=[ty,d&&`${tr('dimensions','size')} ${d}`].filter(Boolean).join(' — ');[...ob.elements].forEach(e=>{if(e.name&&!e.value)e.disabled=true;});setTimeout(()=>[...ob.elements].forEach(e=>e.disabled=false),500);});
+if(ob)ob.addEventListener('submit',()=>{const ty=val(ob,'type')||'';const d=ob.querySelector('[data-objet=dim]').value;ob.querySelector('[data-objet-out]').value=[ty,d&&`${tr('dimensions','size')} ${d}`].filter(Boolean).join(', ');[...ob.elements].forEach(e=>{if(e.name&&!e.value)e.disabled=true;});setTimeout(()=>[...ob.elements].forEach(e=>e.disabled=false),500);});
 
 /* Zones : recherche de commune */
 const zt=document.querySelector('.zone-tool');
