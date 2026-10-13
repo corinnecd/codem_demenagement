@@ -249,4 +249,4 @@ html:not(.apercu) [data-proof-link]{display:none!important}
 .qs-grid{margin-top:0!important}
 @media(max-width:900px){.home-page .trust-line{padding:26px 0 22px!important}}
 .express-switch .btn.outline{transition:border-color .25s,box-shadow .25s,background .25s}
-.express-switch .btn.outline:hover,.express-switch .btn.outline:focus-visible{border-color:var(--green);box-shadow:0 0 0 2px var(--green);background:transparent}
+.express-switch .btn.outline:hover,.express-switch .btn.outline:focus-visible{border-color:var(--green);box-shadow:0 0 0 1px var(--green);background:transparent}
