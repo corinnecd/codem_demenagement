@@ -687,3 +687,15 @@ html{font-size:106.25%}
 .pc-card h3{font-size:clamp(1.25rem,1.6vw,1.5rem);white-space:nowrap}
 .pc-cta{gap:10px;font-size:.84rem;white-space:nowrap}
 @media(max-width:1300px) and (min-width:1181px){.pc-cta{font-size:.78rem}}
+/* Votre prix exact en 3 étapes */
+.pc-exact{margin:46px 0 0;background:#ffffff0f;border:1px solid #ffffff22;border-radius:24px;padding:30px clamp(20px,3vw,40px);display:grid;grid-template-columns:auto 1fr auto;align-items:center;column-gap:34px;row-gap:20px}
+.pc-exact h3{margin:0;color:#fff;font-size:clamp(1.4rem,2vw,1.8rem);max-width:12ch}
+.pc-exact ol{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);column-gap:22px;row-gap:14px}
+.pc-exact li{display:flex;gap:12px;align-items:flex-start}.pc-exact strong{color:#fff;font-size:.98rem}.pc-exact p{margin:3px 0 0;color:#c3c8e6;font-size:.86rem;line-height:1.5}
+.pe-n{flex:0 0 32px;height:32px;border-radius:50%;background:#5fb03a;color:#10230a;font-weight:800;display:grid;place-items:center}
+@media(max-width:1100px){.pc-exact{grid-template-columns:1fr}.pc-exact h3{max-width:none}.pc-exact ol{grid-template-columns:1fr}}
+/* Quiz : carte conseillée */
+.pc-card.pc-pick{border-color:#5fb03a;box-shadow:0 0 0 2px #5fb03a,0 30px 60px #05071a80}
+.pc-card.pc-pick:after{content:'✓ Conseillée pour vous';position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);background:#5fb03a;color:#10230a;font-weight:800;font-size:.72rem;border-radius:50px;padding:5px 12px;white-space:nowrap}
+html[lang=en] .pc-card.pc-pick:after{content:'✓ Recommended for you'}
+.pc-flash{animation:pc-flash 1.2s ease-out}@keyframes pc-flash{0%,100%{filter:none}30%{filter:brightness(1.25) drop-shadow(0 0 24px #5fb03a)}}

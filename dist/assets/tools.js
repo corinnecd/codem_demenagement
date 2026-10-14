@@ -16,7 +16,7 @@ if(quiz){const f=quiz.querySelector('form'),res=quiz.querySelector('.tool-result
   if(e==='moi')return m==='moi'?'self':'self-plus';if(e==='fragile')return 'confort';return a==='tout'?'grand-confort':'confort-plus';};
  f.addEventListener('change',()=>{const k=pick();quiz.querySelectorAll('.tool-q').forEach(q=>q.classList.toggle('done',!!q.querySelector(':checked')));if(!k)return;const [n,fr,e]=F[k];
   res.querySelector('[data-out=name]').textContent=n;res.querySelector('[data-out=desc]').textContent=tr(fr,e);res.querySelector('[data-out=cta]').href=`${DEVIS}?${qs({service:'particulier',formule:k})}`;reveal(res);
-  const r=document.querySelector('#ft-range');if(r){r.value=['self','self-plus','confort','confort-plus','grand-confort'].indexOf(k);r.dispatchEvent(new Event('input'));}});
+  document.querySelectorAll('.pc-card').forEach(c=>c.classList.toggle('pc-pick',c.dataset.slug===k));const see=quiz.querySelector('[data-quiz-see]');if(see)see.onclick=ev=>{const c=document.querySelector('.pc-card[data-slug="'+k+'"]');if(!c)return;ev.preventDefault();c.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center',inline:'center'});c.classList.remove('pc-flash');void c.offsetWidth;c.classList.add('pc-flash');};const r=document.querySelector('#ft-range');if(r){r.value=['self','self-plus','confort','confort-plus','grand-confort'].indexOf(k);r.dispatchEvent(new Event('input'));}});
  quiz.querySelector('.tool-reset').addEventListener('click',()=>{f.reset();res.hidden=true;quiz.querySelectorAll('.tool-q').forEach(q=>q.classList.remove('done'));});}
 
 /* Test monte-meubles */
