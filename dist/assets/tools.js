@@ -88,3 +88,9 @@ if(ob2){const parts=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone
  ob2.hidden=false;ob2.classList.add(open?'is-open':'is-closed');
  ob2.innerHTML=open?`<span class="dot"></span>${tr('Ouvert maintenant · un conseiller vous répond','Open now · an adviser will answer')}`:`<span class="dot"></span>${tr('Fermé actuellement · demandez un rappel, nous vous recontactons dès l’ouverture','Closed now · request a callback, we’ll call when we open')}`;}
 })();
+/* Le guide CODEM : filtre par thème + sommaire actif */
+(()=>{const h=document.querySelector('.guide-hub');if(h){const chips=[...h.querySelectorAll('[data-gfilter]')],cards=[...h.querySelectorAll('.gcard')];
+ chips.forEach(c=>c.addEventListener('click',()=>{const f=c.dataset.gfilter;chips.forEach(x=>{x.classList.toggle('on',x===c);x.setAttribute('aria-pressed',String(x===c))});cards.forEach(k=>k.hidden=!(f==='all'||k.dataset.theme===f))}));}
+ const toc=document.querySelector('.ga-toc');if(!toc||!('IntersectionObserver' in window))return;const items=[...toc.querySelectorAll('li')];
+ const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){items.forEach(li=>li.classList.toggle('on',li.querySelector('a').getAttribute('href')==='#'+e.target.id))}})},{rootMargin:'-30% 0px -60% 0px'});
+ document.querySelectorAll('.ga-sec[id]').forEach(s=>io.observe(s));})();
