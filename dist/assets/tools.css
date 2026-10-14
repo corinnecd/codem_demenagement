@@ -852,3 +852,8 @@ html[lang=en] .pc-card.pc-pick:after{content:'✓ Recommended for you'}
 @media(min-width:1101px) and (max-width:1250px){.desktop-nav a{padding:8px 5px;font-size:.76rem}.desktop-nav a:after{left:5px!important;right:5px!important}}
 /* Menu centré dans l'espace entre le logo et le téléphone */
 @media(min-width:1001px){.header-inner .desktop-nav{flex:1 1 auto;margin:0 8px;justify-content:space-evenly;gap:0;min-width:0}.header-inner .header-actions{margin-left:0}}
+/* Pastilles du menu plus généreuses sur ordinateur */
+@media(min-width:1001px){.desktop-nav a{padding:11px clamp(9px,1.15vw,22px)}.desktop-nav a:after{left:clamp(9px,1.15vw,22px)!important;right:clamp(9px,1.15vw,22px)!important;bottom:5px!important}}
+@media(min-width:1251px) and (max-width:1380px){.desktop-nav a{padding:11px 11px}.desktop-nav a:after{left:11px!important;right:11px!important}}
+@media(min-width:1181px) and (max-width:1300px){.desktop-nav a{padding:11px 8px}.desktop-nav a:after{left:8px!important;right:8px!important}}
+@media(min-width:1001px) and (max-width:1030px),(min-width:1181px) and (max-width:1225px){.desktop-nav a{padding:11px 6px}.desktop-nav a:after{left:6px!important;right:6px!important}}
