@@ -8,12 +8,12 @@ def reponse():return t(*REPONSE)
 
 # ---------------------------------------------------------------------------
 # 1. Faits VRAIS, visibles par tous
-FAITS=[('Note Google 4,9/5 · 66 avis','Google rating 4.9/5 · 66 reviews'),('Agence à Nogent-sur-Marne','Office in Nogent-sur-Marne'),
- ('Devis gratuit et sans engagement','Free quote, no obligation'),
- REPONSE,
- ('5 formules, de Self à Grand Confort','5 packages, from Self to Grand Confort')]
+# Faits confirmés par CODEM (octobre 2026)
+ENGAGEMENTS=[REPONSE,('Un seul conseiller du devis au jour J','One adviser from quote to moving day'),('Prix ferme après visite','Fixed price after the survey')]
+FAITS=[('Note Google 4,9/5 · 66 avis','Google rating 4.9/5 · 66 reviews'),('Depuis 2014 · plus de 2 000 déménagements','Since 2014 · over 2,000 moves')]+ENGAGEMENTS
+WHATSAPP='33745677890';WHATSAPP_TXT='+33 7 45 67 78 90'
 def faits_band(cls='',sans=()):
- return f'<ul class="facts-band {cls}" aria-label="{t("Pourquoi CODEM","Why CODEM")}">'+''.join(f'<li><span class="fact-dot" aria-hidden="true"></span>{t(a,c)}</li>' for a,c in FAITS if a not in sans)+'</ul>'
+ return f'<ul class="facts-band {cls}" aria-label="{t("Pourquoi CODEM","Why CODEM")}">'+''.join('<li'+(' class="fact-eng"' if (a,c) in ENGAGEMENTS else '')+f'><span class="fact-dot" aria-hidden="true"></span>{t(a,c)}</li>' for a,c in FAITS if a not in sans)+'</ul>'
 
 STARS='<span class="stars" aria-hidden="true">★★★★★</span>'
 # ---------------------------------------------------------------------------
@@ -39,7 +39,7 @@ def google_cards(idx):
  lang='' if b.LANG=='fr' else ' lang="fr"'
  return ''.join(f'<figure class="review-card real-review"><blockquote{lang}>« {a[3]} »</blockquote><figcaption><strong>{a[0]}</strong><span>{t("Avis Google","Google review")} · {t(a[1],a[2])}</span></figcaption></figure>' for a in (AVIS_GOOGLE[i] for i in idx))
 def google_note():
- return f'<p class="google-note"><span class="gn-score"><strong>{t(*GOOGLE_NOTE)}/5</strong>{STARS}</span><span class="gn-count">{t("Note Google","Google rating")} · {GOOGLE_COUNT} {t("avis clients","client reviews")}</span><a class="text-link" href="{GOOGLE_URL}" target="_blank" rel="noopener">{t("Voir tous les avis sur Google","See all reviews on Google")}</a></p>'+('' if b.LANG=='fr' else '<p class="fine-print">Reviews shown in their original French.</p>')
+ return f'<div class="key-figures"><div><strong>{t(*GOOGLE_NOTE)}/5</strong><span>{t("Note Google","Google rating")} · {GOOGLE_COUNT} {t("avis","reviews")}</span></div><div><strong>{t("2 000+","2,000+")}</strong><span>{t("déménagements réalisés","moves completed")}</span></div><div><strong>2014</strong><span>{t("création de CODEM","CODEM founded")}</span></div></div><p class="google-note"><span class="gn-score"><strong>{t(*GOOGLE_NOTE)}/5</strong>{STARS}</span><span class="gn-count">{t("Note Google","Google rating")} · {GOOGLE_COUNT} {t("avis clients","client reviews")}</span><a class="text-link" href="{GOOGLE_URL}" target="_blank" rel="noopener">{t("Voir tous les avis sur Google","See all reviews on Google")}</a></p>'+('' if b.LANG=='fr' else '<p class="fine-print">Reviews shown in their original French.</p>')
 def home_reviews():
  HOME=[a for a in AVIS_GOOGLE if a[4]];n=len(HOME);lg='' if b.LANG=='fr' else ' lang="fr"'
  cards=''.join(f'<figure class="review-card real-review rv-card"><blockquote{lg} class="rv-text">« {a[3]} »</blockquote><button type="button" class="rv-more" hidden>{t("Lire la suite","Read more")}</button><figcaption><strong>{a[0]}</strong><span>{t("Avis Google","Google review")} · {t(a[1],a[2])}</span></figcaption></figure>' for a in HOME)

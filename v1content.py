@@ -60,12 +60,21 @@ def v1_blocks(key):
 
 # Grille des formules issue de la brochure CODEM (V1), à confirmer par CODEM
 FORMULES=['Self','Self plus','Confort','Confort plus','Grand Confort']
+# Prix de départ communiqués par CODEM (octobre 2026)
+PRIX=[600,800,1100,1600,2500]
+def prix(i):
+ import build as _b
+ s=f"{PRIX[i]:,}".replace(',','\u202f' if _b.LANG=='fr' else ',')
+ return s+' €' if _b.LANG=='fr' else '€'+s
+PRIX_NOTE=('Prix de départ indicatifs. Le prix dépend du volume, de la distance et des accès ; il est confirmé et ferme après la visite.','Indicative starting prices. The price depends on volume, distance and access; it is confirmed and fixed after the survey.')
 GRID=[('Emballage du non-fragile','Packing non-fragile items','CCCXX'),('Emballage du fragile','Packing fragile items','CCXXX'),('Démontage des meubles','Dismantling furniture','CXXXX'),('Protection et mise sous housse','Protection and covers','XXXXX'),('Fourniture des emballages','Packing materials supplied','??XXX'),('Manutention et transport','Handling and transport','XXXXX'),('Mise en place du mobilier','Placing furniture','CXXXX'),('Remontage des meubles','Reassembling furniture','CXXXX'),('Déballage du fragile','Unpacking fragile items','CCXXX'),('Déballage du non-fragile','Unpacking non-fragile items','CCCCX')]
 def formules_table():
  cell=lambda c:{'X':f'<td class="yes"><span aria-hidden="true">✓</span> CODEM</td>','C':f'<td class="you">{t("Vous","You")}</td>','?':f'<td class="tbd">{t("À préciser","To confirm")}</td>'}[c]
  head=''.join(f'<th scope="col">{f}</th>' for f in FORMULES)
  rows=''.join(f'<tr><th scope="row">{t(a,c)}</th>'+''.join(cell(x) for x in code)+'</tr>' for a,c,code in GRID)
- return f'''<section class="section band-sand" id="comparatif"><div class="wrap">{eyebrow('Comparatif','Comparison')}<h2>{t('Qui prend en charge<br><em>chaque étape ?</em>','Who handles<br><em>each step?</em>')}</h2><div class="table-scroll inset"><table class="formules"><thead><tr><th scope="col">{t('Prestation','Service')}</th>{head}</tr></thead><tbody>{rows}</tbody></table></div><p class="fine-print">{t('Les débranchements électriques et les arrivées d’eau restent à la charge du client dans les cinq formules.','Disconnecting electrical appliances and water supplies remains the client’s responsibility in all five packages.')}</p><div class="actions inset"><a class="btn btn-cta" href="{url('devis')}?service=particulier">{t('Demander un devis','Get a quote')}</a>{link('contact',t('Être rappelé','Request a callback'),'btn outline')}</div></div></section>'''
+ prow='<tr class="price-row"><th scope="row">'+t('À partir de','From')+'<sup>*</sup></th>'+''.join(f'<td><strong>{prix(i)}</strong></td>' for i in range(5))+'</tr>'
+ rows=prow+rows
+ return f'''<section class="section band-sand" id="comparatif"><div class="wrap">{eyebrow('Comparatif','Comparison')}<h2>{t('Qui prend en charge<br><em>chaque étape ?</em>','Who handles<br><em>each step?</em>')}</h2><div class="table-scroll inset"><table class="formules"><thead><tr><th scope="col">{t('Prestation','Service')}</th>{head}</tr></thead><tbody>{rows}</tbody></table></div><p class="fine-print"><sup>*</sup> {t(*PRIX_NOTE)}</p><p class="fine-print">{t('Les débranchements électriques et les arrivées d’eau restent à la charge du client dans les cinq formules.','Disconnecting electrical appliances and water supplies remains the client’s responsibility in all five packages.')}</p><div class="actions inset"><a class="btn btn-cta" href="{url('devis')}?service=particulier">{t('Demander un devis','Get a quote')}</a>{link('contact',t('Être rappelé','Request a callback'),'btn outline')}</div></div></section>'''
 
 def zones_steps():
  data=[('Décrivez votre trajet','Describe your route','Indiquez la commune et le pays de départ ainsi que la destination souhaitée.','Enter the town and country of departure and your destination.'),('Précisez les contraintes','Add constraints','Ajoutez la date, votre flexibilité et les principaux accès aux deux adresses.','Add the date, your flexibility and the main access details at both addresses.'),('CODEM confirme la faisabilité','CODEM confirms feasibility','Un conseiller vérifie la zone, les moyens à prévoir et vous recontacte avant toute proposition.','An adviser checks the area and resources, then gets back to you before any proposal.')]
@@ -86,3 +95,18 @@ def proof_page(key):
  lis=''.join(f'<li><span class="ess-num">0{i+1}</span>{t(a,c)}</li>' for i,(a,c) in enumerate(items))
  vis={'avis':'particuliers','realisations':'camion-campagne'}[key]
  return crumb(key)+f'<section class="page-title band-ivory"><div class="wrap split"><div>{eyebrow(*b.labels[key])}<h1>{t(*intro)}</h1><p class="lead">{t(*lead)}</p></div><div class="image-wrap">{b.img(vis,b.label(key))}</div></div></section><section class="section band-sand"><div class="wrap"><ul class="essentials">{lis}</ul><p class="fine-print">{t("Contenus en cours de collecte auprès des clients de CODEM.","Content currently being collected from CODEM clients.")}</p></div></section>'+cta_strip('Votre projet sera peut-être notre prochaine réalisation.','Your move could be our next case study.')+b.cta()
+
+
+def pricing_cards():
+ """Cartes tarifs premium, une par formule."""
+ import build as _b
+ from motion_pages import DESC,SLUGS
+ from conversion import ENGAGEMENTS
+ cards=''
+ for i,f in enumerate(FORMULES):
+  codes=[g[2][i] for g in GRID];n=sum(1 for c in codes if c=='X');pc=round(n/len(GRID)*100)
+  inc=''.join(f'<li class="{"ok" if c=="X" else "no" if c=="C" else "tbd"}">{t(a,b)}{"<em>"+t("selon devis","per quote")+"</em>" if c=="?" else ""}</li>' for (a,b,_),c in zip(GRID,codes))
+  star=i==2
+  cards+=f'''<article class="pc-card{" pc-star" if star else ""}" style="--d:{i*110}ms;--pc:{pc}">{f'<span class="pc-badge">★ {t("La plus choisie","Most popular")}</span>' if star else ""}<div class="pc-top"><div><p class="pc-kicker">{t("Formule","Package")} 0{i+1}</p><h3>{f}</h3></div><div class="pc-ring" aria-label="{pc} % {t("pris en charge par CODEM","handled by CODEM")}"><span><b>{pc}</b>%</span><small>CODEM</small></div></div><p class="pc-price"><span>{t("à partir de","from")}</span><strong data-count="{PRIX[i]}">{prix(i)}</strong><sup>*</sup></p><p class="pc-desc">{t(*DESC[i])}</p><ul class="pc-list">{inc}</ul><a class="btn btn-cta pc-cta" href="{url('devis')}?service=particulier&amp;formule={SLUGS[i]}">{t("Réserver","Book")} {f}</a></article>'''
+ eng=''.join(f'<li>{t(a,b)}</li>' for a,b in ENGAGEMENTS)
+ return f'''<section class="pricing" id="tarifs" data-pricing><div class="pc-glow" aria-hidden="true"></div><div class="wrap"><div class="pc-head">{eyebrow("Nos formules et tarifs","Packages and prices")}<h2>{t("Cinq formules.<br><em>Un prix clair pour chacune.</em>","Five packages.<br><em>A clear price for each.</em>")}</h2><p class="lead">{t("Choisissez ce que CODEM prend en charge. Le prix est confirmé et ferme après la visite, sans surprise le jour J.","Choose what CODEM takes care of. The price is confirmed and fixed after the survey, with no surprises on moving day.")}</p><p class="pc-season">{t("Mai à septembre : les dates partent vite. Réservez 1 à 2 mois avant.","May to September: dates go fast. Book 1 to 2 months ahead.")}</p></div><div class="pc-grid">{cards}</div><ul class="pc-eng">{eng}</ul><div class="pc-foot"><p class="fine-print"><sup>*</sup> {t(*PRIX_NOTE)}</p><a class="pc-call" href="{_b.PHONE_HREF}">{t("Besoin d’aide pour choisir ?","Need help choosing?")} <strong>{_b.PHONE}</strong></a></div></div></section>'''

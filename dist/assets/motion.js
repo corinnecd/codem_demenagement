@@ -66,9 +66,9 @@ if(stage){
 const ft=document.querySelector('.ft-control');
 if(ft){
  const range=ft.querySelector('input'),tasks=[...document.querySelectorAll('.ft-tasks .task')],res=document.querySelector('.ft-result');
- const upd=()=>{const i=+range.value;const [name,desc,slug]=ft.dataset['f'+i].split('|');let n=0;
+ const upd=()=>{const i=+range.value;const [name,desc,slug,price]=ft.dataset['f'+i].split('|');let n=0;
   let you=0,tbd=0;tasks.forEach((li,k)=>{const c=li.dataset.codes[i];li.dataset.who=c==='X'?'codem':c==='C'?'you':'tbd';if(c==='X')n++;else if(c==='C')you++;else tbd++;li.style.transitionDelay=(k*35)+'ms';});const tot=tasks.length||1,pc=Math.round(n/tot*100),py=Math.round(you/tot*100);const q=s=>res.querySelector(s);if(q('[data-pct-codem]')){q('[data-pct-codem]').textContent=pc+' %';q('[data-pct-you]').textContent=py+' %';q('[data-bar]').style.width=pc+'%';q('[data-tbd-note]').textContent=tbd?(document.documentElement.lang==='en'?` · ${tbd} to confirm`:` · ${tbd} à préciser`):'';}
-  res.querySelector('.ft-name').textContent=name;res.querySelector('.ft-desc').textContent=desc;res.querySelector('[data-count]').textContent=n;res.querySelector('.ft-cta-name').textContent=name;
+  res.querySelector('.ft-name').textContent=name;if(price&&res.querySelector('[data-price]'))res.querySelector('[data-price]').textContent=price;res.querySelector('.ft-desc').textContent=desc;res.querySelector('[data-count]').textContent=n;res.querySelector('.ft-cta-name').textContent=name;
   res.querySelector('.ft-cta').href=`${quoteUrl}?service=particulier&formule=${slug}`;range.style.setProperty('--v',i/4);
   ft.querySelectorAll('.ft-ticks span').forEach((s,k)=>s.classList.toggle('on',k===i));res.classList.remove('pop');void res.offsetWidth;res.classList.add('pop');};
  range.addEventListener('input',upd);ft.querySelectorAll('.ft-ticks span').forEach((s,k)=>s.addEventListener('click',()=>{range.value=k;upd();}));upd();
@@ -159,3 +159,10 @@ document.querySelectorAll('[data-carousel]').forEach(sec=>{
 
 /* Barre A → B : le camion « roule » (léger cahot) pendant le défilement */
 (()=>{const t=document.querySelector('.rail-mini');if(!t)return;let tm;addEventListener('scroll',()=>{t.classList.add('moving');clearTimeout(tm);tm=setTimeout(()=>t.classList.remove('moving'),220)},{passive:true});})();
+/* Page formules : cartes tarifs (apparition, anneaux, compteur de prix, halo qui suit la souris) */
+(()=>{const s=document.querySelector('[data-pricing]');if(!s)return;const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;const fr=document.documentElement.lang!=='en';
+ const fmt=n=>fr?n.toLocaleString('fr-FR').replace(/ |\s/g,' ')+' €':'€'+n.toLocaleString('en-GB');
+ const run=()=>{s.classList.add('in');s.querySelectorAll('.pc-card').forEach((c,k)=>{const pc=+getComputedStyle(c).getPropertyValue('--pc')||0,ring=c.querySelector('.pc-ring'),el=c.querySelector('[data-count]'),to=+el.dataset.count,d=reduce?0:900,t0=performance.now()+k*110;
+  const step=now=>{const p=Math.min(1,Math.max(0,(now-t0)/(d||1)));const e=1-Math.pow(1-p,3);ring.style.setProperty('--pv',Math.round(pc*e));el.textContent=fmt(Math.round(to*e/10)*10||0);if(p<1)requestAnimationFrame(step);else{el.textContent=fmt(to);ring.style.setProperty('--pv',pc)}};requestAnimationFrame(step);});};
+ new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){run();o.disconnect()}},{threshold:.2}).observe(s);
+ s.querySelectorAll('.pc-card').forEach(c=>c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')}));})();
