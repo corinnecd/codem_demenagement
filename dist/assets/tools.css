@@ -828,3 +828,19 @@ html[lang=en] .pc-card.pc-pick:after{content:'✓ Recommended for you'}
 .back-link{display:inline-flex;align-items:center;gap:6px;font-size:.85rem;font-weight:600;color:var(--navy);background:#fff;border:1px solid #e2e4ee;border-radius:999px;padding:7px 14px 7px 10px;box-shadow:0 4px 14px -10px #22264f55;transition:background .2s,color .2s,transform .2s}
 .back-link:hover{background:var(--navy);color:#fff;transform:translateX(-2px)}
 @media(max-width:640px){.back-bar{padding-top:12px}.back-link{font-size:.8rem;padding:6px 12px 6px 8px}}
+/* Menu principal : fond vert au survol */
+@media(min-width:901px){.desktop-nav{gap:2px}
+.desktop-nav a{padding:8px 11px;border-radius:999px;transition:background .25s,color .25s}
+.desktop-nav a:hover,.desktop-nav a:focus-visible{background:var(--green,#65bb3b);color:var(--navy,#22264f)!important}
+.desktop-nav a:hover:after{transform:scaleX(0)!important}
+.desktop-nav a:after{left:11px!important;right:11px!important;width:auto!important;bottom:3px!important}
+.desktop-nav a[aria-current=page]:hover:after{transform:scaleX(0)!important}}
+@media(min-width:901px) and (max-width:1300px){.desktop-nav a{padding:8px 8px}.desktop-nav a:after{left:8px!important;right:8px!important}}
+@media(min-width:901px) and (max-width:1400px){.desktop-nav>a:first-child{display:none}}
+@media(min-width:901px) and (max-width:1100px){.desktop-nav a{padding:8px 6px}.desktop-nav a:after{left:6px!important;right:6px!important}}
+@media(min-width:1301px) and (max-width:1400px){.desktop-nav a{padding:8px 9px}.desktop-nav a:after{left:9px!important;right:9px!important}}
+@media(min-width:901px) and (max-width:1300px){.desktop-nav a{padding:8px 6px}.desktop-nav a:after{left:6px!important;right:6px!important}}
+@media(min-width:1101px) and (max-width:1240px){.desktop-nav a{padding:8px 3px}.desktop-nav a:after{left:3px!important;right:3px!important}}
+@media(min-width:1161px) and (max-width:1215px){.desktop-nav{gap:0}.desktop-nav a{padding:8px 1px;font-size:.74rem}.desktop-nav a:after{left:1px!important;right:1px!important}}
+@media(min-width:1241px) and (max-width:1300px){.desktop-nav a{padding:8px 5px}.desktop-nav a:after{left:5px!important;right:5px!important}}
+@media(max-width:1570px){.header-actions .btn-callback{display:none!important}}
