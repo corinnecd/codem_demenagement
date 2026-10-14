@@ -457,7 +457,7 @@ html{font-size:106.25%}
 /* bande de photos réelles */
 .terrain .ap-head{margin-bottom:40px}.terrain .ap-head>div:last-child{justify-self:end}
 .marquee{display:flex;overflow:hidden;gap:16px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
-.mq-row{list-style:none;margin:0;padding:0;display:flex;gap:16px;flex-shrink:0;animation:mq 38s linear infinite}
+.mq-row{list-style:none;margin:0;padding:0;display:flex;gap:16px;flex-shrink:0;animation:mq 50s linear infinite}
 .mq-row li{flex:0 0 auto}.mq-row a{display:block;height:clamp(200px,20vw,280px);border-radius:18px;overflow:hidden}.mq-row img{height:100%;width:auto;max-width:none;object-fit:cover;transition:transform .7s}.mq-row a:hover img{transform:scale(1.05)}
 .marquee:hover .mq-row{animation-play-state:paused}
 @keyframes mq{to{transform:translateX(calc(-100% - 16px))}}
