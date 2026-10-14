@@ -96,3 +96,17 @@ if(ob2){const parts=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone
  const toc=document.querySelector('.ga-toc');if(!toc||!('IntersectionObserver' in window))return;const items=[...toc.querySelectorAll('li')];
  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){items.forEach(li=>li.classList.toggle('on',li.querySelector('a').getAttribute('href')==='#'+e.target.id))}})},{rootMargin:'-30% 0px -60% 0px'});
  document.querySelectorAll('.ga-sec[id]').forEach(s=>io.observe(s));})();
+/* Questions : centre d'aide (recherche + thèmes + une seule réponse ouverte) */
+(()=>{document.querySelectorAll('[data-help]').forEach(sec=>{const rows=[...sec.querySelectorAll('.hc-row')],ths=[...sec.querySelectorAll('.hc-th')],inp=sec.querySelector('#hc-input'),title=sec.querySelector('.hc-title'),empty=sec.querySelector('.hc-empty'),list=sec.querySelector('.hc-list');
+ const fr=document.documentElement.lang!=='en';let f='top';
+ const norm=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[’']/g,' ');
+ const close=()=>rows.forEach(r=>{r.classList.remove('open');r.querySelector('.hc-q').setAttribute('aria-expanded','false');r.querySelector('.hc-a').hidden=true});
+ const apply=()=>{const q=norm(inp.value.trim());close();let shown=[];
+  rows.forEach(r=>{const ok=q?norm(r.textContent).includes(q):f==='top'?r.dataset.top!==undefined:r.dataset.theme===f;r.hidden=!ok;r.classList.toggle('tagged',!!q||f==='top');if(ok)shown.push(r)});
+  if(f==='top'&&!q)shown.sort((a,b)=>a.dataset.top-b.dataset.top).forEach(r=>list.insertBefore(r,empty));
+  const lab=ths.find(x=>x.dataset.hc===f);title.textContent=q?(fr?`${shown.length} résultat${shown.length>1?'s':''} pour « ${inp.value.trim()} »`:`${shown.length} result${shown.length>1?'s':''} for “${inp.value.trim()}”`):(f==='top'?(fr?'Les questions les plus posées':'Most asked questions'):lab.firstChild.textContent);
+  empty.hidden=shown.length>0;};
+ ths.forEach(b=>b.addEventListener('click',()=>{f=b.dataset.hc;inp.value='';ths.forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',String(x===b))});apply()}));
+ let tm;inp.addEventListener('input',()=>{clearTimeout(tm);tm=setTimeout(apply,120)});
+ rows.forEach(r=>{const btn=r.querySelector('.hc-q');btn.addEventListener('click',()=>{const was=r.classList.contains('open');close();if(!was){r.classList.add('open');btn.setAttribute('aria-expanded','true');r.querySelector('.hc-a').hidden=false;const y=r.getBoundingClientRect().top;if(y<90)scrollBy({top:y-110,behavior:'smooth'})}})});
+ apply();});})();
