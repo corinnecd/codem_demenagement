@@ -133,12 +133,15 @@ document.querySelectorAll('[data-carousel]').forEach(sec=>{
  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;let raf=0;
  const upd=()=>{raf=0;const r=wrap.getBoundingClientRect(),vh=innerHeight;let p=(vh*0.75-r.top)/(r.height+vh*0.15);p=Math.max(0,Math.min(1,p));if(reduce)p=1;wrap.style.setProperty('--p',p);steps.forEach((s,k)=>s.classList.toggle('lit',p>=(k/(steps.length-1))*0.92+0.02||reduce));};
  addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(upd)},{passive:true});addEventListener('resize',upd);upd();})();
-/* Accueil : cartes à retourner */
+/* Accueil : cartes à retourner (une seule à la fois, avec un léger décalage entre deux cartes) */
 (()=>{const fl=[...document.querySelectorAll('.flip')];if(!fl.length)return;const hov=matchMedia('(hover:hover)').matches;
- const set=(b,on)=>{fl.forEach(x=>{const v=x===b&&on;x.classList.toggle('flipped',v);x.setAttribute('aria-pressed',String(v))});};
- fl.forEach(b=>{if(hov){b.addEventListener('mouseenter',()=>set(b,true));b.addEventListener('mouseleave',()=>set(b,false));b.addEventListener('click',()=>set(b,true));}
-  else b.addEventListener('click',()=>set(b,!b.classList.contains('flipped')));
-  b.addEventListener('blur',()=>{if(!hov)return;set(b,false)});});})();
+ const GAP=matchMedia('(prefers-reduced-motion: reduce)').matches?0:380;let lastOff=0,pend=null;
+ const show=(x,v)=>{x.classList.toggle('flipped',v);x.setAttribute('aria-pressed',String(v))};
+ const off=()=>{clearTimeout(pend);fl.forEach(x=>{if(x.classList.contains('flipped')){show(x,false);lastOff=performance.now()}})};
+ const on=b=>{if(b.classList.contains('flipped'))return;const other=fl.some(x=>x!==b&&x.classList.contains('flipped'));off();const wait=other?GAP:Math.max(0,GAP-(performance.now()-lastOff));clearTimeout(pend);if(wait>0)pend=setTimeout(()=>show(b,true),wait);else show(b,true)};
+ fl.forEach(b=>{if(hov){b.addEventListener('mouseenter',()=>on(b));b.addEventListener('mouseleave',()=>{clearTimeout(pend);if(b.classList.contains('flipped')){show(b,false);lastOff=performance.now()}});b.addEventListener('click',()=>on(b));}
+  else b.addEventListener('click',()=>b.classList.contains('flipped')?off():on(b));
+  b.addEventListener('blur',()=>{if(!hov)return;clearTimeout(pend);if(b.classList.contains('flipped')){show(b,false);lastOff=performance.now()}})});})();
 /* Accueil : « Tous les intérieurs », la photo et le point actif suivent le défilement */
 (()=>{const s=document.querySelector('[data-interieurs]');if(!s)return;const pts=[...s.querySelectorAll('.it-pt')],phs=[...s.querySelectorAll('.it-ph')],bar=s.querySelector('.it-bar');let cur=0,raf=0;
  const set=n=>{if(n===cur)return;cur=n;pts.forEach((p,k)=>p.classList.toggle('on',k===n));phs.forEach((p,k)=>p.classList.toggle('on',k===n));};

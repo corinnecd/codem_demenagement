@@ -17,10 +17,10 @@ def photo_section(key):
  photos={
  'particuliers':[(13,'Préparer les cartons','Preparing moving boxes'),(19,'Chargement devant une maison','Loading outside a home')],
  'entreprises':[('entreprise-hall','Les dossiers de chaque service, étiquetés','Each department’s files, clearly labelled'),('entreprise-camion','Postes de travail protégés et sanglés','Workstations protected and strapped')],
- 'europe':[(12,'Les véhicules de transport CODEM','CODEM transport vehicles'),(20,'Une intervention en région parisienne','A move in Greater Paris')],
- 'monte':[(22,'Manutention dans une cour intérieure','Handling in an inner courtyard'),(25,'Un accès par l’extérieur','Access from outside')],
+ 'europe':[(12,'Les véhicules de transport CODEM','CODEM transport vehicles'),('lisbonne','Une livraison en Europe, jusque dans les ruelles','A delivery in Europe, right into narrow streets')],
+ 'monte':[(22,'Manutention dans une cour intérieure','Handling in an inner courtyard'),('nacelle-paus','Le monte-meubles déployé le long de la façade','The furniture lift extended along the facade')],
  'piano':[('objet-vitrail','Manutention d’un objet volumineux','Handling a bulky item'),('objet-piano','Le soin du mobilier de caractère','Care for distinctive furniture')],
- 'stockage':[('garde-meubles-box','Vos meubles protégés dans un box fermé','Your furniture protected in a closed unit'),('garde-meubles-bureaux','Mobilier de bureau et archives entreposés','Office furniture and records in storage')],
+ 'stockage':[('garde-meubles-box','Vos meubles protégés dans un box fermé','Your furniture protected in a closed unit'),('caisses-bois','Les conteneurs en bois de notre garde-meubles','The wooden containers in our storage facility')],
  }
  data=photos.get(key,[])
  if not data:return ''
@@ -59,7 +59,7 @@ def service(key):
  sections=''.join(f'<article class="reveal"><span class="eyebrow">0{i+1}</span><h3>{t(a,c)}</h3><p>{t(d,e)}</p></article>' for i,(a,c,d,e) in enumerate(data))
  extra=''
  if key=='europe':extra=f'<section class="section dark"><div class="wrap eu-truck">{b.truck()}<div><h2>{t("France.<br>Espagne. Portugal. Italie.<br><em>Et votre destination.</em>","France.<br>Spain. Portugal. Italy.<br><em>And your destination.</em>")}</h2><div><p>{t("Chaque déménagement fait l’objet d’une étude. Parlons de votre projet pour préciser les possibilités et les conditions du trajet.","Every move is assessed individually. Let’s discuss your project to confirm route options and arrangements.")}</p>{link("zones",cls="btn light")}</div></div></div></section>'
- return head+TOOLS[key]()+v1_blocks(key)+(conversion.valeur_box() if key=='piano' else '')+f'<section class="section band-ivory"><div class="wrap"><div class="section-heading"><h2>{t("Le bon soin.<br><em>La bonne préparation.</em>","The right care.<br><em>The right preparation.</em>")}</h2></div><div class="article-grid">{sections}</div></div></section>'+extra+photo_section(key)+f''+__import__("faq").section(pick=FAQ_PICK[key],featured_on=False,sid="questions",title=("Vos questions.<br><em>Nos premiers repères.</em>","Your questions.<br><em>A place to start.</em>"),eb=("Préparons votre projet","Let’s plan your move"))+cta()
+ return head+TOOLS[key]()+v1_blocks(key)+(conversion.valeur_box() if key=='piano' else '')+f'<section class="section band-ivory"><div class="wrap"><div class="section-heading"><h2>{t("Le bon soin.<br><em>La bonne préparation.</em>","The right care.<br><em>The right preparation.</em>")}</h2></div><div class="article-grid">{sections}</div></div></section>'+extra+photo_section(key)+f''+__import__("faq").section(pick=FAQ_PICK[key],featured_on=False,sid="questions",title=("Vos questions.<br><em>Nos premiers repères.</em>","Your questions.<br><em>A place to start.</em>"),eb=("Préparons votre projet","Let’s plan your move"))+cta(cody=True)
 
 def general(key):
  title={

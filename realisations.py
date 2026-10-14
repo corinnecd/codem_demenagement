@@ -4,7 +4,7 @@ import build as b
 from build import t,url,link,img,eyebrow,label
 
 CAS=[
- dict(photos=['ancien-21','ancien-22','ancien-24','ancien-25'],tag=('Monte-meubles','Furniture lift'),lieu=('Immeubles parisiens','Paris apartment buildings'),
+ dict(photos=['rue-paris-monte','ancien-21','ancien-25','nacelle-paus'],tag=('Monte-meubles','Furniture lift'),lieu=('Immeubles parisiens','Paris apartment buildings'),
   titre=('Monter les meubles<br><em>par la façade.</em>','Lifting furniture<br><em>up the facade.</em>'),
   texte=('Quand l’escalier est trop étroit ou l’ascenseur trop petit, le monte-meubles passe par la fenêtre. Trottoir balisé, technicien aux commandes, meubles protégés avant la montée : les étages élevés ne posent plus de problème.','When the stairs are too narrow or the lift too small, the furniture lift goes through the window. Pavement marked off, an operator at the controls, furniture protected before lifting: upper floors are no longer a problem.'),
   points=[('Balisage du trottoir','Pavement marked off'),('Technicien qualifié','Qualified operator'),('Accès difficiles','Difficult access')],svc='monte'),
@@ -12,7 +12,7 @@ CAS=[
   titre=('Un socle à déplacer<br><em>au musée.</em>','A plinth to move<br><em>at the museum.</em>'),
   texte=('Manutention d’un socle au Musée océanographique de Monaco : une pièce lourde, dans un lieu patrimonial, déplacée avec méthode par une équipe dédiée.','Moving a plinth at the Oceanographic Museum of Monaco: a heavy piece, in a heritage building, moved methodically by a dedicated team.'),
   points=[('Pièce lourde','Heavy piece'),('Lieu patrimonial','Heritage site'),('Équipe dédiée','Dedicated team')],svc='piano'),
- dict(photos=['ancien-19','ancien-03','ancien-12'],tag=('Particuliers','Home moves'),lieu=('Maison avec extérieur','House with grounds'),
+ dict(photos=['ancien-19','ancien-03','ancien-12','chateau'],tag=('Particuliers','Home moves'),lieu=('Maison avec extérieur','House with grounds'),
   titre=('Une maison entière,<br><em>chargée avec soin.</em>','A whole house,<br><em>loaded with care.</em>'),
   texte=('Poids lourd et utilitaire sur place, rampe de chargement, mobilier protégé et cartons préparés : pour une maison, l’équipe et les véhicules sont dimensionnés selon le volume.','A heavy truck and a van on site, a loading ramp, protected furniture and ready boxes: for a house, the team and vehicles are sized to the volume.'),
   points=[('Véhicules capitonnés','Padded vehicles'),('Rampe de chargement','Loading ramp'),('Équipe dimensionnée','Right-sized team')],svc='particuliers'),
@@ -24,7 +24,7 @@ CAS=[
   titre=('Objets d’art<br><em>et mobilier de valeur.</em>','Artwork<br><em>and valuable furniture.</em>'),
   texte=('Statuettes, céramiques et bronzes emballés un par un, chaises anciennes et tables de style manipulées pièce par pièce, meubles enveloppés de couvertures et sanglés : chaque objet est protégé avant de quitter la pièce.','Statuettes, ceramics and bronzes wrapped one by one, antique chairs and period tables handled piece by piece, furniture wrapped in blankets and strapped: every item is protected before it leaves the room.'),
   points=[('Emballage sur mesure','Custom packing'),('Manipulation pièce par pièce','Handled piece by piece'),('Couvertures et sanglage','Blankets and strapping')],svc='piano'),
- dict(photos=['ancien-33'],tag=('Garde-meubles','Storage'),lieu=('Stockage sécurisé','Secure storage'),
+ dict(photos=['ancien-33','caisses-bois'],tag=('Garde-meubles','Storage'),lieu=('Stockage sécurisé','Secure storage'),
   titre=('Des meubles emballés<br><em>pour le stockage.</em>','Furniture packed<br><em>for storage.</em>'),
   texte=('Mobilier filmé et protégé, chargé en conteneur pour un stockage à l’abri de la poussière et de l’humidité, le temps d’un séjour à l’étranger ou de travaux.','Furniture wrapped and protected, loaded into a container for storage away from dust and damp, during a stay abroad or building work.'),
   points=[('Mobilier filmé','Furniture wrapped'),('Stockage en conteneur','Container storage'),('Courte ou longue durée','Short or long term')],svc='stockage'),
