@@ -25,7 +25,7 @@ SERVICES=[('particuliers','particulier-canape','Appartement, maison ou successio
 def services():
  n=len(SERVICES)
  cards=''.join(f'<article class="svc-card{" on" if i==0 else ""}"><div class="svc-ph">{img(im,b.label(k))}<span class="svc-num">{str(i+1).zfill(2)}</span></div><div class="svc-body"><h3>{b.label(k)}</h3><div class="svc-more"><div><p>{t(fr,en)}</p><a class="svc-go" href="{url(k)}">{t("Découvrir","Discover")} <span aria-hidden="true">→</span></a></div></div></div></article>' for i,(k,im,fr,en) in enumerate(SERVICES))
- return f'<section class="section band-sand car svc-car" data-carousel data-expand data-autoplay="6000" aria-roledescription="{t("carrousel","carousel")}" aria-label="{t("Nos savoir-faire","Our expertise")}"><div class="wrap car-head"><div>{eyebrow("Nos savoir-faire","Our expertise")}<h2>{t("Chaque projet est singulier.<br><em>Notre attention reste la même.</em>","Every move is different.<br><em>Our care stays the same.</em>")}</h2></div>{_ctrl(n,("Service","Service"))}</div><div class="car-track" data-track tabindex="0">{cards}</div><div class="wrap"><div class="car-progress" data-progress></div><div class="car-foot">{link("devis",t("Recevoir mon devis gratuit","Get my free quote"),"btn btn-cta")}<span class="car-hint">{t("Glissez, cliquez sur les flèches ou laissez défiler.","Swipe, use the arrows or let it play.")}</span></div></div></section>'
+ return f'<section class="section band-sand car svc-car" id="approche" data-carousel data-expand data-autoplay="6000" aria-roledescription="{t("carrousel","carousel")}" aria-label="{t("Nos savoir-faire","Our expertise")}"><div class="wrap car-head"><div>{eyebrow("Nos savoir-faire","Our expertise")}<h2>{t("Chaque projet est singulier.<br><em>Notre attention reste la même.</em>","Every move is different.<br><em>Our care stays the same.</em>")}</h2></div>{_ctrl(n,("Service","Service"))}</div><div class="car-track" data-track tabindex="0">{cards}</div><div class="wrap"><div class="car-progress" data-progress></div><div class="car-foot">{link("devis",t("Recevoir mon devis gratuit","Get my free quote"),"btn btn-cta")}<span class="car-hint">{t("Glissez, cliquez sur les flèches ou laissez défiler.","Swipe, use the arrows or let it play.")}</span></div></div></section>'
 
 # 3. Frise : 4 étapes reliées par une ligne qui se remplit au défilement
 def frise():
@@ -52,6 +52,11 @@ def terrain():
  return f'<section class="section band-ivory terrain"><div class="wrap ap-head reveal"><div>{eyebrow("CODEM, sur le terrain","CODEM in the field")}<h2>{t("Des chantiers réels.<br><em>Photographiés par nos équipes.</em>","Real jobs.<br><em>Photographed by our teams.</em>")}</h2></div><div>{link("realisations",t("Voir nos réalisations","See our case studies"),"btn outline")}</div></div><div class="marquee" data-marquee><ul class="mq-row">{row}</ul><ul class="mq-row" aria-hidden="true">{row2}</ul></div></section>'
 
 # 6. Carrousel des destinations (villes et trajets)
+def terrain_strip():
+ """Bande de photos réelles intégrée sous les avis (preuve visuelle)."""
+ alt=t('Chantier CODEM','CODEM job')
+ row=''.join(f'<li><a href="{url("realisations")}">{img(p,alt)}</a></li>' for p in TERRAIN);row2=row.replace('<a ','<a tabindex="-1" ')
+ return f'<div class="terrain-strip"><p class="ts-label wrap">{t("Nos chantiers, photographiés par nos équipes","Our jobs, photographed by our teams")} · {link("realisations",t("Voir nos réalisations","See our case studies"),"text-link")}</p><div class="marquee" data-marquee><ul class="mq-row">{row}</ul><ul class="mq-row" aria-hidden="true">{row2}</ul></div></div>'
 def destinations():
  import villes as v
  cards=''
