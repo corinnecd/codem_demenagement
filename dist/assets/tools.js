@@ -125,3 +125,5 @@ if(ob2){const parts=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone
  new MutationObserver(m=>{if(m.some(r=>r.addedNodes.length))scan()}).observe(document.body,{childList:true,subtree:true});})();
 /* Bouton « Retour » : page précédente du site si elle existe */
 (()=>{document.querySelectorAll('[data-back]').forEach(a=>a.addEventListener('click',e=>{try{const r=document.referrer&&new URL(document.referrer);if(r&&r.origin===location.origin&&history.length>1){e.preventDefault();history.back()}}catch{}}))})();
+/* Calculateur de volume : une seule pièce dépliée à la fois */
+(()=>{const rooms=[...document.querySelectorAll('.vc-room')];rooms.forEach(r=>r.addEventListener('toggle',()=>{if(r.open)rooms.forEach(o=>{if(o!==r)o.open=false})}))})();

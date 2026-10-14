@@ -861,3 +861,10 @@ html[lang=en] .pc-card.pc-pick:after{content:'✓ Recommended for you'}
 @media(max-width:640px){.ck-actions .btn{width:100%}}
 /* La checklist complète s'obtient contre e-mail : pas d'impression de la version écran */
 @media print{.checklist .ck-grid,.checklist .ck-progress{display:none!important}.checklist .section-heading:after{content:"La checklist complète vous est offerte en PDF sur la page Conseils de CODEM.";display:block;font-size:12pt;margin-top:8pt}html[lang=en] .checklist .section-heading:after{content:"The full checklist is offered as a PDF on the CODEM advice page."}}
+/* Calculateur de volume : pièce ouverte sur fond vert, une seule à la fois */
+.vc-room{transition:background .25s,border-color .25s}
+.vc-room[open]{background:#eaf4e3;border-color:#bfe0ab}
+.vc-room[open] summary{background:var(--green,#65bb3b);color:var(--navy,#22264f);border-radius:15px 15px 0 0}
+.vc-room[open] summary .vc-room-total{color:var(--navy,#22264f)}
+.vc-room[open] .vc-row{border-color:#d3e9c4}
+.vc-room summary:hover{background:#f1f7ec}.vc-room[open] summary:hover{background:var(--green,#65bb3b)}
