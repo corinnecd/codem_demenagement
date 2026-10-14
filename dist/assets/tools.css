@@ -699,3 +699,8 @@ html{font-size:106.25%}
 .pc-card.pc-pick:after{content:'✓ Conseillée pour vous';position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);background:#5fb03a;color:#10230a;font-weight:800;font-size:.72rem;border-radius:50px;padding:5px 12px;white-space:nowrap}
 html[lang=en] .pc-card.pc-pick:after{content:'✓ Recommended for you'}
 .pc-flash{animation:pc-flash 1.2s ease-out}@keyframes pc-flash{0%,100%{filter:none}30%{filter:brightness(1.25) drop-shadow(0 0 24px #5fb03a)}}
+/* Cartes tarifs un peu plus larges */
+.pricing>.wrap{width:min(1460px,94%)}
+.pricing .pc-grid{column-gap:14px}
+.pricing .pc-card{padding-left:22px;padding-right:22px}
+@media(max-width:1180px){.pricing .pc-card{flex-basis:min(330px,84vw)}.pricing .pc-grid{margin:0 -3vw;padding-left:3vw;padding-right:3vw}}
