@@ -247,7 +247,7 @@ def card(a,cls=''):
 
 def hub():
  chips=f'<button type="button" class="gchip on" data-gfilter="all">{t("Tous","All")}</button>'+''.join(f'<button type="button" class="gchip" data-gfilter="{k}">{t(*v)}</button>' for k,v in THEMES.items())
- return f'<section class="section band-ivory guide-hub" id="guide"><div class="wrap"><div class="section-heading"><div>{eyebrow("Le guide CODEM","The CODEM guide")}<h2>{t("Conseils et astuces<br><em>pour bien déménager.</em>","Tips and advice<br><em>for a smooth move.</em>")}</h2></div><p class="lead">{t("Démarches, emballage, budget, départ à l’étranger : nos guides pratiques, vérifiés et mis à jour.","Paperwork, packing, budget, moving abroad: our practical guides, checked and kept up to date.")}</p></div><div class="gchips" role="group" aria-label="{t("Filtrer par thème","Filter by topic")}">{chips}</div><div class="ggrid">{"".join(card(a) for a in ARTICLES)}</div></div></section>'
+ return f'<section class="section band-ivory guide-hub" style="padding-top:20px" id="guide"><div class="wrap"><div class="section-heading"><div>{eyebrow("Le guide CODEM","The CODEM guide")}<h2>{t("Nos guides pratiques,<br><em>thème par thème.</em>","Our practical guides,<br><em>topic by topic.</em>")}</h2></div><p class="lead">{t("Démarches, emballage, budget, départ à l’étranger : nos guides pratiques, vérifiés et mis à jour.","Paperwork, packing, budget, moving abroad: our practical guides, checked and kept up to date.")}</p></div><div class="gchips" role="group" aria-label="{t("Filtrer par thème","Filter by topic")}">{chips}</div><div class="ggrid">{"".join(card(a) for a in ARTICLES)}</div></div></section>'
 
 def _sid(i):return f's{i+1}'
 
