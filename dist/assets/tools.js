@@ -110,3 +110,18 @@ if(ob2){const parts=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone
  let tm;inp.addEventListener('input',()=>{clearTimeout(tm);tm=setTimeout(apply,120)});
  rows.forEach(r=>{const btn=r.querySelector('.hc-q');btn.addEventListener('click',()=>{const was=r.classList.contains('open');close();if(!was){r.classList.add('open');btn.setAttribute('aria-expanded','true');r.querySelector('.hc-a').hidden=false;const y=r.getBoundingClientRect().top;if(y<90)scrollBy({top:y-110,behavior:'smooth'})}})});
  apply();});})();
+/* Formulaires : bouton pour intervertir départ et arrivée */
+(()=>{const fr=document.documentElement.lang!=='en';
+ const PAIRS=[['depart','arrivee'],['depart_commune','arrivee_commune'],['depart_pays','arrivee_pays']];
+ function setup(form){if(form.dataset.swap)return;const a=form.querySelector('input[name=depart],input[name=depart_commune]'),b=form.querySelector('input[name=arrivee],input[name=arrivee_commune]');if(!a||!b)return;form.dataset.swap='1';
+  const btn=document.createElement('button');btn.type='button';btn.className='swap-btn';btn.setAttribute('aria-label',fr?'Intervertir départ et arrivée':'Swap departure and arrival');btn.title=btn.getAttribute('aria-label');
+  btn.innerHTML='<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v14M7 18l-3-3M7 18l3-3M17 20V6M17 6l-3 3M17 6l3 3"/></svg>';
+  if(getComputedStyle(form).position==='static')form.style.position='relative';form.appendChild(btn);
+  const place=()=>{if(!a.offsetParent||!b.offsetParent){btn.hidden=true;return}btn.hidden=false;const fr_=form.getBoundingClientRect(),ra=a.getBoundingClientRect(),rb=b.getBoundingClientRect();const side=Math.abs(ra.top-rb.top)<10;btn.classList.toggle('h',side);
+   if(side){btn.style.left=((ra.right+rb.left)/2-fr_.left-17)+'px';btn.style.top=(ra.top+ra.height/2-fr_.top-17)+'px'}else{btn.style.left=(Math.max(ra.right,rb.right)-fr_.left-17-44)+'px';btn.style.top=((ra.bottom+rb.top)/2-fr_.top-17)+'px'}};
+  btn.addEventListener('click',()=>{PAIRS.forEach(([x,y])=>{const p=form.querySelector(`[name=${x}]`),q=form.querySelector(`[name=${y}]`);if(!p||!q||p.type==='hidden')return;const v=p.value;p.value=q.value;q.value=v;[p,q].forEach(el=>{el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}))})});btn.classList.remove('spin');void btn.offsetWidth;btn.classList.add('spin');try{window.track&&track('trajet_inverse')}catch{}});
+  place();addEventListener('resize',place);new ResizeObserver(place).observe(form);form.addEventListener('input',()=>requestAnimationFrame(place));document.addEventListener('click',()=>setTimeout(place,60));}
+ const scan=()=>document.querySelectorAll('form').forEach(setup);scan();
+ new MutationObserver(m=>{if(m.some(r=>r.addedNodes.length))scan()}).observe(document.body,{childList:true,subtree:true});})();
+/* Bouton « Retour » : page précédente du site si elle existe */
+(()=>{document.querySelectorAll('[data-back]').forEach(a=>a.addEventListener('click',e=>{try{const r=document.referrer&&new URL(document.referrer);if(r&&r.origin===location.origin&&history.length>1){e.preventDefault();history.back()}}catch{}}))})();

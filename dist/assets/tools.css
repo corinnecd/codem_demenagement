@@ -818,3 +818,13 @@ html[lang=en] .pc-card.pc-pick:after{content:'✓ Recommended for you'}
 @media(max-width:900px){.hc-grid{grid-template-columns:minmax(0,1fr);gap:14px}.hc-themes{position:static;flex-direction:row;overflow-x:auto;border-radius:999px;padding:6px;gap:6px;scrollbar-width:none}.hc-th{white-space:nowrap;width:auto;padding:9px 14px;border-radius:999px}.hc-list{padding:4px 18px 8px}.hc-a{padding-right:0}}
 @media(max-width:640px){.hc-cta{flex-wrap:wrap}.hc-mascot{height:72px}.hc-cta .btn{width:100%}}
 .hc-cta p{max-width:none}
+.swap-btn{position:absolute;z-index:3;width:34px;height:34px;border-radius:50%;border:1px solid #cfd3e6;background:#fff;color:var(--navy);display:grid;place-items:center;padding:0;cursor:pointer;box-shadow:0 4px 12px -6px #22264f66;transition:background .2s,color .2s,border-color .2s}
+.swap-btn:hover,.swap-btn:focus-visible{background:var(--navy);color:#fff;border-color:var(--navy)}
+.swap-btn.h svg{transform:rotate(90deg)}.swap-btn.spin svg{animation:swapSpin .35s ease}
+.swap-btn.h.spin svg{animation:swapSpinH .35s ease}
+@keyframes swapSpin{from{transform:rotate(0)}to{transform:rotate(180deg)}}@keyframes swapSpinH{from{transform:rotate(90deg)}to{transform:rotate(270deg)}}
+.swap-btn[hidden]{display:none}
+.back-bar{padding-top:16px;margin-bottom:-6px;position:relative;z-index:2}
+.back-link{display:inline-flex;align-items:center;gap:6px;font-size:.85rem;font-weight:600;color:var(--navy);background:#fff;border:1px solid #e2e4ee;border-radius:999px;padding:7px 14px 7px 10px;box-shadow:0 4px 14px -10px #22264f55;transition:background .2s,color .2s,transform .2s}
+.back-link:hover{background:var(--navy);color:#fff;transform:translateX(-2px)}
+@media(max-width:640px){.back-bar{padding-top:12px}.back-link{font-size:.8rem;padding:6px 12px 6px 8px}}
