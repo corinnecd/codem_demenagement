@@ -769,8 +769,14 @@ html[lang=en] .pc-card.pc-pick:after{content:'✓ Recommended for you'}
 .ga-prices span{font-size:.82rem;color:var(--muted)}.ga-prices strong{font-family:var(--serif);font-weight:400;font-size:1.25rem;color:var(--navy,#22264f)}
 .ga-note{font-size:.85rem;color:var(--muted)}.ga-download{background:#f1f3fa;border-radius:14px;padding:14px 18px;font-size:.95rem}
 .ga-sources{border-top:1px solid var(--line);padding-top:20px;font-size:.85rem;color:var(--muted)}.ga-sources ul{padding-left:1.1em}.ga-sources p:first-child{font-weight:600;color:var(--ink)}.ga-disclaimer{font-size:.78rem}
-@media(max-width:1100px){.ggrid{grid-template-columns:repeat(2,1fr)}.ga-grid{grid-template-columns:1fr;gap:20px}.ga-toc{display:none}.ga-prices{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:1100px){.ggrid{grid-template-columns:repeat(2,1fr)}.ga-grid{grid-template-columns:minmax(0,1fr);gap:20px}.ga-toc{display:none}.ga-prices{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:760px){.ga-head-grid{grid-template-columns:1fr}.ga-hero{height:260px}.ggrid,.ggrid.g3{grid-template-columns:1fr}.gcard .image-wrap{height:190px}.ga-prices{grid-template-columns:1fr 1fr}.ga-tip{flex-direction:column;align-items:flex-start}.ga-tip-mascot{height:96px}.ga-cta{padding:22px}}
 @media(min-width:901px) and (max-width:1380px){.desktop-nav{gap:15px}}@media(min-width:901px) and (max-width:1300px){.desktop-nav>a:first-child{display:none}}
 @media(min-width:1001px) and (max-width:1040px){.header-phone{display:none}.desktop-nav{gap:13px}}
 @media(min-width:901px) and (max-width:1000px){.desktop-nav{display:none}.header-actions{margin-left:auto}.menu-toggle{display:block}.mobile-menu:not([hidden]){display:grid;grid-template-columns:1fr 1fr;padding:20px 5%;gap:15px;background:var(--paper)}.mobile-menu[hidden]{display:none}}
+.gmore-wrap{text-align:center;margin-top:30px}.gmore-wrap[hidden]{display:none}
+.ga-table{overflow-x:auto;margin:0 0 14px;border:1px solid #e2e4ee;border-radius:14px;background:#fff}
+.ga-table table{border-collapse:collapse;width:100%;min-width:640px;font-size:.86rem;line-height:1.35}
+.ga-table th,.ga-table td{padding:10px 10px;border-bottom:1px solid #eef0f6;text-align:center}
+.ga-table thead th{background:var(--navy,#22264f);color:#fff;font-weight:600}.ga-table tbody th{text-align:left;font-weight:500;color:var(--ink)}
+.ga-table td.y{color:var(--green-dark,#2f7d1e);font-weight:600}.ga-table td.n{color:var(--muted)}.ga-table td.q{color:#9a7b2c}

@@ -129,8 +129,8 @@ dict(key='prix',slug=('prix-demenagement-ile-de-france','moving-cost-paris'),the
    ('<p>Repère courant : le volume en mètres cubes représente environ la moitié de la surface en mètres carrés, un peu plus si le logement est bien meublé. Pour une estimation fiable, utilisez <a href="{conseils}#volume">notre calculateur pièce par pièce</a>.</p>',
     '<p>A common rule of thumb: the volume in cubic metres is about half the floor area in square metres, a little more if the home is well furnished. For a reliable estimate, use <a href="{conseils}#volume">our room-by-room calculator</a>.</p>')),
   (('Bien comparer des devis','Comparing quotes properly'),
-   ('<ul><li>Vérifiez que chaque devis porte sur le même volume et les mêmes prestations.</li><li>Préférez un devis établi après visite : il tient compte des accès réels.</li><li>Demandez comment vos biens sont assurés et ce que couvre la déclaration de valeur.</li><li>Exigez un devis écrit et détaillé.</li></ul>',
-    '<ul><li>Check that each quote covers the same volume and the same services.</li><li>Prefer a quote made after a survey: it reflects the real access.</li><li>Ask how your belongings are insured and what the declaration of value covers.</li><li>Insist on a written, detailed quote.</li></ul>')),
+   ('<ul><li>Vérifiez que chaque devis porte sur le même volume et les mêmes prestations.</li><li>Préférez un devis établi après visite : il tient compte des accès réels.</li><li>Demandez comment vos biens sont assurés et ce que couvre la déclaration de valeur.</li><li>Exigez un devis écrit et détaillé.</li></ul><p>La méthode complète : <a href="{g:comparer}">comment comparer plusieurs devis</a>.</p>',
+    '<ul><li>Check that each quote covers the same volume and the same services.</li><li>Prefer a quote made after a survey: it reflects the real access.</li><li>Ask how your belongings are insured and what the declaration of value covers.</li><li>Insist on a written, detailed quote.</li></ul><p>The full method: <a href="{g:comparer}">how to compare quotes</a>.</p>')),
   (('Alléger la facture','Keeping the cost down'),
    ('<ul><li>Triez avant le devis : moins de volume, moins de temps.</li><li>Emballez vous-même, avec les formules Self et Self plus.</li><li>Restez souple sur la date si vous le pouvez.</li></ul>',
     '<ul><li>Declutter before the quote: less volume, less time.</li><li>Pack yourself, with the Self and Self plus packages.</li><li>Stay flexible on the date if you can.</li></ul>')),
@@ -223,6 +223,10 @@ dict(key='bureaux',slug=('transfert-de-bureaux','office-relocation'),theme='entr
       (('Que faire des archives ?','What about our records?'),('Triez-les avant le transfert. Celles à conserver sont transportées dans des cartons archives étiquetés, ou placées en garde-meubles.','Sort them before the move. Those to keep travel in labelled archive boxes, or go into storage.'))],
  sources=[('Guichet unique des formalités d’entreprises','https://formalites.entreprises.gouv.fr/')]),
 ]
+from guide_wave1 import W1
+ARTICLES+=W1
+ORDER=['checklist','prix','volume','formule','devis','comparer','visite','adresse','jourj','cartons','etiqueter','vaisselle','stationnement','mutation','portugal','espagne','bureaux']
+ARTICLES.sort(key=lambda a:ORDER.index(a['key']) if a['key'] in ORDER else 99)
 BYKEY={a['key']:a for a in ARTICLES}
 
 def register():
@@ -235,6 +239,9 @@ def _fill(s):
  s=re.sub(r'\{g:(\w+)\}',lambda m:url('g-'+m.group(1)),s)
  s=re.sub(r'\{svc:(\w+)\}',lambda m:url(m.group(1)),s)
  if '{prix}' in s:s=s.replace('{prix}',_prix_block())
+ if '{grid}' in s:
+  from guide_wave1 import _grid
+  s=s.replace('{grid}',_grid())
  return s
 
 def _prix_block():
@@ -247,7 +254,7 @@ def card(a,cls=''):
 
 def hub():
  chips=f'<button type="button" class="gchip on" data-gfilter="all">{t("Tous","All")}</button>'+''.join(f'<button type="button" class="gchip" data-gfilter="{k}">{t(*v)}</button>' for k,v in THEMES.items())
- return f'<section class="section band-ivory guide-hub" style="padding-top:20px" id="guide"><div class="wrap"><div class="section-heading"><div>{eyebrow("Le guide CODEM","The CODEM guide")}<h2>{t("Nos guides pratiques,<br><em>thème par thème.</em>","Our practical guides,<br><em>topic by topic.</em>")}</h2></div><p class="lead">{t("Démarches, emballage, budget, départ à l’étranger : nos guides pratiques, vérifiés et mis à jour.","Paperwork, packing, budget, moving abroad: our practical guides, checked and kept up to date.")}</p></div><div class="gchips" role="group" aria-label="{t("Filtrer par thème","Filter by topic")}">{chips}</div><div class="ggrid">{"".join(card(a) for a in ARTICLES)}</div></div></section>'
+ return f'<section class="section band-ivory guide-hub" style="padding-top:20px" id="guide"><div class="wrap"><div class="section-heading"><div>{eyebrow("Le guide CODEM","The CODEM guide")}<h2>{t("Nos guides pratiques,<br><em>thème par thème.</em>","Our practical guides,<br><em>topic by topic.</em>")}</h2></div><p class="lead">{t("Démarches, emballage, budget, départ à l’étranger : nos guides pratiques, vérifiés et mis à jour.","Paperwork, packing, budget, moving abroad: our practical guides, checked and kept up to date.")}</p></div><div class="gchips" role="group" aria-label="{t("Filtrer par thème","Filter by topic")}">{chips}</div><div class="ggrid" data-limit="9">{"".join(card(a) for a in ARTICLES)}</div><div class="gmore-wrap"><button type="button" class="btn outline gmore" data-gmore>{t("Voir tous les conseils","See all advice")} ({len(ARTICLES)})</button></div></div></section>'
 
 def _sid(i):return f's{i+1}'
 

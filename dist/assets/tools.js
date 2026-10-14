@@ -89,8 +89,10 @@ if(ob2){const parts=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone
  ob2.innerHTML=open?`<span class="dot"></span>${tr('Ouvert maintenant · un conseiller vous répond','Open now · an adviser will answer')}`:`<span class="dot"></span>${tr('Fermé actuellement · demandez un rappel, nous vous recontactons dès l’ouverture','Closed now · request a callback, we’ll call when we open')}`;}
 })();
 /* Le guide CODEM : filtre par thème + sommaire actif */
-(()=>{const h=document.querySelector('.guide-hub');if(h){const chips=[...h.querySelectorAll('[data-gfilter]')],cards=[...h.querySelectorAll('.gcard')];
- chips.forEach(c=>c.addEventListener('click',()=>{const f=c.dataset.gfilter;chips.forEach(x=>{x.classList.toggle('on',x===c);x.setAttribute('aria-pressed',String(x===c))});cards.forEach(k=>k.hidden=!(f==='all'||k.dataset.theme===f))}));}
+(()=>{const h=document.querySelector('.guide-hub');if(h){const chips=[...h.querySelectorAll('[data-gfilter]')],cards=[...h.querySelectorAll('.gcard')],more=h.querySelector('[data-gmore]'),lim=+(h.querySelector('.ggrid').dataset.limit||0);let open=false,f='all';
+ const apply=()=>{let n=0;cards.forEach(k=>{const ok=f==='all'||k.dataset.theme===f;const show=ok&&(open||f!=='all'||!lim||n<lim);if(ok)n++;k.hidden=!show});if(more)more.parentNode.hidden=open||f!=='all'||!lim||cards.length<=lim};
+ chips.forEach(c=>c.addEventListener('click',()=>{f=c.dataset.gfilter;chips.forEach(x=>{x.classList.toggle('on',x===c);x.setAttribute('aria-pressed',String(x===c))});apply()}));
+ if(more)more.addEventListener('click',()=>{open=true;apply();cards[lim]&&cards[lim].focus()});apply();}
  const toc=document.querySelector('.ga-toc');if(!toc||!('IntersectionObserver' in window))return;const items=[...toc.querySelectorAll('li')];
  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){items.forEach(li=>li.classList.toggle('on',li.querySelector('a').getAttribute('href')==='#'+e.target.id))}})},{rootMargin:'-30% 0px -60% 0px'});
  document.querySelectorAll('.ga-sec[id]').forEach(s=>io.observe(s));})();
