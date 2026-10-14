@@ -591,7 +591,7 @@ html{font-size:106.25%}
 .hero-rating .hr-stars{color:#e8a317;letter-spacing:1px;font-size:.95rem}.hero-rating strong{font-size:1rem}.hero-rating span:last-child{color:#4f5367}
 /* Accueil plus compact */
 .home-page main>.section{padding-top:clamp(56px,6.5vw,88px);padding-bottom:clamp(56px,6.5vw,88px)}
-.interieurs{height:165vh}
+@media(min-width:901px) and (prefers-reduced-motion:no-preference){.interieurs{height:165vh}}
 @media(max-width:760px){
  .ap-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin:0 -16px;padding:4px 16px 14px;scrollbar-width:none}.ap-grid::-webkit-scrollbar{display:none}
  .ap-card{flex:0 0 78vw;scroll-snap-align:start}.ap-img{height:170px}
@@ -605,3 +605,9 @@ html{font-size:106.25%}
  .flip-grid li{flex:0 0 78vw;scroll-snap-align:start}.flip{height:340px}
 }
 @media(max-width:640px){.home-page .hero-content h1+p{display:none}.home-page .hero-content .eyebrow{font-size:.62rem;letter-spacing:.14em}}
+/* Curseur des formules : chaque nom exactement sous la position du rond */
+.ft-control{--T:34px}
+.ft-control input::-webkit-slider-thumb{box-sizing:border-box;width:var(--T);height:var(--T)}
+.ft-control input::-moz-range-thumb{box-sizing:border-box;width:var(--T);height:var(--T)}
+.ft-ticks{position:relative;display:block;height:2.6em;margin-top:12px}
+.ft-ticks span{position:absolute;top:0;left:calc(var(--T)/2 + (100% - var(--T)) * var(--i) / 4);transform:translateX(-50%);width:72px;text-align:center;line-height:1.25}
