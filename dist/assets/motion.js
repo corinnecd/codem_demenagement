@@ -156,3 +156,6 @@ document.querySelectorAll('[data-carousel]').forEach(sec=>{
 
 /* Camion mascotte : il entre en roulant quand sa section apparaît */
 (()=>{const s=[...document.querySelectorAll('.truck-stage')];if(!s.length)return;const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.35});s.forEach(x=>io.observe(x));})();
+
+/* Barre A → B : le camion « roule » (léger cahot) pendant le défilement */
+(()=>{const t=document.querySelector('.rail-mini');if(!t)return;let tm;addEventListener('scroll',()=>{t.classList.add('moving');clearTimeout(tm);tm=setTimeout(()=>t.classList.remove('moving'),220)},{passive:true});})();

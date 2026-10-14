@@ -571,7 +571,10 @@ html{font-size:106.25%}
 @media(max-width:900px){.guide-mascot-box{position:static;transform:none;flex-direction:row;margin-bottom:14px}.guide-bubble:before{left:-6px;top:50%;transform:translateY(-50%) rotate(45deg)}}
 
 /* Camion mascotte */
-.route-rail .rail-truck.rail-mini{width:40px;margin-left:-20px;transform:translateY(-50%) rotate(-90deg);filter:drop-shadow(0 3px 5px #1a1f4a40)}
+.route-rail .rail-truck.rail-mini{width:40px;margin-left:-20px;transform:translate(-13px,-50%) rotate(-90deg);filter:drop-shadow(-2px 2px 3px #1a1f4a40)}
+.rail-mini.moving img{animation:truck-ride .32s ease-in-out infinite}
+@keyframes truck-ride{0%,100%{transform:none}50%{transform:translateY(-1px)}}
+@media(prefers-reduced-motion:reduce){.rail-mini.moving img{animation:none}}
 .rail-mini img{display:block;width:40px;height:auto}
 .truck-stage{position:relative;overflow:hidden;padding-bottom:6px}
 .truck-mascot{display:block;width:min(440px,100%);height:auto;filter:drop-shadow(0 18px 22px #0a0d2a40)}
