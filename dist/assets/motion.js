@@ -32,7 +32,7 @@ if(!reduce&&fine){document.querySelectorAll('.btn-cta').forEach(b=>{b.addEventLi
 /* 4. La route CODEM : un camion descend la page et arrive au devis */
 if(!isForm){
  const rail=document.createElement('div');rail.className='route-rail';
- rail.innerHTML=`<span class="rail-a" aria-hidden="true">A</span><span class="rail-line" aria-hidden="true"><span class="rail-fill"></span></span><span class="rail-truck rail-face" aria-hidden="true"><img src="/assets/camion-face.webp" width="120" height="104" alt=""></span><a class="rail-b" href="${quoteUrl}" aria-label="${tr('Demander un devis','Get a quote')}">B<span>${tr('Devis','Quote')}</span></a>`;
+ rail.innerHTML=`<span class="rail-a" aria-hidden="true">A</span><span class="rail-line" aria-hidden="true"><span class="rail-fill"></span></span><span class="rail-truck rail-mini" aria-hidden="true"><img src="/assets/camion-mini.webp" width="96" height="69" alt=""></span><a class="rail-b" href="${quoteUrl}" aria-label="${tr('Demander un devis','Get a quote')}">B<span>${tr('Devis','Quote')}</span></a>`;
  const top=document.createElement('div');top.className='route-top';top.setAttribute('aria-hidden','true');top.innerHTML='<span class="rt-fill"></span>';
  body.append(rail,top);
  const line=rail.querySelector('.rail-line'),fill=rail.querySelector('.rail-fill'),truck=rail.querySelector('.rail-truck');
