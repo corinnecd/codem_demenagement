@@ -857,3 +857,5 @@ html[lang=en] .pc-card.pc-pick:after{content:'✓ Recommended for you'}
 @media(min-width:1251px) and (max-width:1380px){.desktop-nav a{padding:11px 11px}.desktop-nav a:after{left:11px!important;right:11px!important}}
 @media(min-width:1181px) and (max-width:1300px){.desktop-nav a{padding:11px 8px}.desktop-nav a:after{left:8px!important;right:8px!important}}
 @media(min-width:1001px) and (max-width:1030px),(min-width:1181px) and (max-width:1225px){.desktop-nav a{padding:11px 6px}.desktop-nav a:after{left:6px!important;right:6px!important}}
+.ck-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+@media(max-width:640px){.ck-actions .btn{width:100%}}
