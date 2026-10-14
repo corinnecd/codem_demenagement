@@ -868,3 +868,5 @@ html[lang=en] .pc-card.pc-pick:after{content:'✓ Recommended for you'}
 .vc-room[open] summary .vc-room-total{color:var(--navy,#22264f)}
 .vc-room[open] .vc-row{border-color:#d3e9c4}
 .vc-room summary:hover{background:#f1f7ec}.vc-room[open] summary:hover{background:var(--green,#65bb3b)}
+/* Même largeur de bouton en FR et en EN : le menu ne bouge plus au changement de langue */
+@media(min-width:901px){.header-actions>.btn-cta{min-width:var(--cta-w,197px);justify-content:center;box-sizing:border-box}}
