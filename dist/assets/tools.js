@@ -78,7 +78,7 @@ if(ck){const boxes=[...ck.querySelectorAll('[data-ck]')],bar=ck.querySelector('.
  let saved=[];try{saved=JSON.parse(localStorage.getItem(K)||'[]');}catch{}
  boxes.forEach(b=>{b.checked=saved.includes(+b.dataset.ck);});
  const upd=()=>{const on=boxes.filter(b=>b.checked);cnt.textContent=on.length;bar.style.width=`${on.length/boxes.length*100}%`;try{localStorage.setItem(K,JSON.stringify(on.map(b=>+b.dataset.ck)));}catch{}};
- ck.addEventListener('change',upd);upd();ck.querySelector('[data-ck-print]').addEventListener('click',()=>print());}
+ ck.addEventListener('change',upd);upd();ck.querySelector('[data-ck-print]')?.addEventListener('click',()=>print());}
 
 /* Contact : ouvert maintenant ? (heure de Paris) */
 const ob2=document.querySelector('[data-open]');

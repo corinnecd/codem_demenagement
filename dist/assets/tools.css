@@ -859,3 +859,5 @@ html[lang=en] .pc-card.pc-pick:after{content:'✓ Recommended for you'}
 @media(min-width:1001px) and (max-width:1030px),(min-width:1181px) and (max-width:1225px){.desktop-nav a{padding:11px 6px}.desktop-nav a:after{left:6px!important;right:6px!important}}
 .ck-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
 @media(max-width:640px){.ck-actions .btn{width:100%}}
+/* La checklist complète s'obtient contre e-mail : pas d'impression de la version écran */
+@media print{.checklist .ck-grid,.checklist .ck-progress{display:none!important}.checklist .section-heading:after{content:"La checklist complète vous est offerte en PDF sur la page Conseils de CODEM.";display:block;font-size:12pt;margin-top:8pt}html[lang=en] .checklist .section-heading:after{content:"The full checklist is offered as a PDF on the CODEM advice page."}}
