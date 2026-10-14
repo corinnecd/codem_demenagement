@@ -870,3 +870,12 @@ html[lang=en] .pc-card.pc-pick:after{content:'✓ Recommended for you'}
 .vc-room summary:hover{background:#f1f7ec}.vc-room[open] summary:hover{background:var(--green,#65bb3b)}
 /* Même largeur de bouton en FR et en EN : le menu ne bouge plus au changement de langue */
 @media(min-width:901px){.header-actions>.btn-cta{min-width:var(--cta-w,197px);justify-content:center;box-sizing:border-box}}
+/* Changement de page sans flash blanc : l'ancienne page reste affichée jusqu'à ce que la nouvelle soit prête, puis bascule instantanée (aucun fondu, donc pas d'image fantôme sur les vidéos) */
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation:none}
+::view-transition-group(root){animation-duration:0s}
+html{background:var(--paper,#fafaf7)}
+/* Rubriques du menu dans des colonnes de même largeur : leurs positions ne bougent plus quand les mots changent (FR / EN) */
+/* Chaque rubrique réserve la largeur du mot le plus long (FR ou EN) : rien ne bouge au changement de langue */
+.desktop-nav a{display:inline-grid;justify-items:center}.desktop-nav a .nv,.desktop-nav a .nv-alt{grid-area:1/1}.desktop-nav a .nv-alt{visibility:hidden;pointer-events:none}
+.mobile-menu .nv-alt{display:none}
