@@ -850,3 +850,5 @@ html[lang=en] .pc-card.pc-pick:after{content:'✓ Recommended for you'}
 @media(min-width:1001px){.desktop-nav>a:first-child{display:block}}
 @media(min-width:1101px){.desktop-nav{gap:2px}.desktop-nav a{padding:8px 10px;font-size:.8rem}.desktop-nav a:after{left:10px!important;right:10px!important}}
 @media(min-width:1101px) and (max-width:1250px){.desktop-nav a{padding:8px 5px;font-size:.76rem}.desktop-nav a:after{left:5px!important;right:5px!important}}
+/* Menu centré dans l'espace entre le logo et le téléphone */
+@media(min-width:1001px){.header-inner .desktop-nav{flex:1 1 auto;margin:0 8px;justify-content:space-evenly;gap:0;min-width:0}.header-inner .header-actions{margin-left:0}}
