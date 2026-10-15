@@ -101,7 +101,7 @@ def labels():
  for k,v in TRAJETS.items():l['t-'+k]=('Déménagement Paris – '+v['nom'][0],'Moving Paris – '+v['nom'][1])
  return l
 
-def _crumb(k):return f'<div class="wrap breadcrumbs">{link("home")} &nbsp; / &nbsp; {link("zones")} &nbsp; / &nbsp; {label(k)}</div>'
+def _crumb(k):return ''  # fil d'Ariane unique : barre du haut
 def _cta(depart='',arrivee='',pays=''):
  from urllib.parse import urlencode
  q=urlencode({k:v for k,v in (('depart',depart),('arrivee',arrivee),('pays',pays)) if v})

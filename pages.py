@@ -10,7 +10,7 @@ from v1content import FORMULES as FNAMES
 # Laisser vide tant que CODEM n'a pas fourni de destination : aucune donnée n'est alors transmise.
 FORM_ENDPOINT='https://hzeohzbdckhehbkjxxws.supabase.co/rest/v1/demandes'
 
-def crumb(key):return f'<div class="wrap breadcrumbs">{link("home")} &nbsp; / &nbsp; {label(key)}</div>'
+def crumb(key):return ''  # le fil d'Ariane unique est rendu dans la barre du haut (build.breadcrumb)
 def field(name,fr,en,kind='text',required=False,options=None,full=False,value='',attrs='',fid=None):
  lab=t(fr,en);fid=fid or name;rid=f'{fid}-error';req=' required' if required else '';common=f'id="{fid}" name="{name}" aria-describedby="{rid}"{req} {attrs}'.rstrip()
  if options:control=f'<select {common}>'+''.join(f'<option value="{v}"{" selected" if v==value else ""}>{t(a,c)}</option>' for v,a,c in options)+'</select>'

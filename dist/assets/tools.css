@@ -894,3 +894,22 @@ html{background:var(--paper,#fafaf7)}
 .breadcrumb a{color:var(--navy,#22264f);text-decoration:none}
 .breadcrumb a:hover{color:#2f7d1e;text-decoration:underline}
 .breadcrumb [aria-current=page]{color:#6b7090}
+
+/* Menu : même largeur de pastille pour toutes les rubriques (le survol garde la même taille) */
+@media(min-width:1001px){
+ .header-inner .desktop-nav{--nav-w:clamp(96px,7.2vw,122px)}
+ .header-inner .desktop-nav>a{display:inline-flex;align-items:center;justify-content:center;text-align:center;box-sizing:border-box;flex:0 0 var(--nav-w);width:var(--nav-w);min-width:0;padding-left:4px;padding-right:4px}
+}
+/* Libellés centrés dans une pastille de largeur fixe ; le libellé caché (autre langue) ne compte plus dans la mise en page */
+@media(min-width:1001px){
+ .header-inner .desktop-nav{--nav-w:clamp(100px,7.6vw,118px)}
+ .header-inner .desktop-nav>a{position:relative;padding-left:2px;padding-right:2px}
+ .header-inner .desktop-nav>a .nv-alt{position:absolute;visibility:hidden;left:0;top:0}
+ .header-inner .desktop-nav>a .nv{display:block;white-space:nowrap;text-align:center}
+}
+@media(min-width:1001px) and (max-width:1240px){
+ .header-inner .desktop-nav{--nav-w:100px}
+ .header-inner .desktop-nav>a .nv{font-size:.74rem}
+}
+/* Écrans moyens : « Accueil » est déjà le logo, on le retire du menu pour laisser la place */
+@media(min-width:1001px) and (max-width:1240px){.header-inner .desktop-nav>a:first-child{display:none}}
