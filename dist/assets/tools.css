@@ -935,7 +935,7 @@ html{background:var(--paper,#fafaf7)}
 
  /* 4. Zones tactiles plus confortables */
  .lang a{padding:7px 9px}
- .footer-grid a{display:inline-block;padding:6px 0}
+ .footer-grid a:not(.btn){display:block;padding:6px 0}
  .footer-grid p{margin:8px 0}
 
  /* 5. Le sur-titre ne se coupe plus au milieu d'un mot */
