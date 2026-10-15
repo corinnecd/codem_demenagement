@@ -959,3 +959,23 @@ html{background:var(--paper,#fafaf7)}
  /* titres de section un peu plus compacts : moins de lignes, lecture plus rapide */
  main .section h2,main .acts h2,main .interieurs h2,main .hscroll h2{font-size:clamp(1.9rem,8.2vw,2.5rem);line-height:1.12}
 }
+
+/* ===== Mobile : le calendrier type devient une frise verticale ========== */
+@media(max-width:640px){
+ .tl-band .hs-sticky{padding:34px 0 38px}
+ .tl-band .hs-head{margin-bottom:26px}
+ .tl-band .hs-track{gap:0;padding:0 6%;position:relative;flex-direction:column}
+ .tl-band .tl-card{flex:none;min-height:0;background:none;border-radius:0;margin-left:6px;padding:0 0 26px 28px;position:relative;display:block;border-left:2px solid #ffffff2e}
+ .tl-band .tl-card:last-of-type{padding-bottom:4px;border-left-color:transparent}
+ .tl-band .tl-card:before{content:"";position:absolute;left:-8px;top:4px;width:14px;height:14px;border-radius:50%;background:#5fb03a;box-shadow:0 0 0 4px #22264f}
+ .tl-band .tl-day{display:block;align-self:auto;background:none;color:#8fd96a;padding:0;border-radius:0;font-size:.78rem;letter-spacing:.1em;line-height:1.2;text-transform:uppercase}
+ .tl-band .tl-card h3{font-size:1.22rem;margin:5px 0 4px;line-height:1.25}
+ .tl-band .tl-card p{font-size:.92rem;line-height:1.5;color:#c9cde4}
+ .tl-band .hs-end{flex:none;width:auto;max-width:100%;margin:10px 0 0 36px;padding:24px 22px;gap:16px}
+ .tl-band .tl-note{margin-top:16px;margin-bottom:0}
+ .tl-band .hs-sticky{padding-bottom:26px}
+}
+
+/* Le bouton de devis signale qu'on est deja sur la page Devis */
+.header-actions .btn-cta[aria-current=page],.mobile-menu .btn-cta[aria-current=page]{background:#4a9429;box-shadow:inset 0 0 0 2px #ffffff59;cursor:default}
+.header-actions .btn-cta[aria-current=page]:hover,.mobile-menu .btn-cta[aria-current=page]:hover{transform:none;background:#4a9429}
