@@ -90,7 +90,7 @@ if(ob2){const parts=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone
  ob2.innerHTML=open?`<span class="dot"></span>${tr('Ouvert maintenant · un conseiller vous répond','Open now · an adviser will answer')}`:`<span class="dot"></span>${tr('Fermé actuellement · demandez un rappel, nous vous recontactons dès l’ouverture','Closed now · request a callback, we’ll call when we open')}`;}
 })();
 /* Le guide CODEM : filtre par thème + sommaire actif */
-(()=>{const h=document.querySelector('.guide-hub');if(h){const chips=[...h.querySelectorAll('[data-gfilter]')],cards=[...h.querySelectorAll('.gcard')],more=h.querySelector('[data-gmore]'),lim=+(h.querySelector('.ggrid').dataset.limit||0);let open=false,f='all';const fr=document.documentElement.lang!=='en',lab0=more?more.textContent:'';
+(()=>{const h=document.querySelector('.guide-hub');if(h){const chips=[...h.querySelectorAll('[data-gfilter]')],cards=[...h.querySelectorAll('.gcard')],more=h.querySelector('[data-gmore]'),lim=(matchMedia('(max-width:640px)').matches?4:+(h.querySelector('.ggrid').dataset.limit||0));let open=false,f='all';const fr=document.documentElement.lang!=='en',lab0=more?more.textContent:'';
  const apply=()=>{let n=0;cards.forEach(k=>{const ok=f==='all'||k.dataset.theme===f;const show=ok&&(open||f!=='all'||!lim||n<lim);if(ok)n++;k.hidden=!show});if(more){more.parentNode.hidden=f!=='all'||!lim||cards.length<=lim;more.textContent=open?(fr?'Voir moins':'Show less'):lab0;more.setAttribute('aria-expanded',String(open))}};
  chips.forEach(c=>c.addEventListener('click',()=>{f=c.dataset.gfilter;chips.forEach(x=>{x.classList.toggle('on',x===c);x.setAttribute('aria-pressed',String(x===c))});apply()}));
  if(more)more.addEventListener('click',()=>{open=!open;apply();if(open){cards[lim]&&cards[lim].focus()}else{const y=h.getBoundingClientRect().top;if(y<0)scrollBy({top:y-90,behavior:'smooth'})}});apply();}
@@ -130,3 +130,71 @@ if(ob2){const parts=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone
 (()=>{const rooms=[...document.querySelectorAll('.vc-room')];rooms.forEach(r=>r.addEventListener('toggle',()=>{if(r.open)rooms.forEach(o=>{if(o!==r)o.open=false})}))})();
 /* Arrivée sur le formulaire de rappel : mise en avant et curseur dans le champ Prénom */
 (()=>{const go=()=>{if(location.hash!=='#callback-form')return;const f=document.getElementById('callback-form');if(!f)return;f.classList.add('hl');setTimeout(()=>f.classList.remove('hl'),2200);const i=f.querySelector('input:not([type=hidden]):not([name=website])');if(i)setTimeout(()=>i.focus({preventScroll:true}),350)};go();addEventListener('hashchange',go)})();
+
+/* Mobile : les listes longues montrent l'essentiel, le reste derriere un bouton */
+(()=>{if(!matchMedia('(max-width:640px)').matches)return;
+ const fr=document.documentElement.lang!=='en';
+ const fold=(boxSel,itemSel,keep,fr1,en1)=>{
+  document.querySelectorAll(boxSel).forEach(box=>{
+   const items=[...box.querySelectorAll(itemSel)];
+   if(items.length<=keep+1)return;
+   const hidden=items.slice(keep);
+   hidden.forEach(el=>el.classList.add('m-fold'));
+   const btn=document.createElement('button');
+   btn.type='button';btn.className='m-more';btn.setAttribute('aria-expanded','false');
+   const lab=()=>(fr?fr1:en1).replace('{n}',hidden.length);
+   btn.textContent=lab();
+   btn.addEventListener('click',()=>{
+    const open=!box.classList.contains('m-open');
+    box.classList.toggle('m-open',open);
+    hidden.forEach(el=>el.classList.toggle('m-fold',!open));
+    btn.setAttribute('aria-expanded',String(open));
+    btn.textContent=open?(fr?'Voir moins':'Show less'):lab();
+    if(!open){const y=box.getBoundingClientRect().top;if(y<0)scrollBy({top:y-90,behavior:'smooth'})}
+   });
+   box.after(btn);
+  });
+ };
+ fold('.qgrid','.qcard',4,'Voir les {n} autres questions','See the other {n} questions');
+ fold('.acts','.act',2,'Voir les {n} actes suivants','See the {n} next acts');
+})();
+
+/* Mobile : les sections les plus longues s'ouvrent au clic ; la coupe tombe toujours entre deux blocs */
+(()=>{if(!matchMedia('(max-width:640px)').matches)return;
+ const fr=document.documentElement.lang!=='en';
+ const bg=el=>{let n=el;while(n&&n!==document.body){const c=getComputedStyle(n).backgroundColor;if(c&&c!=='rgba(0, 0, 0, 0)'&&c!=='transparent')return c;n=n.parentElement}return '#ffffff'};
+ const SKIP=/hero|quickstart|page-intro|page-title|back-bar|cta|guide-band|trust/;
+ const main=document.querySelector('main'); if(!main)return;
+ const cands=[...main.children].filter(el=>{
+  const cls=typeof el.className==='string'?el.className:'';
+  if(SKIP.test(cls))return false;
+  if(el.querySelector('form'))return false;
+  return el.getBoundingClientRect().height>900;
+ }).sort((a,b)=>b.getBoundingClientRect().height-a.getBoundingClientRect().height).slice(0,4);
+ cands.forEach(sec=>{
+  let host=sec.querySelector('.wrap')||sec;
+  while(host.children.length===1&&host.firstElementChild.children.length>1)host=host.firstElementChild;
+  const kids=[...host.children];
+  if(kids.length<2)return;
+  const top=host.getBoundingClientRect().top, total=host.getBoundingClientRect().height;
+  const TARGET=560;
+  let cut=0;
+  for(const el of kids){const bottom=el.getBoundingClientRect().bottom-top;if(bottom<=TARGET)cut=bottom;else break;}
+  if(!cut)cut=kids[0].getBoundingClientRect().bottom-top;
+  if(total-cut<420)return;
+  host.style.setProperty('--m-max',Math.round(cut+10)+'px');
+  host.style.setProperty('--m-fade',bg(sec));
+  host.classList.add('m-clamp');
+  const btn=document.createElement('button');
+  btn.type='button';btn.className='m-more';btn.setAttribute('aria-expanded','false');
+  btn.textContent=fr?'Voir la suite':'Read more';
+  btn.addEventListener('click',()=>{
+   const open=!host.classList.contains('m-open');
+   host.classList.toggle('m-open',open);
+   btn.setAttribute('aria-expanded',String(open));
+   btn.textContent=open?(fr?'Replier':'Show less'):(fr?'Voir la suite':'Read more');
+   if(!open){const y=sec.getBoundingClientRect().top;if(y<0)scrollBy({top:y-90,behavior:'smooth'})}
+  });
+  host.after(btn);
+ });
+})();

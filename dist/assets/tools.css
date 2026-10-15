@@ -913,3 +913,49 @@ html{background:var(--paper,#fafaf7)}
 }
 /* Écrans moyens : « Accueil » est déjà le logo, on le retire du menu pour laisser la place */
 @media(min-width:1001px) and (max-width:1240px){.header-inner .desktop-nav>a:first-child{display:none}}
+
+/* Mobile : le bouton WhatsApp doit rester au-dessus de la barre d'actions, y compris sur les pages de formulaire */
+@media(max-width:640px){.form-page .wa-float{bottom:84px;right:12px;padding:12px}}
+
+/* ===== Mobile : aller a l'essentiel ===================================== */
+@media(max-width:640px){
+ /* 1. Respiration resserree : moins de defilement entre deux idees */
+ main > .section,main > .acts,main > .cta,main > .interieurs,main > .guide-band,main > .hscroll{padding-top:40px;padding-bottom:40px}
+ main > .quickstart{padding-top:0;padding-bottom:44px}
+ .section-heading{margin-bottom:18px}
+ .section-heading h2,.acts h2,.cta h2{margin-bottom:10px}
+
+ /* 2. Visuels moins hauts : l'image illustre, elle n'occupe plus un ecran */
+ .svc-ph img,.act-photo img,.hs-card img,.flip-front img,.qfeature-img img{max-height:260px;object-fit:cover}
+ main .split .image-wrap img,.prot .image-wrap img,.zone-visual .image-wrap img{max-height:250px;object-fit:cover}
+
+ /* 3. Haut de page : un seul appel a l'action, la barre du bas porte le reste */
+ .hero .hero-content .actions .text-link,.hero .hero-content .actions .hero-phone{display:none}
+ .hero .hero-content .actions{justify-content:center}
+
+ /* 4. Zones tactiles plus confortables */
+ .lang a{padding:7px 9px}
+ .footer-grid a{display:inline-block;padding:6px 0}
+ .footer-grid p{margin:8px 0}
+
+ /* 5. Le sur-titre ne se coupe plus au milieu d'un mot */
+ .eyebrow .eb-link{white-space:nowrap}
+
+ /* 6. Listes repliees : bouton de deploiement */
+ .m-fold{display:none!important}
+ .m-more{display:block;width:100%;margin:14px auto 0;padding:13px 18px;border:1px solid var(--line,#dcdedb);border-radius:40px;background:white;color:var(--ink,#242540);font-family:inherit;font-size:.9rem;font-weight:700;cursor:pointer}
+ .m-more:hover{border-color:var(--green,#65bb3b)}
+}
+@media(max-width:640px){
+ /* la regle de l'accueil est plus specifique : on la couvre ici */
+ .home-page main>.section,.home-page main>.cta,.inner-page main>.section{padding-top:40px;padding-bottom:40px}
+ /* sections longues : on montre le debut, le reste au clic */
+ .m-clamp{max-height:var(--m-max,460px);overflow:hidden;position:relative}
+ .m-clamp:after{content:"";position:absolute;left:0;right:0;bottom:0;height:90px;background:linear-gradient(to bottom,transparent,var(--m-fade,#fff));pointer-events:none}
+ .m-open.m-clamp{max-height:none}
+ .m-open.m-clamp:after{display:none}
+}
+@media(max-width:640px){
+ /* titres de section un peu plus compacts : moins de lignes, lecture plus rapide */
+ main .section h2,main .acts h2,main .interieurs h2,main .hscroll h2{font-size:clamp(1.9rem,8.2vw,2.5rem);line-height:1.12}
+}
