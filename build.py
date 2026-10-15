@@ -65,11 +65,33 @@ def V(f):
  """Version d'un fichier CSS/JS (empreinte du contenu) : force le navigateur à recharger après chaque mise à jour."""
  import hashlib;p=OUT/'assets'/f
  return hashlib.md5(p.read_bytes()).hexdigest()[:8] if p.exists() else '1'
+# Fil d'Ariane : page parente de chaque page (les articles du guide dépendent de Conseils)
+CRUMB_SERVICES=('stockage','monte','piano','cartons','europe')
+CRUMB_ZONES=('v-','t-')
+def CRUMB_PARENT(key):
+ k=str(key)
+ if k=='home':return None
+ if k.startswith('g-'):return 'conseils'
+ if k.startswith(CRUMB_ZONES):return 'zones'
+ if k in CRUMB_SERVICES:return 'particuliers'
+ return 'home'
+def breadcrumb(key):
+ if key=='home':return ''
+ trail=[]
+ p=CRUMB_PARENT(key)
+ if p and p!='home':
+  chain=[]
+  while p and p!='home':
+   chain.insert(0,p);p=CRUMB_PARENT(p)
+  trail=chain
+ items=[('home',label('home'))]+[(c,label(c)) for c in trail]
+ li=''.join(f'<li><a href="{url(k)}">{txt}</a></li>' for k,txt in items)
+ return f'<nav class="breadcrumb" aria-label="{t("Fil d’Ariane","Breadcrumb")}"><ol>{li}<li aria-current="page">{label(key)}</li></ol></nav>'
 def backbar(key):
  """Bouton « Retour » sur toutes les pages sauf l'accueil : revient à la page précédente du site (sinon à la page parente)."""
  if key=='home':return ''
- parent='conseils' if str(key).startswith('g-') else 'home'
- return f'<div class="wrap back-bar"><a class="back-link" href="{url(parent)}" data-back aria-label="{t("Revenir à la page précédente","Go back to the previous page")}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>{t("Retour","Back")}</a></div>'
+ parent=CRUMB_PARENT(key)
+ return f'<div class="wrap back-bar"><a class="back-link" href="{url(parent)}" data-back aria-label="{t("Revenir à la page précédente","Go back to the previous page")}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>{t("Retour","Back")}</a>{breadcrumb(key)}</div>'
 def shell(key,body,desc=None,head=''):
  import re as _re
  _m=_re.search(r'class="poster video-poster" src="(/assets/[^"]+-poster\.webp)"',body)

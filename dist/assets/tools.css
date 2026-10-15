@@ -882,3 +882,15 @@ html{background:var(--paper,#fafaf7)}
 /* Ancre « Être rappelé » : le formulaire arrive sous le menu, bien visible */
 #callback-form{scroll-margin-top:130px}
 #callback-form.hl{box-shadow:0 0 0 3px var(--green,#65bb3b),0 18px 40px -24px #22264f66;transition:box-shadow .4s}
+
+/* Page active du menu : fond vert, comme au survol */
+@media(min-width:901px){.desktop-nav a[aria-current=page]{background:var(--green,#65bb3b);color:var(--navy,#22264f)!important}.desktop-nav a[aria-current=page]:after{transform:scaleX(0)!important}}
+
+/* Fil d'Ariane */
+.back-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px}
+.breadcrumb{font-size:.86rem}
+.breadcrumb ol{display:flex;flex-wrap:wrap;align-items:center;gap:4px 0;list-style:none;margin:0;padding:0}
+.breadcrumb li+li:before{content:"›";margin:0 8px;color:#9aa0bd}
+.breadcrumb a{color:var(--navy,#22264f);text-decoration:none}
+.breadcrumb a:hover{color:#2f7d1e;text-decoration:underline}
+.breadcrumb [aria-current=page]{color:#6b7090}
