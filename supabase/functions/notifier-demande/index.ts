@@ -28,7 +28,7 @@ const LABELS: Record<string, string> = {
   volume_mode: "Estimation", taille: "Taille du logement", surface_tranche: "Surface approximative", surface: "Surface", arrivee_inconnue: "Adresse d'arrivée", mode: "Type de demande", mutation: "Mutation professionnelle", echeance: "Déménagement prévu", volume: "Volume estimé",
   annexes: "Annexes", formule: "Formule", prestations: "Prestations", duree_stockage: "Garde-meubles",
   objets: "Objets et informations utiles", fichiers_echec: "Fichiers non reçus", message: "Message",
-  marketing: "Informations commerciales",
+  marketing: "Informations commerciales", complement_de: "Demande express liée",
 };
 
 const VALUES: Record<string, Record<string, string>> = {
@@ -58,6 +58,8 @@ const VALUES: Record<string, Record<string, string>> = {
   formule: { self: "Self", "self-plus": "Self plus", confort: "Confort", "confort-plus": "Confort plus", "grand-confort": "Grand Confort", "a-definir": "À définir avec CODEM" },
   prestations: { emballage: "Emballage", demontage: "Démontage / remontage", fragiles: "Objets fragiles", "monte-meubles": "Monte-meubles", "garde-meubles": "Garde-meubles", cartons: "Cartons" },
   marketing: { oui: "Accepte de les recevoir" },
+  depart_etage: { "1-2": "1er – 2e", "3-5": "3e – 5e", "6+": "6e et plus" },
+  arrivee_etage: { "1-2": "1er – 2e", "3-5": "3e – 5e", "6+": "6e et plus" },
   duree_stockage: { "moins-1-mois": "Moins d'1 mois", "1-3-mois": "1 à 3 mois", "3-12-mois": "3 à 12 mois", "plus-1-an": "Plus d'1 an" },
 };
 
@@ -258,9 +260,9 @@ async function buildPdf(r: any, d: Record<string, unknown>, photos: string[]): P
 
   pair(
     "Vos coordonnées",
-    [["Nom", nom], ...rows(["organisation"]), ["Téléphone", r.telephone ?? ""], ["E-mail", r.email ?? ""], ...rows(["canal", "creneau"])],
+    [["Nom", nom], ...rows(["organisation"]), ["Téléphone", r.telephone ?? ""], ["E-mail", r.email ?? ""], ...rows(["canal", "creneau", "marketing"])],
     "Le projet",
-    rows(["mode", "projet", "mutation", "date", "flexibilite", "urgent", "groupage"]),
+    rows(["complement_de", "mode", "projet", "mutation", "date", "flexibilite", "urgent", "groupage"]),
   );
   section("Contraintes", rows(["contraintes"]));
   pair(
@@ -403,7 +405,7 @@ Deno.serve(async (req) => {
 <p style="margin:0">E-mail : ${mail}</p>
 </div>
 <table style="border-collapse:collapse;font-size:14px">
-${row("Trajet", trajet)}${row("Date souhaitée", dateV)}${show(d, "formule") ? row("Formule", show(d, "formule")) : ""}${show(d, "duree_stockage") ? row("Garde-meubles", show(d, "duree_stockage")) : ""}${show(d, "creneau") ? row("Rappel", show(d, "creneau")) : ""}
+${row("Trajet", trajet)}${row("Date souhaitée", dateV)}${show(d, "formule") ? row("Formule", show(d, "formule")) : ""}${show(d, "duree_stockage") ? row("Garde-meubles", show(d, "duree_stockage")) : ""}${show(d, "creneau") ? row("Rappel", show(d, "creneau")) : ""}${show(d, "complement_de") ? row("Demande express liée", show(d, "complement_de")) : ""}
 </table>
 <p style="margin:18px 0 0">Le dossier complet est joint en PDF${pdfB64 ? "" : " (PDF indisponible : voir la table demandes dans Supabase)"}.</p>
 ${blocPhotos}`);

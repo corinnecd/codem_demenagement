@@ -879,3 +879,6 @@ html{background:var(--paper,#fafaf7)}
 /* Chaque rubrique réserve la largeur du mot le plus long (FR ou EN) : rien ne bouge au changement de langue */
 .desktop-nav a{display:inline-grid;justify-items:center}.desktop-nav a .nv,.desktop-nav a .nv-alt{grid-area:1/1}.desktop-nav a .nv-alt{visibility:hidden;pointer-events:none}
 .mobile-menu .nv-alt{display:none}
+/* Ancre « Être rappelé » : le formulaire arrive sous le menu, bien visible */
+#callback-form{scroll-margin-top:130px}
+#callback-form.hl{box-shadow:0 0 0 3px var(--green,#65bb3b),0 18px 40px -24px #22264f66;transition:box-shadow .4s}
