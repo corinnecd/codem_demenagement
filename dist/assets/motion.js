@@ -123,6 +123,8 @@ document.querySelectorAll('[data-carousel]').forEach(sec=>{
  addEventListener('pointerup',()=>{if(!down)return;down=false;if(moved){track.classList.remove('dragging');go(nearest())}});
  track.addEventListener('click',e=>{if(moved){e.preventDefault();e.stopPropagation();moved=false}},true);
  track.addEventListener('dragstart',e=>e.preventDefault());
+ /* molette de la souris : fait défiler le carrousel ; la page reprend son défilement une fois la fin atteinte */
+ track.addEventListener('wheel',e=>{if(Math.abs(e.deltaY)<=Math.abs(e.deltaX))return;const max=track.scrollWidth-track.clientWidth;if((e.deltaY>0&&track.scrollLeft<max-1)||(e.deltaY<0&&track.scrollLeft>1)){e.preventDefault();track.scrollLeft+=e.deltaY;}},{passive:false});
  let st;track.addEventListener('scroll',()=>{if(down)return;clearTimeout(st);st=setTimeout(()=>{if(expand&&canHover)return;const n=nearest();if(n!==i){mark(n);restart()}},140)},{passive:true});
  new IntersectionObserver((en,o)=>{if(en[0].isIntersecting){started=true;mark(i);restart();o.disconnect()}},{threshold:.3}).observe(sec);
  /* avis : « Lire la suite » quand le texte est coupé */
