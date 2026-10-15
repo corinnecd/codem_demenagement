@@ -3,3 +3,7 @@ __pycache__/
 .env*
 .sites-runtime/
 .DS_Store
+
+# scripts locaux contenant des cles : ne jamais enregistrer
+*.sh
+maj_video.*

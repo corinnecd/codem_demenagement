@@ -43,10 +43,11 @@ def truck(cls=''):
  """Camion mascotte CODEM (décoratif), entre en roulant."""
  return f'<div class="truck-stage {cls}" aria-hidden="true"><img class="truck-mascot" aria-hidden="true" src="/assets/camion-mascotte-500.webp" srcset="/assets/camion-mascotte-500.webp 1x, /assets/camion-mascotte-1000.webp 2x" width="500" height="357" alt="" loading="lazy" decoding="async"><div class="truck-road"></div></div>'
 def video(name,hero=False):
- extra=' src="/assets/'+name+'.mp4"' if hero else ''
+ v='/assets/'+name+'.mp4?v='+V(name+'.mp4')
+ extra=' src="'+v+'"' if hero else ''
  pre='auto' if hero else 'none'
  label=t('Scène animée illustrant les services CODEM','Animated illustration of CODEM moving services')
- return f'<img class="poster video-poster" src="/assets/{name}-poster.webp" alt="" aria-hidden="true" fetchpriority="high" decoding="sync"><video data-video="{name}" data-src="/assets/{name}.mp4"{extra} muted loop playsinline preload="{pre}" aria-label="{label}"></video>'
+ return f'<img class="poster video-poster" src="/assets/{name}-poster.webp" alt="" aria-hidden="true" fetchpriority="high" decoding="sync"><video data-video="{name}" data-src="{v}"{extra} muted loop playsinline preload="{pre}" aria-label="{label}"></video>'
 def toggle():return f'<button class="video-toggle" type="button" data-video-toggle aria-pressed="false">{t("Lire la vidéo","Play video")}</button>'
 def eyebrow(a,b):return '<span class="eyebrow">'+t(a,b)+'</span>'
 def actions():return f'<div class="actions">{link("devis",t("Décrire mon projet","Tell us about your move"),"btn")}{link("contact",t("Parlons-en","Let’s talk"),"text-link")}</div>'
