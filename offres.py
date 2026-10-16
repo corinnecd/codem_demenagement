@@ -12,36 +12,53 @@ FLOCON='<svg class="fx-flake" viewBox="0 0 24 24" aria-hidden="true"><path fill=
 CADEAU='<svg class="fx-gift" viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="13" width="24" height="16" rx="2" fill="#b3122e"/><rect x="2.5" y="9" width="27" height="6" rx="1.5" fill="#d61f3f"/><rect x="14" y="9" width="4" height="20" fill="#f3c969"/><path d="M16 9c-3-5-8-5-8-2s5 2 8 2zm0 0c3-5 8-5 8-2s-5 2-8 2z" fill="none" stroke="#f3c969" stroke-width="2"/></svg>'
 def lien(o):return url('devis')+'?offre='+o['cle']
 def neige(n=14):return '<span class="fx-snow" aria-hidden="true">'+''.join(f'<i style="--x:{(i*37)%100}%;--d:{6+(i*7)%9}s;--s:{.6+((i*13)%10)/10}"></i>' for i in range(n))+'</span>'
+def a_venir():
+ """Offres en cours ou à venir : toutes sont rendues, le navigateur affiche celle du jour."""
+ import datetime;d=datetime.date.today().isoformat()
+ return [o for o in b.OFFRES if o['au']>=d]
+def win(o,html):
+ """Pose la fenêtre de dates sur la première balise ; « data-on » = offre active au moment du build."""
+ if not html:return ''
+ on=' data-on' if o is b.offre_active() else ''
+ i=html.index('>')
+ return html[:i]+f' data-du="{o["du"]}" data-au="{o["au"]}"'+on+html[i:]
+def echelle(o):
+ g=[x for x in b.OFFRES if o.get('groupe') and x.get('groupe')==o['groupe']]
+ if len(g)<2:return ''
+ li=''.join(f'<li class="{"now" if x is o else "past" if x["au"]<o["du"] else "next"}"><strong>−{x["pct"]} %</strong><span>{t(*x["fin_txt"])}</span></li>' for x in g)
+ return f'<ol class="ladder" aria-label="{t("Remise selon la date de réservation","Discount by booking date")}">{li}</ol>'
 def compte(o):return f'<span class="fx-count" data-fin="{o["au"]}">{t(*o["fin_txt"])}</span>'
 
 # ── Bandeau festif sous l'en-tête (pages intérieures) ───────────────
 def bar(key):
- o=b.offre_active()
- if not o or key in ('devis','home'):return ''  # accueil : pastille dans le hero (le header y est flottant)
+ if key in ('devis','home'):return ''  # accueil : pastille dans le hero (le header y est flottant)
+ return ''.join(win(o,_bar(o)) for o in a_venir())
+def _bar(o):
+ if False:return ''  # accueil : pastille dans le hero (le header y est flottant)
  return (f'<a class="offre-bar fx fx-{o.get("theme","")}" href="{lien(o)}">{neige()}'
   f'{CADEAU}<span class="ob-seal">−{o["pct"]}<small>%</small></span>'
   f'<span class="ob-txt"><strong>{t(*o["titre"])}</strong><span class="ob-pitch">{t(*o["pitch"])}</span></span>'
   f'{compte(o)}<span class="ob-cta">{t("J’en profite","Claim it")} <span aria-hidden="true">→</span></span></a>')
 
-def hero_pill():
- o=b.offre_active()
- if not o:return ''
+def hero_pill():return ''.join(win(o,_hero_pill(o)) for o in a_venir())
+def _hero_pill(o):
+ if False:return ''
  return (f'<a class="hero-offre fx fx-{o.get("theme","")}" href="{lien(o)}">{neige(8)}{CADEAU}'
   f'<span class="ho-seal">−{o["pct"]} %</span><span class="ho-txt"><strong>{t(*o["titre"])}</strong>{compte(o)}</span>'
   f'<span class="ho-go" aria-hidden="true">→</span></a>')
 
 # ── Bannière en tête de la page devis : l'offre est visible et transmise ──
-def devis_banner():
- o=b.offre_active()
- if not o:return ''
+def devis_banner():return ''.join(win(o,_devis_banner(o)) for o in a_venir())
+def _devis_banner(o):
+ if False:return ''
  d0,d1=o['demenagement']
  val=f'{t(*o["titre"])} (−{o["pct"]} %)'
- return (f'<div class="wrap"><section class="devis-offre fx fx-{o.get("theme","")}" data-offre-banner data-offre-label="{val}" data-offre-debut="{d0}" data-offre-fin="{d1}" aria-live="polite">{neige(18)}'
+ return (f'<section class="devis-offre wrap fx fx-{o.get("theme","")}" data-offre-banner data-offre-label="{val}" data-offre-debut="{d0}" data-offre-fin="{d1}" data-offre-note="{t(*o["titre"])} : −{o["pct"]} % sur cette date." aria-live="polite">{neige(18)}'
   f'<div class="do-seal"><strong>−{o["pct"]}<small>%</small></strong><span>{t("sur votre devis","off your quote")}</span></div>'
   f'<div class="do-body"><p class="do-kicker">{CADEAU}<span data-offre-etat>{t("Offre activée pour votre demande","Offer applied to your request")}</span></p>'
   f'<h2>{t(*o["titre"])}</h2><p class="do-pitch">{t(*o["pitch"])} {t("La remise est notée sur votre demande : votre conseiller l’applique directement au devis.","The discount is recorded with your request: your adviser applies it directly to the quote.")}</p>'
-  f'<p class="do-date" data-offre-date hidden></p></div>'
-  f'<div class="do-timer">{compte(o)}</div></section></div>')
+  f'{echelle(o)}<p class="do-date" data-offre-date hidden></p></div>'
+  f'<div class="do-timer">{compte(o)}</div></section>')
 
 # ── Bande « Coulisses » pour l'accueil ──────────────────────────────
 FILM=[
@@ -56,10 +73,9 @@ FILM=[
 
 def band():
  """Bande d'appel : programme Coulisses + offre saisonnière si elle est active."""
- o=b.offre_active()
  saison=''
- if o:
-  saison=(f'<a class="cb-saison" href="{lien(o)}"><span class="cbs-tag">−{o["pct"]} %</span>'
+ for o in a_venir():
+  saison+=win(o,f'<a class="cb-saison" href="{lien(o)}"><span class="cbs-tag">−{o["pct"]} %</span>'
    f'<div><p class="cbs-title">{t(*o["titre"])}</p><p>{t(*o["pitch"])} <em>{t(*o["fin_txt"])}.</em></p></div></a>')
  puces=''.join(f'<li><span>{a}</span>{t(fr,en)}</li>' for a,fr,en,_d,_e in FILM[:4])
  return (f'<section class="section band-navy coulisses-band" id="coulisses">'
@@ -76,11 +92,7 @@ def band():
 
 # ── Note contextuelle dans l'étape Calendrier du devis ──────────────
 def saison_note():
- o=b.offre_active()
  attrs=''
- if o:
-  attrs=(f' data-offre-debut="{o["demenagement"][0]}" data-offre-fin="{o["demenagement"][1]}"'
-   f' data-offre="{t(*o["titre"])} : −{o["pct"]} % sur cette date. {t(*o["pitch"])}"')
  creux=t(f"Bonne nouvelle : cette date tombe en semaine, hors haute saison. Une remise de {CREUX_REMISE} % peut s’appliquer — votre conseiller vous le confirme.",
   f"Good news: this date falls midweek, outside the busy season. A {CREUX_REMISE}% discount may apply — your adviser will confirm it.")
  return f'<p class="saison-note" data-saison-note hidden data-creux="{creux}"{attrs}></p>'
@@ -114,17 +126,16 @@ COMMENT=[
 ]
 
 def page():
- o=b.offre_active()
  comment=''.join(f'<li><span class="cm-num">{n}</span><h3>{t(fr,en)}</h3><p>{t(d,e)}</p></li>' for n,fr,en,d,e in COMMENT)
  frise=''.join(f'<li><span class="fl-day">{a}</span><h3>{t(fr,en)}</h3><p>{t(d,e)}</p></li>' for a,fr,en,d,e in FILM)
  jamais=''.join(f'<li>{t(fr,en)}</li>' for fr,en in JAMAIS)
  droits=''.join(f'<div><h3>{t(fr,en)}</h3><p>{t(d,e)}</p></div>' for fr,en,d,e in DROITS)
  saison=''
- if o:
-  saison=(f'<section class="section band-sand"><div class="wrap offre-saison"><span class="os-tag">−{o["pct"]} %</span>'
+ for o in a_venir():
+  saison+=win(o,f'<section class="section band-sand"><div class="wrap offre-saison"><span class="os-tag">−{o["pct"]} %</span>'
    f'<div>{eyebrow("Offre en cours","Current offer")}<h2>{t(*o["titre"])}</h2>'
    f'<p class="lead">{t(*o["pitch"])}</p><p>{t(*o["detail"])}</p>'
-   f'<p class="os-end">{t(*o["fin_txt"])}</p>'
+   f'{echelle(o)}<p class="os-end">{t(*o["fin_txt"])}</p>'
    f'<div class="actions"><a class="btn btn-cta" href="{lien(o)}">{t("J’en profite","Claim the offer")}</a></div></div></div></section>')
  return (f'<section class="section band-ivory coulisses-hero" style="padding-top:28px"><div class="wrap ch-grid"><div>'
   f'{eyebrow("Programme Coulisses","Behind-the-scenes programme")}'

@@ -24,12 +24,25 @@ REMISE_MAX=15         # plafond de cumul des remises
 # « du »/« au » = fenêtre de réservation (le bandeau s'affiche alors).
 # « demenagement » = fenêtre de dates de déménagement concernées.
 OFFRES=[
- {'cle':'fetes','theme':'noel','du':'2026-10-16','au':'2026-12-31','pct':10,
+# Offre de fin d'année dégressive : plus on réserve tôt, plus la remise est forte.
+ {'cle':'fetes-15','groupe':'fetes','theme':'noel','du':'2026-10-16','au':'2026-11-15','pct':15,
+  'demenagement':('2027-01-05','2027-02-28'),
+  'fin_txt':('jusqu’au 15 novembre','until 15 November'),
+  'titre':('Offre fêtes de fin d’année','End-of-year offer'),
+  'pitch':('Réservez maintenant votre déménagement de janvier ou février : −15 %, la meilleure remise de la saison. Dès le 16 novembre, elle passe à −10 %.','Book your January or February move now: 15% off, the best discount of the season. From 16 November it drops to 10%.'),
+  'detail':('Janvier et février sont nos semaines les plus calmes : vos dates sont plus souples, nos équipes plus disponibles, et la remise s’applique directement sur le devis. Plus vous réservez tôt, plus la remise est forte.','January and February are our quietest weeks: your dates are more flexible, our crews more available, and the discount applies directly to your quote. The earlier you book, the bigger the discount.')},
+ {'cle':'fetes-10','groupe':'fetes','theme':'noel','du':'2026-11-16','au':'2026-12-15','pct':10,
+  'demenagement':('2027-01-05','2027-02-28'),
+  'fin_txt':('jusqu’au 15 décembre','until 15 December'),
+  'titre':('Offre fêtes de fin d’année','End-of-year offer'),
+  'pitch':('Réservez avant le 15 décembre votre déménagement de janvier ou février. Ensuite, la remise passe à −5 %.','Book before 15 December for a January or February move. After that, the discount drops to 5%.'),
+  'detail':('Janvier et février sont nos semaines les plus calmes : vos dates sont plus souples, nos équipes plus disponibles, et la remise s’applique directement sur le devis. Plus vous réservez tôt, plus la remise est forte.','January and February are our quietest weeks: your dates are more flexible, our crews more available, and the discount applies directly to your quote. The earlier you book, the bigger the discount.')},
+ {'cle':'fetes-5','groupe':'fetes','theme':'noel','du':'2026-12-16','au':'2026-12-31','pct':5,
   'demenagement':('2027-01-05','2027-02-28'),
   'fin_txt':('jusqu’au 31 décembre','until 31 December'),
   'titre':('Offre fêtes de fin d’année','End-of-year offer'),
-  'pitch':('Réservez avant le 31 décembre votre déménagement de janvier ou février.','Book before 31 December for a January or February move.'),
-  'detail':('Janvier et février sont nos semaines les plus calmes : vos dates sont plus souples, nos équipes plus disponibles, et la remise s’applique directement sur le devis.','January and February are our quietest weeks: your dates are more flexible, our crews more available, and the discount applies directly to your quote.')},
+  'pitch':('Dernière chance : réservez avant le 31 décembre votre déménagement de janvier ou février.','Last chance: book before 31 December for a January or February move.'),
+  'detail':('Janvier et février sont nos semaines les plus calmes : vos dates sont plus souples, nos équipes plus disponibles, et la remise s’applique directement sur le devis. Plus vous réservez tôt, plus la remise est forte.','January and February are our quietest weeks: your dates are more flexible, our crews more available, and the discount applies directly to your quote. The earlier you book, the bigger the discount.')},
  {'cle':'hiver','theme':'hiver','du':'2027-01-05','au':'2027-03-01','pct':10,
   'demenagement':('2027-01-05','2027-03-15'),
   'fin_txt':('jusqu’au 1er mars','until 1 March'),

@@ -1,3 +1,4 @@
+/* Offres : affiche celle du jour (le site est statique, la date est lue dans le navigateur). */(()=>{const d=new Date(),j=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');document.querySelectorAll('[data-du]').forEach(e=>e.toggleAttribute('data-on',j>=e.dataset.du&&j<=e.dataset.au));})();
 /* Offre : mémorise l'arrivée par un lien promotionnel avant que l'URL soit nettoyée. */try{if(new URLSearchParams(location.search).has('offre'))sessionStorage.setItem('codem-offre','1');}catch{}
 'use strict';
 const en=document.documentElement.lang==='en';
@@ -169,7 +170,7 @@ document.querySelectorAll('.qsection').forEach(sec=>{
 })();
 
 /* Devis : note contextuelle de saisonnalité sur la date souhaitée. */
-(()=>{const n=document.querySelector('[data-saison-note]'),d=document.querySelector('#quote-form [name="date"]');
+(()=>{const n=document.querySelector('[data-saison-note]'),d=document.querySelector('#quote-form [name="date"]'),ob=document.querySelector('[data-offre-banner][data-on]');if(n&&ob){n.dataset.offre=ob.dataset.offreNote;n.dataset.offreDebut=ob.dataset.offreDebut;n.dataset.offreFin=ob.dataset.offreFin;}
  if(!n||!d)return;
  const upd=()=>{const v=d.value;let txt='';
   if(v){const w=new Date(v+'T12:00:00').getDay(),m=+v.slice(5,7);
@@ -181,8 +182,8 @@ document.querySelectorAll('.qsection').forEach(sec=>{
 /* Offres : compte à rebours + offre transmise avec la demande de devis. */
 (()=>{const fr=document.documentElement.lang!=='en';
  document.querySelectorAll('[data-fin]').forEach(el=>{const j=Math.ceil((new Date(el.dataset.fin+'T23:59:59')-new Date())/864e5);
-  if(j>=0)el.textContent=j<=1?(fr?'Dernier jour !':'Last day!'):(fr?`Plus que ${j} jours`:`${j} days left`);});
- const ban=document.querySelector('[data-offre-banner]');if(!ban)return;
+  if(j>=0&&j<=10)el.textContent=j<=1?(fr?'Dernier jour !':'Last day!'):(fr?`Plus que ${j} jours`:`${j} days left`);});
+ const ban=document.querySelector('[data-offre-banner][data-on]');if(!ban)return;
  const label=ban.dataset.offreLabel,d0=ban.dataset.offreDebut,d1=ban.dataset.offreFin,dateOut=ban.querySelector('[data-offre-date]');
  let source=false;try{source=sessionStorage.getItem('codem-offre')==='1';}catch{}
  const viaLien=source;
