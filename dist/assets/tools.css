@@ -1167,3 +1167,10 @@ html{background:var(--paper,#fafaf7)}
 .offre-saison .ladder li{border-color:#22264f26;background:#fff;color:var(--navy)}
 .offre-saison .ladder li.now{background:var(--green);color:#14163f;border-color:var(--green)}
 @media(max-width:640px){.ladder{justify-content:flex-start;gap:6px}.ladder li{min-width:0;flex:1;padding:6px 6px}.ladder strong{font-size:.92rem}.ladder span{font-size:.6rem;text-align:center}}
+/* Bannière devis : centrée sur la largeur du contenu ; encart de droite sur fond rouge */
+section.devis-offre.wrap{margin:18px auto 6px;box-sizing:border-box}
+.do-timer{background:linear-gradient(135deg,#d61f3f,#9d1230);border:2px solid var(--gold,#f3c969);box-shadow:0 8px 22px #0005;padding:16px 22px}
+.do-timer .fx-count{color:#fff;font-size:1.1rem}
+/* Encart de droite : même jaune doré que le palier actif */
+.do-timer{background:var(--gold,#f3c969);border:2px solid var(--gold,#f3c969);box-shadow:0 8px 22px #0005}
+.do-timer .fx-count{color:#5a0b1a}
