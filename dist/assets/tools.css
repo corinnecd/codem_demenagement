@@ -1198,3 +1198,13 @@ section.devis-offre.wrap{margin:18px auto 6px;box-sizing:border-box}
 .offre-check{background:linear-gradient(180deg,#fdf4e1,#fffaf0)!important;border-color:#f3c969!important;border-left:4px solid var(--promo-red)!important}
 .saison-note{background:#fdf4e1!important;border-color:#f3c969!important;color:var(--promo-ink)!important}
 .saison-note:before{color:var(--promo-red)!important}
+/* Hero allégé : avis sous le formulaire express (ordinateur), lien aligné sous la promesse */
+@media(min-width:901px){.hero-rating.hr-mob{display:none}}
+.hf-rating{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid #22264f14;font-size:.86rem;color:var(--navy,#22264f)}
+.hf-rating .hr-stars{color:#e8a317;letter-spacing:1px}.hf-rating span:last-child{color:#4f5367}
+.hf-rating:hover strong{text-decoration:underline}
+.hero-discover{display:inline-block;margin-top:14px;font-size:.86rem;color:#fff;opacity:.85;border-bottom:1px solid #ffffff66;padding-bottom:3px}
+.hero-discover:hover{opacity:1}
+/* Titres du hero : l'ancien disparaît avant que le nouveau n'apparaisse (plus de superposition) */
+.ht{transition:opacity .45s ease,transform .55s cubic-bezier(.2,.7,.2,1),filter .45s ease}
+.ht.on{transition-delay:.45s}
