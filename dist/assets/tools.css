@@ -1208,3 +1208,7 @@ section.devis-offre.wrap{margin:18px auto 6px;box-sizing:border-box}
 /* Titres du hero : l'ancien disparaît avant que le nouveau n'apparaisse (plus de superposition) */
 .ht{transition:opacity .45s ease,transform .55s cubic-bezier(.2,.7,.2,1),filter .45s ease}
 .ht.on{transition-delay:.45s}
+/* « Découvrez… » sous les avis du formulaire (ordinateur) ; espace sous l'offre */
+.hf-discover{display:block;text-align:center;margin-top:10px;font-size:.82rem;color:var(--navy,#22264f);opacity:.75}
+.hf-discover:hover{opacity:1;text-decoration:underline}
+@media(min-width:901px){.hero-discover{display:none}.hero-offre.fx{margin-bottom:34px}}
