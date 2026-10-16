@@ -30,6 +30,7 @@ const LABELS: Record<string, string> = {
   objets: "Objets et informations utiles", fichiers_echec: "Fichiers non reçus", message: "Message",
   marketing: "Informations commerciales", complement_de: "Demande express liée",
   coulisses: "Programme Coulisses (déménagement filmé)",
+  offre: "Offre promotionnelle",
 };
 
 const VALUES: Record<string, Record<string, string>> = {
@@ -264,7 +265,7 @@ async function buildPdf(r: any, d: Record<string, unknown>, photos: string[]): P
     "Vos coordonnées",
     [["Nom", nom], ...rows(["organisation"]), ["Téléphone", r.telephone ?? ""], ["E-mail", r.email ?? ""], ...rows(["canal", "creneau", "coulisses", "marketing"])],
     "Le projet",
-    rows(["complement_de", "mode", "projet", "mutation", "date", "flexibilite", "urgent", "groupage"]),
+    rows(["offre", "complement_de", "mode", "projet", "mutation", "date", "flexibilite", "urgent", "groupage"]),
   );
   section("Contraintes", rows(["contraintes"]));
   pair(
@@ -407,7 +408,7 @@ Deno.serve(async (req) => {
 <p style="margin:0">E-mail : ${mail}</p>
 </div>
 <table style="border-collapse:collapse;font-size:14px">
-${row("Trajet", trajet)}${row("Date souhaitée", dateV)}${show(d, "formule") ? row("Formule", show(d, "formule")) : ""}${show(d, "duree_stockage") ? row("Garde-meubles", show(d, "duree_stockage")) : ""}${show(d, "creneau") ? row("Rappel", show(d, "creneau")) : ""}${show(d, "complement_de") ? row("Demande express liée", show(d, "complement_de")) : ""}${show(d, "coulisses") ? row("Programme Coulisses", show(d, "coulisses")) : ""}
+${show(d, "offre") ? row("OFFRE PROMOTIONNELLE", show(d, "offre")) : ""}${row("Trajet", trajet)}${row("Date souhaitée", dateV)}${show(d, "formule") ? row("Formule", show(d, "formule")) : ""}${show(d, "duree_stockage") ? row("Garde-meubles", show(d, "duree_stockage")) : ""}${show(d, "creneau") ? row("Rappel", show(d, "creneau")) : ""}${show(d, "complement_de") ? row("Demande express liée", show(d, "complement_de")) : ""}${show(d, "coulisses") ? row("Programme Coulisses", show(d, "coulisses")) : ""}
 </table>
 <p style="margin:18px 0 0">Le dossier complet est joint en PDF${pdfB64 ? "" : " (PDF indisponible : voir la table demandes dans Supabase)"}.</p>
 ${blocPhotos}`);

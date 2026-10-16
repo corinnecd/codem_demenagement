@@ -7,21 +7,41 @@ afin que CODEM puisse les modifier en un seul endroit.
 import build as b
 from build import t,url,link,eyebrow,cta,COULISSES_REMISE,COULISSES_PLACES,CREUX_REMISE,REMISE_MAX
 
-# ── Bandeau fin sous l'en-tête ──────────────────────────────────────
+# ── Décor festif (SVG inline, aucun fichier externe) ────────────────
+FLOCON='<svg class="fx-flake" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7M12 2l-2.2 2.2M12 2l2.2 2.2M12 22l-2.2-2.2M12 22l2.2-2.2"/></svg>'
+CADEAU='<svg class="fx-gift" viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="13" width="24" height="16" rx="2" fill="#b3122e"/><rect x="2.5" y="9" width="27" height="6" rx="1.5" fill="#d61f3f"/><rect x="14" y="9" width="4" height="20" fill="#f3c969"/><path d="M16 9c-3-5-8-5-8-2s5 2 8 2zm0 0c3-5 8-5 8-2s-5 2-8 2z" fill="none" stroke="#f3c969" stroke-width="2"/></svg>'
+def lien(o):return url('devis')+'?offre='+o['cle']
+def neige(n=14):return '<span class="fx-snow" aria-hidden="true">'+''.join(f'<i style="--x:{(i*37)%100}%;--d:{6+(i*7)%9}s;--s:{.6+((i*13)%10)/10}"></i>' for i in range(n))+'</span>'
+def compte(o):return f'<span class="fx-count" data-fin="{o["au"]}">{t(*o["fin_txt"])}</span>'
+
+# ── Bandeau festif sous l'en-tête (pages intérieures) ───────────────
 def bar(key):
  o=b.offre_active()
  if not o or key in ('devis','home'):return ''  # accueil : pastille dans le hero (le header y est flottant)
- return (f'<a class="offre-bar" href="{url("devis")}">'
-  f'<span class="ob-tag">−{o["pct"]} %</span>'
-  f'<span class="ob-txt"><strong>{t(*o["titre"])}</strong><span class="ob-pitch"> · {t(*o["pitch"])}</span></span>'
-  f'<span class="ob-end">{t(*o["fin_txt"])}</span>'
-  f'<span class="ob-cta">{t("Demander mon devis","Get my quote")} →</span></a>')
+ return (f'<a class="offre-bar fx fx-{o.get("theme","")}" href="{lien(o)}">{neige()}'
+  f'{CADEAU}<span class="ob-seal">−{o["pct"]}<small>%</small></span>'
+  f'<span class="ob-txt"><strong>{t(*o["titre"])}</strong><span class="ob-pitch">{t(*o["pitch"])}</span></span>'
+  f'{compte(o)}<span class="ob-cta">{t("J’en profite","Claim it")} <span aria-hidden="true">→</span></span></a>')
 
 def hero_pill():
  o=b.offre_active()
  if not o:return ''
- return (f'<a class="hero-offre" href="{url("devis")}"><span class="ho-tag">−{o["pct"]} %</span>'
-  f'<span>{t(*o["titre"])}<em> · {t(*o["fin_txt"])}</em></span><span aria-hidden="true">→</span></a>')
+ return (f'<a class="hero-offre fx fx-{o.get("theme","")}" href="{lien(o)}">{neige(8)}{CADEAU}'
+  f'<span class="ho-seal">−{o["pct"]} %</span><span class="ho-txt"><strong>{t(*o["titre"])}</strong>{compte(o)}</span>'
+  f'<span class="ho-go" aria-hidden="true">→</span></a>')
+
+# ── Bannière en tête de la page devis : l'offre est visible et transmise ──
+def devis_banner():
+ o=b.offre_active()
+ if not o:return ''
+ d0,d1=o['demenagement']
+ val=f'{t(*o["titre"])} (−{o["pct"]} %)'
+ return (f'<div class="wrap"><section class="devis-offre fx fx-{o.get("theme","")}" data-offre-banner data-offre-label="{val}" data-offre-debut="{d0}" data-offre-fin="{d1}" aria-live="polite">{neige(18)}'
+  f'<div class="do-seal"><strong>−{o["pct"]}<small>%</small></strong><span>{t("sur votre devis","off your quote")}</span></div>'
+  f'<div class="do-body"><p class="do-kicker">{CADEAU}<span data-offre-etat>{t("Offre activée pour votre demande","Offer applied to your request")}</span></p>'
+  f'<h2>{t(*o["titre"])}</h2><p class="do-pitch">{t(*o["pitch"])} {t("La remise est notée sur votre demande : votre conseiller l’applique directement au devis.","The discount is recorded with your request: your adviser applies it directly to the quote.")}</p>'
+  f'<p class="do-date" data-offre-date hidden></p></div>'
+  f'<div class="do-timer">{compte(o)}</div></section></div>')
 
 # ── Bande « Coulisses » pour l'accueil ──────────────────────────────
 FILM=[
@@ -39,8 +59,8 @@ def band():
  o=b.offre_active()
  saison=''
  if o:
-  saison=(f'<div class="cb-saison"><span class="cbs-tag">−{o["pct"]} %</span>'
-   f'<div><p class="cbs-title">{t(*o["titre"])}</p><p>{t(*o["pitch"])} <em>{t(*o["fin_txt"])}.</em></p></div></div>')
+  saison=(f'<a class="cb-saison" href="{lien(o)}"><span class="cbs-tag">−{o["pct"]} %</span>'
+   f'<div><p class="cbs-title">{t(*o["titre"])}</p><p>{t(*o["pitch"])} <em>{t(*o["fin_txt"])}.</em></p></div></a>')
  puces=''.join(f'<li><span>{a}</span>{t(fr,en)}</li>' for a,fr,en,_d,_e in FILM[:4])
  return (f'<section class="section band-navy coulisses-band" id="coulisses">'
   f'<div class="wrap cb-grid"><div class="cb-text">{eyebrow("Programme Coulisses","Behind-the-scenes programme")}'
@@ -105,7 +125,7 @@ def page():
    f'<div>{eyebrow("Offre en cours","Current offer")}<h2>{t(*o["titre"])}</h2>'
    f'<p class="lead">{t(*o["pitch"])}</p><p>{t(*o["detail"])}</p>'
    f'<p class="os-end">{t(*o["fin_txt"])}</p>'
-   f'<div class="actions">{link("devis",t("Demander mon devis","Get my quote"),"btn btn-cta")}</div></div></div></section>')
+   f'<div class="actions"><a class="btn btn-cta" href="{lien(o)}">{t("J’en profite","Claim the offer")}</a></div></div></div></section>')
  return (f'<section class="section band-ivory coulisses-hero" style="padding-top:28px"><div class="wrap ch-grid"><div>'
   f'{eyebrow("Programme Coulisses","Behind-the-scenes programme")}'
   f'<h1>{t("Votre déménagement<br><em>raconté en vidéo.</em>","Your move,<br><em>told in video.</em>")}</h1>'

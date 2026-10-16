@@ -1068,3 +1068,61 @@ html{background:var(--paper,#fafaf7)}
 .ho-tag{background:#14163f;color:#fff;border-radius:100px;padding:4px 10px;font-weight:700}
 @media(max-width:640px){.hero-offre{margin:0 0 14px;font-size:.76rem}.hero-offre em{display:none}}
 .film-band h2{color:#fff}.film-band h2 em{color:#8fd96a}.film-band .lead{color:#e4e7f2}
+
+/* ── Offres festives (Noël / hiver) ───────────────────────────────── */
+.fx{--fx-a:#7a0f24;--fx-b:#b3122e;--fx-c:#1b1f4a;--gold:#f3c969;position:relative;overflow:hidden;isolation:isolate}
+.fx-hiver{--fx-a:#1d3b6e;--fx-b:#2f6fb3;--fx-c:#14163f}
+.fx-snow{position:absolute;inset:0;pointer-events:none;z-index:0}
+.fx-snow i{position:absolute;top:-10px;left:var(--x);width:calc(6px*var(--s));height:calc(6px*var(--s));border-radius:50%;background:#fff;opacity:.75;animation:fxfall var(--d) linear infinite;animation-delay:calc(var(--d)*-.6)}
+@keyframes fxfall{to{transform:translate3d(14px,140px,0);opacity:0}}
+.fx-gift{width:26px;height:26px;flex:0 0 auto;position:relative;z-index:1;filter:drop-shadow(0 2px 4px #0005);animation:fxwiggle 3.2s ease-in-out infinite}
+@keyframes fxwiggle{0%,80%,100%{transform:rotate(0)}85%{transform:rotate(-12deg)}90%{transform:rotate(10deg)}95%{transform:rotate(-6deg)}}
+.fx>*:not(.fx-snow){position:relative;z-index:1}
+.fx-count{font-weight:700;color:var(--gold);white-space:nowrap}
+
+/* Bandeau des pages intérieures */
+.offre-bar.fx{background:linear-gradient(100deg,var(--fx-c) 0%,var(--fx-a) 45%,var(--fx-b) 100%);color:#fff;padding:13px 5%;gap:16px;border-bottom:2px solid var(--gold);font-size:.88rem;filter:none}
+.offre-bar.fx:hover{filter:brightness(1.08)}
+.ob-seal{display:inline-flex;align-items:baseline;justify-content:center;width:58px;height:58px;margin:-8px 0;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe9a8,var(--gold) 55%,#c99a2e);color:#5a0b1a;font:700 1.2rem/58px var(--sans);box-shadow:0 0 0 3px #ffffff40,0 6px 18px #0006;transform:rotate(-8deg)}
+.ob-seal small{font-size:.7rem;margin-left:1px}
+.offre-bar.fx .ob-txt{display:flex;flex-direction:column;text-align:left;line-height:1.35}
+.offre-bar.fx .ob-txt strong{font-family:var(--serif);font-weight:400;font-size:1.15rem;letter-spacing:-.01em}
+.offre-bar.fx .ob-pitch{opacity:.9;font-size:.82rem}
+.offre-bar.fx .ob-cta{background:var(--gold);color:#5a0b1a;border:0;padding:9px 16px;border-radius:100px;font-weight:700;box-shadow:0 4px 14px #0004;transition:transform .2s}
+.offre-bar.fx:hover .ob-cta{transform:translateX(3px)}
+@media(max-width:900px){.offre-bar.fx{gap:10px;padding:12px 16px}.offre-bar.fx .ob-pitch{display:none}.offre-bar.fx .fx-count{display:inline}.ob-seal{width:48px;height:48px;line-height:48px;font-size:1rem;margin:-6px 0}}
+@media(max-width:640px){.offre-bar.fx{justify-content:flex-start;flex-wrap:nowrap}.offre-bar.fx .fx-gift,.offre-bar.fx .fx-count{display:none}.offre-bar.fx .ob-txt strong{font-size:.98rem}.offre-bar.fx .ob-cta{margin-left:auto;padding:8px 12px;font-size:.76rem}}
+
+/* Pastille du hero (accueil) */
+.hero-offre.fx{display:inline-flex;align-items:center;gap:12px;margin:0 0 18px 10px;padding:8px 10px 8px 12px;border-radius:100px;background:linear-gradient(100deg,var(--fx-a),var(--fx-b));color:#fff;border:1.5px solid var(--gold);box-shadow:0 10px 30px #7a0f2455,0 0 0 4px #f3c96922;font-size:.84rem}
+.hero-offre.fx:hover{transform:translateY(-2px);box-shadow:0 14px 34px #7a0f2477,0 0 0 5px #f3c96933}
+.ho-seal{background:var(--gold);color:#5a0b1a;font-weight:800;border-radius:100px;padding:5px 11px;font-size:.92rem}
+.ho-txt{display:flex;flex-direction:column;line-height:1.25}.ho-txt strong{font-weight:700}.ho-txt .fx-count{font-size:.74rem;font-weight:600}
+.ho-go{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#ffffff26}
+.hero-offre.fx:after{content:'';position:absolute;inset:0;z-index:2;background:linear-gradient(110deg,transparent 30%,#ffffff55 50%,transparent 70%);transform:translateX(-120%);animation:fxshine 4.5s ease-in-out infinite;pointer-events:none}
+@keyframes fxshine{0%,60%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+@media(max-width:640px){.hero-offre.fx{margin:0 0 14px;gap:9px;font-size:.78rem}.hero-offre.fx .fx-gift{display:none}}
+
+/* Bannière de la page devis */
+.devis-offre{display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;margin:18px 0 6px;padding:28px 34px;border-radius:14px;color:#fff;background:radial-gradient(120% 140% at 0% 0%,var(--fx-b),var(--fx-a) 45%,var(--fx-c));border:2px solid var(--gold);box-shadow:0 18px 50px #7a0f2440}
+.do-seal{width:118px;height:118px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 30%,#ffe9a8,var(--gold) 55%,#c99a2e);color:#5a0b1a;box-shadow:0 0 0 6px #ffffff2e,0 10px 26px #0007;transform:rotate(-8deg)}
+.do-seal strong{font:800 2.3rem/1 var(--sans);letter-spacing:-.03em}.do-seal small{font-size:1.1rem}.do-seal span{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
+.do-kicker{display:flex;align-items:center;gap:10px;margin:0 0 6px;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.devis-offre h2{color:#fff;font-size:clamp(1.9rem,3vw,2.7rem);margin:0 0 8px}
+.devis-offre p{margin:0;color:#f4e9ec;max-width:68ch;font-size:.95rem}
+.do-date{margin-top:10px!important;display:inline-block;background:#ffffff1f;border-radius:6px;padding:7px 12px;font-weight:600}
+.do-timer{text-align:center;background:#00000033;border:1px solid #f3c96966;border-radius:10px;padding:14px 18px}
+.do-timer .fx-count{font-size:1.05rem}
+.do-pulse .do-seal{animation:fxpop .9s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes fxpop{0%{transform:rotate(-8deg) scale(.3);opacity:0}100%{transform:rotate(-8deg) scale(1);opacity:1}}
+@media(max-width:900px){.devis-offre{grid-template-columns:auto 1fr;gap:20px}.do-timer{grid-column:1/-1}}
+@media(max-width:640px){.devis-offre{grid-template-columns:1fr;text-align:center;padding:24px 20px;gap:14px;justify-items:center}.do-seal{width:96px;height:96px}.do-seal strong{font-size:1.9rem}.do-kicker{justify-content:center}.do-timer{width:100%}}
+
+@media(prefers-reduced-motion:reduce){.fx-snow,.hero-offre.fx:after{display:none}.fx-gift,.do-pulse .do-seal{animation:none}}
+.do-seal span{font-size:.58rem;letter-spacing:.03em;max-width:84px;text-align:center;line-height:1.2}
+@media(max-width:640px){.devis-offre{grid-template-columns:auto 1fr;text-align:left;justify-items:start;padding:18px 16px;gap:10px 14px;margin-top:10px}
+ .do-seal{width:76px;height:76px;grid-row:span 1}.do-seal strong{font-size:1.5rem}.do-seal span{display:none}
+ .do-kicker{justify-content:flex-start;font-size:.64rem;letter-spacing:.08em;margin-bottom:2px}.do-kicker .fx-gift{display:none}
+ .devis-offre h2{font-size:1.45rem;margin:0}.do-pitch{display:none}
+ .do-date{margin-top:6px!important;font-size:.8rem;padding:5px 9px}
+ .do-timer{grid-column:1/-1;padding:8px 12px}.do-timer .fx-count{font-size:.9rem}}

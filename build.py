@@ -24,13 +24,13 @@ REMISE_MAX=15         # plafond de cumul des remises
 # « du »/« au » = fenêtre de réservation (le bandeau s'affiche alors).
 # « demenagement » = fenêtre de dates de déménagement concernées.
 OFFRES=[
- {'cle':'fetes','du':'2026-10-16','au':'2026-12-31','pct':10,
+ {'cle':'fetes','theme':'noel','du':'2026-10-16','au':'2026-12-31','pct':10,
   'demenagement':('2027-01-05','2027-02-28'),
   'fin_txt':('jusqu’au 31 décembre','until 31 December'),
   'titre':('Offre fêtes de fin d’année','End-of-year offer'),
   'pitch':('Réservez avant le 31 décembre votre déménagement de janvier ou février.','Book before 31 December for a January or February move.'),
   'detail':('Janvier et février sont nos semaines les plus calmes : vos dates sont plus souples, nos équipes plus disponibles, et la remise s’applique directement sur le devis.','January and February are our quietest weeks: your dates are more flexible, our crews more available, and the discount applies directly to your quote.')},
- {'cle':'hiver','du':'2027-01-05','au':'2027-03-01','pct':10,
+ {'cle':'hiver','theme':'hiver','du':'2027-01-05','au':'2027-03-01','pct':10,
   'demenagement':('2027-01-05','2027-03-15'),
   'fin_txt':('jusqu’au 1er mars','until 1 March'),
   'titre':('Offre hiver','Winter offer'),

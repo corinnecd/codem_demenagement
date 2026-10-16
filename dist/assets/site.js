@@ -1,3 +1,4 @@
+/* Offre : mémorise l'arrivée par un lien promotionnel avant que l'URL soit nettoyée. */try{if(new URLSearchParams(location.search).has('offre'))sessionStorage.setItem('codem-offre','1');}catch{}
 'use strict';
 const en=document.documentElement.lang==='en';
 const tr=(fr,eng)=>en?eng:fr;
@@ -176,3 +177,23 @@ document.querySelectorAll('.qsection').forEach(sec=>{
    else if(w>=2&&w<=4&&(m<6||m>9))txt=n.dataset.creux;}
   n.textContent=txt;n.hidden=!txt;};
  d.addEventListener('change',upd);d.addEventListener('input',upd);upd();})();
+
+/* Offres : compte à rebours + offre transmise avec la demande de devis. */
+(()=>{const fr=document.documentElement.lang!=='en';
+ document.querySelectorAll('[data-fin]').forEach(el=>{const j=Math.ceil((new Date(el.dataset.fin+'T23:59:59')-new Date())/864e5);
+  if(j>=0)el.textContent=j<=1?(fr?'Dernier jour !':'Last day!'):(fr?`Plus que ${j} jours`:`${j} days left`);});
+ const ban=document.querySelector('[data-offre-banner]');if(!ban)return;
+ const label=ban.dataset.offreLabel,d0=ban.dataset.offreDebut,d1=ban.dataset.offreFin,dateOut=ban.querySelector('[data-offre-date]');
+ let source=false;try{source=sessionStorage.getItem('codem-offre')==='1';}catch{}
+ const viaLien=source;
+ const fmt=v=>new Date(v+'T12:00:00').toLocaleDateString(fr?'fr-FR':'en-GB',{day:'numeric',month:'long',year:'numeric'});
+ const forms=[...document.querySelectorAll('#express-form,#quote-form')];
+ const inputs=forms.map(f=>{const i=document.createElement('input');i.type='hidden';i.name='offre';f.prepend(i);return i;});
+ const upd=()=>{let v='';for(const f of forms){const x=f.querySelector('[name="date"]');if(x&&x.value){v=x.value;break;}}
+  let etat='',txt=label+(source?(fr?' · arrivé par le lien promotionnel':' · came via the promo link'):'');
+  if(v){const ok=v>=d0&&v<=d1;etat=ok?(fr?`Votre date du ${fmt(v)} est éligible.`:`Your date, ${fmt(v)}, qualifies.`):(fr?`Votre date du ${fmt(v)} est hors période : votre conseiller vous proposera la meilleure option.`:`Your date, ${fmt(v)}, is outside the offer window: your adviser will suggest the best option.`);
+   txt+=' · '+(ok?(fr?'date éligible':'date qualifies'):(fr?'date hors période, à étudier':'date outside window, to review'));}
+  else txt+=fr?' · date de déménagement à confirmer':' · moving date to confirm';
+  inputs.forEach(i=>i.value=txt);dateOut.textContent=etat;dateOut.hidden=!etat;};
+ document.addEventListener('change',e=>{if(e.target.name==='date')upd();});document.addEventListener('input',e=>{if(e.target.name==='date')upd();});upd();
+ if(viaLien)ban.classList.add('do-pulse');})();
