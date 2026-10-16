@@ -1,4 +1,4 @@
-"""Programme Coulisses et offres saisonnières : bandeau, bandes et page dédiée.
+"""Programme Backstage et offres saisonnières : bandeau, bandes et page dédiée.
 
 Les taux, les fenêtres de dates et les modalités de droit à l'image sont
 rassemblés dans build.py (COULISSES_*, CREUX_REMISE, REMISE_MAX, OFFRES)
@@ -72,14 +72,14 @@ FILM=[
 ]
 
 def band():
- """Bande d'appel : programme Coulisses + offre saisonnière si elle est active."""
+ """Bande d'appel : programme Backstage + offre saisonnière si elle est active."""
  saison=''
  for o in a_venir():
   saison+=win(o,f'<a class="cb-saison" href="{lien(o)}"><span class="cbs-tag">−{o["pct"]} %</span>'
    f'<div><p class="cbs-title">{t(*o["titre"])}</p><p>{t(*o["pitch"])} <em>{t(*o["fin_txt"])}.</em></p></div></a>')
  puces=''.join(f'<li><span>{a}</span>{t(fr,en)}</li>' for a,fr,en,_d,_e in FILM[:4])
  return (f'<section class="section band-navy coulisses-band" id="coulisses">'
-  f'<div class="wrap cb-grid"><div class="cb-text">{eyebrow("Programme Coulisses","Behind-the-scenes programme")}'
+  f'<div class="wrap cb-grid"><div class="cb-text">{eyebrow("Programme Backstage","Backstage programme")}'
   f'<h2>{t("Votre déménagement<br><em>raconté en vidéo.</em>","Your move,<br><em>told in video.</em>")}</h2>'
   f'<p class="lead">{t(f"Chaque mois, nous suivons en vidéo {COULISSES_PLACES} déménagements, du premier carton au dernier. Vous aidez les familles qui hésitent encore à se projeter — et nous vous remercions de {COULISSES_REMISE} % sur votre devis.",f"Each month we follow {COULISSES_PLACES} moves on video, from the first box to the last. You help families who are still hesitating to picture it — and we thank you with {COULISSES_REMISE}% off your quote.")}</p>'
   f'<ul class="cb-steps">{puces}<li class="cb-more"><span>…</span>{t("et votre témoignage, une fois installé","and your story, once you’re settled")}</li></ul>'
@@ -100,7 +100,7 @@ def saison_note():
 # ── Bloc à cocher dans l'étape Coordonnées du devis ─────────────────
 def devis_block():
  return (f'<div class="offre-check"><span class="oc-tag">−{COULISSES_REMISE} %</span><div class="oc-body">'
-  f'<p class="oc-title">{t("Programme Coulisses","Behind-the-scenes programme")}</p>'
+  f'<p class="oc-title">{t("Programme Backstage","Backstage programme")}</p>'
   f'<p class="oc-txt">{t(f"Vous acceptez que votre déménagement soit filmé pour nos réseaux sociaux ? Nous vous remercions de {COULISSES_REMISE} % sur votre devis. Tournage discret, zones privées exclues, relecture avant publication.",f"Happy for your move to be filmed for our social media? We thank you with {COULISSES_REMISE}% off your quote. Discreet filming, private areas excluded, and you review before publication.")}</p>'
   f'<label class="check"><input type="checkbox" name="coulisses" value="oui"><span>{t("Ce programme m’intéresse, parlons-en.","I’m interested — let’s talk about it.")}</span></label>'
   f'<p class="fine-print"><a href="{url("coulisses")}" target="_blank" rel="noopener">{t("Ce qui est filmé, ce qui ne l’est jamais","What is filmed, and what never is")} →</a></p></div></div>')
@@ -120,7 +120,7 @@ DROITS=[
  ("Aucune cession","Never sold on","Les images ne sont ni vendues ni cédées à un tiers, et ne servent jamais à de la publicité payante sans votre accord.","The footage is never sold or passed to a third party, and never used in paid advertising without your agreement."),
 ]
 COMMENT=[
- ("1","Vous nous le dites","You tell us","Cochez la case « Programme Coulisses » dans votre demande de devis, ou mentionnez-le à votre conseiller. Nous revenons vers vous sous 24 h ouvrées.","Tick the “Behind-the-scenes programme” box in your quote request, or mention it to your adviser. We come back to you within one working day."),
+ ("1","Vous nous le dites","You tell us","Cochez la case « Programme Backstage » dans votre demande de devis, ou mentionnez-le à votre conseiller. Nous revenons vers vous sous 24 h ouvrées.","Tick the “Backstage programme” box in your quote request, or mention it to your adviser. We come back to you within one working day."),
  ("2","Nous cadrons ensemble","We agree the frame","Avant le tournage, nous décidons avec vous de ce qui peut être filmé et de ce qui reste privé. C’est écrit dans l’autorisation de droit à l’image que vous signez.","Before filming, we decide together what can be filmed and what stays private. It is written into the image-rights agreement you sign."),
  ("3",f"La remise s’applique sur le devis","The discount lands on the quote",f"Les {COULISSES_REMISE} % apparaissent directement sur votre devis, avant signature. Rien à réclamer après coup.",f"The {COULISSES_REMISE}% appears directly on your quote, before you sign. Nothing to claim afterwards."),
 ]
@@ -138,7 +138,7 @@ def page():
    f'{echelle(o)}<p class="os-end">{t(*o["fin_txt"])}</p>'
    f'<div class="actions"><a class="btn btn-cta" href="{lien(o)}">{t("J’en profite","Claim the offer")}</a></div></div></div></section>')
  return (f'<section class="section band-ivory coulisses-hero" style="padding-top:28px"><div class="wrap ch-grid"><div>'
-  f'{eyebrow("Programme Coulisses","Behind-the-scenes programme")}'
+  f'{eyebrow("Programme Backstage","Backstage programme")}'
   f'<h1>{t("Votre déménagement<br><em>raconté en vidéo.</em>","Your move,<br><em>told in video.</em>")}</h1>'
   f'<p class="lead">{t(f"Les futurs clients veulent voir à quoi ressemble vraiment un déménagement : les cartons de la première semaine, le camion devant la porte, la première pièce installée. Chaque mois, nous suivons {COULISSES_PLACES} déménagements en vidéo. Si vous acceptez que le vôtre en fasse partie, nous vous remercions de {COULISSES_REMISE} % sur votre devis.",f"Future customers want to see what a move really looks like: the first week’s boxes, the truck at the door, the first room set up. Each month we follow {COULISSES_PLACES} moves on video. If you agree to yours being one of them, we thank you with {COULISSES_REMISE}% off your quote.")}</p>'
   f'<div class="actions">{link("devis",t("Demander mon devis","Get my quote"),"btn btn-cta")}<a class="text-link" href="#jamais">{t("Ce que nous ne filmons jamais","What we never film")}</a></div></div>'
@@ -162,5 +162,5 @@ def page():
 
 def write_all():
  b.write('coulisses',page(),t(
-  f'Programme Coulisses CODEM : acceptez que votre déménagement soit filmé et bénéficiez de {COULISSES_REMISE} % sur votre devis. Zones privées exclues, relecture avant publication.',
+  f'Programme Backstage CODEM : acceptez que votre déménagement soit filmé et bénéficiez de {COULISSES_REMISE} % sur votre devis. Zones privées exclues, relecture avant publication.',
   f'CODEM’s behind-the-scenes programme: agree to your move being filmed and get {COULISSES_REMISE}% off your quote. Private areas excluded, you review before publication.'))

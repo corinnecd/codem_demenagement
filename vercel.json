@@ -223,6 +223,16 @@
       "source": "/en/moving-paris",
       "destination": "/en/areas-covered/#paris",
       "permanent": true
+    },
+    {
+      "source": "/fr/programme-coulisses/",
+      "destination": "/fr/programme-backstage/",
+      "permanent": true
+    },
+    {
+      "source": "/en/behind-the-scenes/",
+      "destination": "/en/backstage-programme/",
+      "permanent": true
     }
   ]
 }

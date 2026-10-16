@@ -29,7 +29,7 @@ const LABELS: Record<string, string> = {
   annexes: "Annexes", formule: "Formule", prestations: "Prestations", duree_stockage: "Garde-meubles",
   objets: "Objets et informations utiles", fichiers_echec: "Fichiers non reçus", message: "Message",
   marketing: "Informations commerciales", complement_de: "Demande express liée",
-  coulisses: "Programme Coulisses (déménagement filmé)",
+  coulisses: "Programme Backstage (déménagement filmé)",
   offre: "Offre promotionnelle",
 };
 
@@ -408,7 +408,7 @@ Deno.serve(async (req) => {
 <p style="margin:0">E-mail : ${mail}</p>
 </div>
 <table style="border-collapse:collapse;font-size:14px">
-${show(d, "offre") ? row("OFFRE PROMOTIONNELLE", show(d, "offre")) : ""}${row("Trajet", trajet)}${row("Date souhaitée", dateV)}${show(d, "formule") ? row("Formule", show(d, "formule")) : ""}${show(d, "duree_stockage") ? row("Garde-meubles", show(d, "duree_stockage")) : ""}${show(d, "creneau") ? row("Rappel", show(d, "creneau")) : ""}${show(d, "complement_de") ? row("Demande express liée", show(d, "complement_de")) : ""}${show(d, "coulisses") ? row("Programme Coulisses", show(d, "coulisses")) : ""}
+${show(d, "offre") ? row("OFFRE PROMOTIONNELLE", show(d, "offre")) : ""}${row("Trajet", trajet)}${row("Date souhaitée", dateV)}${show(d, "formule") ? row("Formule", show(d, "formule")) : ""}${show(d, "duree_stockage") ? row("Garde-meubles", show(d, "duree_stockage")) : ""}${show(d, "creneau") ? row("Rappel", show(d, "creneau")) : ""}${show(d, "complement_de") ? row("Demande express liée", show(d, "complement_de")) : ""}${show(d, "coulisses") ? row("Programme Backstage", show(d, "coulisses")) : ""}
 </table>
 <p style="margin:18px 0 0">Le dossier complet est joint en PDF${pdfB64 ? "" : " (PDF indisponible : voir la table demandes dans Supabase)"}.</p>
 ${blocPhotos}`);
