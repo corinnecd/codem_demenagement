@@ -17,7 +17,7 @@ def fan(titre=True,cls='band-ivory'):
  cards=''
  for n,(p,c,i) in enumerate(cartes()):
   alt=t(*c['tag'])+' · '+t(*c['lieu'])
-  im=img(p,alt).replace('<img ','<img draggable="false" ')
+  im=img(p,alt).replace('<img ','<img draggable="false" ').replace('sizes="(max-width:640px) 90vw, 50vw"','sizes="(max-width:640px) 62vw, 290px"')
   cards+=(f'<a class="fan-card" href="{url("realisations")}#cas-{i+1}" data-i="{n}" tabindex="-1">'
    +im+
    f'<span class="fan-cap"><small>{t(*c["tag"])}</small>{t(*c["lieu"])}</span></a>')
