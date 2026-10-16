@@ -207,7 +207,7 @@ if(ob2){const parts=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone
   const cards=[...root.querySelectorAll('.fan-card')],N=cards.length;if(!N)return;
   const dotsBox=root.querySelector('.fan-dots'),live=root.querySelector('.fan-live');
   const mob=()=>innerWidth<640;
-  const mult=()=>{const w=innerWidth;return w<640?1:w<768?.5:w<1024?.72:1;};
+  const mult=()=>{const w=innerWidth;if(w<640)return 1;const half=root.querySelector('.fan-card').offsetWidth*.62;return Math.max(.35,Math.min(1,(w/2-half-24)/480));};
   let center=0,hover=null,entered=false;
   const dots=cards.map((_,i)=>{const d=document.createElement('span');dotsBox.append(d);return d;});
   const slots=()=>mob()?MOB:(N>=7?FAN:FAN.slice(1,6)),half=()=>slots().length>>1;

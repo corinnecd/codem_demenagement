@@ -5,14 +5,18 @@ from build import t,url,img,eyebrow,link
 def cartes():
  """Une seule carte par catégorie de chantier : la photo la plus représentative."""
  from realisations import CAS
- return [(c['photos'][0],c,i) for i,c in enumerate(CAS)]
+ out=[(c['photos'][0],c,i) for i,c in enumerate(CAS)]
+ # 7e carte : votre projet, pour que l'éventail montre 7 cartes distinctes
+ out.insert(len(out)//2+1,('ancien-22',{'tag':('Votre projet','Your move'),'lieu':('Le prochain chantier ?','Our next job?'),'devis':True},-1))
+ return out
 
 def fan(titre=True,cls='band-ivory'):
  cards=''
  for n,(p,c,i) in enumerate(cartes()):
   alt=t(*c['tag'])+' · '+t(*c['lieu'])
   im=img(p,alt).replace('<img ','<img draggable="false" ').replace('sizes="(max-width:640px) 90vw, 50vw"','sizes="(max-width:640px) 62vw, 290px"')
-  cards+=(f'<a class="fan-card" href="{url("realisations")}#cas-{i+1}" data-i="{n}" tabindex="-1">'
+  href=url('devis') if c.get('devis') else f'{url("realisations")}#cas-{i+1}'
+  cards+=(f'<a class="fan-card" href="{href}" data-i="{n}" tabindex="-1">'
    +im+
    f'<span class="fan-cap"><small>{t(*c["tag"])}</small>{t(*c["lieu"])}</span></a>')
  head=(f'<div class="fan-head">{eyebrow("Nos réalisations","Our work")}<h2>{t("Nos chantiers,<br><em>photographiés par nos équipes.</em>","Our jobs,<br><em>photographed by our teams.</em>")}</h2>'
