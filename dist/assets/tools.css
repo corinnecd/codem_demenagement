@@ -1216,3 +1216,6 @@ section.devis-offre.wrap{margin:18px auto 6px;box-sizing:border-box}
 .home-page .rv-car{padding-bottom:56px}
 .home-page .fan-section{padding-top:56px}
 @media(max-width:640px){.home-page .rv-car{padding-bottom:32px}.home-page .fan-section{padding-top:32px}}
+/* Éventail : mouvement de survol plus lent et plus doux */
+.fan-card{transition:transform 1.15s cubic-bezier(.22,1.2,.36,1),opacity .6s ease,box-shadow .5s}
+.fan-cap{transition:opacity .5s,transform .5s}

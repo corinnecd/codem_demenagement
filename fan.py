@@ -3,15 +3,9 @@ import build as b
 from build import t,url,img,eyebrow,link
 
 def cartes():
+ """Une seule carte par catégorie de chantier : la photo la plus représentative."""
  from realisations import CAS
- out=[]
- for i,c in enumerate(CAS):
-  for p in c['photos']:out.append((p,c,i))
- # photos du terrain absentes des fiches chantier
- for p,i in [('ancien-22',0),('ancien-06',3)]:out.append((p,CAS[i],i))
- # alterne les chantiers pour varier l'éventail
- out.sort(key=lambda x:(x[0]!=CAS[x[2]]['photos'][0],x[2]))
- return out
+ return [(c['photos'][0],c,i) for i,c in enumerate(CAS)]
 
 def fan(titre=True,cls='band-ivory'):
  cards=''

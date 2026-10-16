@@ -210,13 +210,13 @@ if(ob2){const parts=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone
   const mult=()=>{const w=innerWidth;return w<640?1:w<768?.5:w<1024?.72:1;};
   let center=0,hover=null,entered=false;
   const dots=cards.map((_,i)=>{const d=document.createElement('span');dotsBox.append(d);return d;});
-  const slots=()=>mob()?MOB:FAN,half=()=>slots().length>>1;
+  const slots=()=>mob()?MOB:(N>=7?FAN:FAN.slice(1,6)),half=()=>slots().length>>1;
   const slotOf=i=>{const h=half();let d=((i-center)%N+N)%N;if(d>N/2)d-=N;return Math.abs(d)<=h?d+h:null;};
   const place=()=>{const S=slots(),h=half(),m=mob()?1:mult(),hs=hover==null?null:hover;
    cards.forEach((c,i)=>{const sl=slotOf(i);
     if(sl==null){const side=((i-center+N)%N)<N/2?1:-1;c.style.transform=`translateX(${side*40*m}rem) rotate(${side*30}deg) scale(.5)`;c.style.opacity=0;c.style.zIndex=0;c.style.pointerEvents='none';c.tabIndex=-1;c.setAttribute('aria-hidden','true');return;}
     const p=S[sl];let x=p.x*m,y=p.y,r=p.r,s=p.s;
-    if(hs!=null&&!mob()){const dist=Math.abs(sl-hs);if(sl===hs){y-=2.5;s*=1.08;}else{const nrm=(sl-h)/h,push=8*(1-Math.abs(nrm))*(1+.2*Math.max(0,3-dist));if(sl<hs){x-=push*m;r-=3/(dist+1);}else{x+=push*m;r+=3/(dist+1);}}c.style.transitionDelay=dist*.02+'s';}else c.style.transitionDelay='0s';
+    if(hs!=null&&!mob()){const dist=Math.abs(sl-hs);if(sl===hs){y-=2.5;s*=1.08;}else{const nrm=(sl-h)/h,push=8*(1-Math.abs(nrm))*(1+.2*Math.max(0,3-dist));if(sl<hs){x-=push*m;r-=3/(dist+1);}else{x+=push*m;r+=3/(dist+1);}}c.style.transitionDelay=dist*.04+'s';}else c.style.transitionDelay='0s';
     if(!entered){c.style.transitionDelay=(.15+sl*.06)+'s';}
     c.style.transform=`translate(${x}rem,${y}rem) rotate(${r}deg) scale(${s})`;c.style.opacity=1;c.style.zIndex=sl===h?10:10-Math.abs(sl-h);c.style.pointerEvents='auto';
     const isC=sl===h;c.classList.toggle('is-center',isC);c.tabIndex=isC?0:-1;c.removeAttribute('aria-hidden');});
