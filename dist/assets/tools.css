@@ -1126,3 +1126,8 @@ html{background:var(--paper,#fafaf7)}
  .devis-offre h2{font-size:1.45rem;margin:0}.do-pitch{display:none}
  .do-date{margin-top:6px!important;font-size:.8rem;padding:5px 9px}
  .do-timer{grid-column:1/-1;padding:8px 12px}.do-timer .fx-count{font-size:.9rem}}
+/* Accueil : pastille d'offre au même dégradé que la bannière du devis */
+.hero-offre.fx{background:radial-gradient(140% 220% at 0% 0%,var(--fx-b),var(--fx-a) 45%,var(--fx-c));border:2px solid var(--gold);padding:10px 12px 10px 14px;font-size:.9rem;box-shadow:0 14px 36px #7a0f2466,0 0 0 4px #f3c96926}
+.hero-offre.fx .ho-txt strong{font-size:.98rem}
+.hero-offre.fx .ho-seal{font-size:1rem;padding:6px 13px}
+.ho-seal{white-space:nowrap}@media(max-width:640px){.hero-offre.fx{font-size:.8rem;padding:8px 10px}.hero-offre.fx .ho-seal{font-size:.88rem;padding:5px 10px}.hero-offre.fx .ho-txt strong{font-size:.86rem}}
