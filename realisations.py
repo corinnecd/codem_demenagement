@@ -37,12 +37,12 @@ def _case(i,c):
  media=f'<div class="rc-media{" solo" if len(ph)==1 else ""}">{main}'+(f'<div class="rc-thumbs n{len(ph)-1}">{thumbs}</div>' if thumbs else '')+'</div>'
  pts=''.join(f'<li>{t(a,c2)}</li>' for a,c2 in c['points'])
  body=f'<div class="rc-body"><span class="eyebrow">{str(i+1).zfill(2)} · {t(*c["tag"])}</span><p class="rc-place">{t(*c["lieu"])}</p><h2>{t(*c["titre"])}</h2><p>{t(*c["texte"])}</p><ul class="rc-points">{pts}</ul>{link(c["svc"],t("Voir le service","See the service"),"text-link")}</div>'
- return f'<article class="rcase{" rev" if i%2 else ""}">{media}{body}</article>'
+ return f'<article class="rcase{" rev" if i%2 else ""}" id="cas-{i+1}">{media}{body}</article>'
 
 def page():
  from pages import crumb
  body=crumb('realisations')+f'''<section class="page-title band-ivory"><div class="wrap">{eyebrow("Réalisations","Case studies")}<h1>{t("Nos chantiers,<br><em>en images.</em>","Our jobs,<br><em>in pictures.</em>")}</h1><p class="lead">{t("Monte-meubles en façade, maisons, centre-ville, objets d’art, musée : des déménagements réalisés par les équipes CODEM, photographiés sur place.","Furniture lifts, houses, town centres, artwork, a museum: moves carried out by CODEM teams, photographed on site.")}</p></div></section>
-<section class="section band-sand rcases"><div class="wrap">{"".join(_case(i,c) for i,c in enumerate(CAS))}</div></section>'''+b.cta(t('Votre déménagement,<br><em>notre prochain chantier.</em>','Your move,<br><em>our next job.</em>'))
+'''+__import__('fan').fan(titre=False,cls='band-ivory fan-top')+f'''<section class="section band-sand rcases"><div class="wrap">{"".join(_case(i,c) for i,c in enumerate(CAS))}</div></section>'''+b.cta(t('Votre déménagement,<br><em>notre prochain chantier.</em>','Your move,<br><em>our next job.</em>'))
  desc=t('Réalisations CODEM Déménagements : monte-meubles en façade, maisons, centre-ville, objets d’art et mobilier ancien, manutention au Musée océanographique de Monaco. Photos de nos chantiers.','CODEM Moving case studies: furniture lifts, houses, town-centre moves, artwork and antique furniture, handling at the Oceanographic Museum of Monaco. Photos from our jobs.')
  return body,desc
 

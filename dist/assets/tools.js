@@ -163,7 +163,7 @@ if(ob2){const parts=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone
 (()=>{if(!matchMedia('(max-width:640px)').matches)return;
  const fr=document.documentElement.lang!=='en';
  const bg=el=>{let n=el;while(n&&n!==document.body){const c=getComputedStyle(n).backgroundColor;if(c&&c!=='rgba(0, 0, 0, 0)'&&c!=='transparent')return c;n=n.parentElement}return '#ffffff'};
- const SKIP=/hero|quickstart|page-intro|page-title|back-bar|cta|guide-band|trust|coulisses|film-band/;
+ const SKIP=/hero|quickstart|page-intro|page-title|back-bar|cta|guide-band|trust|coulisses|film-band|fan-section/;
  const main=document.querySelector('main'); if(!main)return;
  const cands=[...main.children].filter(el=>{
   const cls=typeof el.className==='string'?el.className:'';
@@ -198,3 +198,43 @@ if(ob2){const parts=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone
   host.after(btn);
  });
 })();
+
+/* Éventail de photos de chantiers (sans dépendance). */
+(()=>{const FAN=[{r:-21,s:.7756,x:-30,y:7.3},{r:-14,s:.8498,x:-22,y:4},{r:-7,s:.9346,x:-11,y:1.3},{r:0,s:1,x:0,y:0},{r:7,s:.9346,x:11,y:1.3},{r:14,s:.8498,x:22,y:4},{r:21,s:.7756,x:30,y:7.3}];
+ const MOB=[{r:-9,s:.84,x:-11.5,y:1.4},{r:0,s:1,x:0,y:0},{r:9,s:.84,x:11.5,y:1.4}];
+ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ document.querySelectorAll('[data-fan]').forEach(root=>{
+  const cards=[...root.querySelectorAll('.fan-card')],N=cards.length;if(!N)return;
+  const dotsBox=root.querySelector('.fan-dots'),live=root.querySelector('.fan-live');
+  const mob=()=>innerWidth<640;
+  const mult=()=>{const w=innerWidth;return w<640?1:w<768?.5:w<1024?.72:1;};
+  let center=0,hover=null,entered=false;
+  const dots=cards.map((_,i)=>{const d=document.createElement('span');dotsBox.append(d);return d;});
+  const slots=()=>mob()?MOB:FAN,half=()=>slots().length>>1;
+  const slotOf=i=>{const h=half();let d=((i-center)%N+N)%N;if(d>N/2)d-=N;return Math.abs(d)<=h?d+h:null;};
+  const place=()=>{const S=slots(),h=half(),m=mob()?1:mult(),hs=hover==null?null:hover;
+   cards.forEach((c,i)=>{const sl=slotOf(i);
+    if(sl==null){const side=((i-center+N)%N)<N/2?1:-1;c.style.transform=`translateX(${side*40*m}rem) rotate(${side*30}deg) scale(.5)`;c.style.opacity=0;c.style.zIndex=0;c.style.pointerEvents='none';c.tabIndex=-1;c.setAttribute('aria-hidden','true');return;}
+    const p=S[sl];let x=p.x*m,y=p.y,r=p.r,s=p.s;
+    if(hs!=null&&!mob()){const dist=Math.abs(sl-hs);if(sl===hs){y-=2.5;s*=1.08;}else{const nrm=(sl-h)/h,push=8*(1-Math.abs(nrm))*(1+.2*Math.max(0,3-dist));if(sl<hs){x-=push*m;r-=3/(dist+1);}else{x+=push*m;r+=3/(dist+1);}}c.style.transitionDelay=dist*.02+'s';}else c.style.transitionDelay='0s';
+    if(!entered){c.style.transitionDelay=(.15+sl*.06)+'s';}
+    c.style.transform=`translate(${x}rem,${y}rem) rotate(${r}deg) scale(${s})`;c.style.opacity=1;c.style.zIndex=sl===h?10:10-Math.abs(sl-h);c.style.pointerEvents='auto';
+    const isC=sl===h;c.classList.toggle('is-center',isC);c.tabIndex=isC?0:-1;c.removeAttribute('aria-hidden');});
+   dots.forEach((d,i)=>d.classList.toggle('on',i===center));};
+  const go=dir=>{center=(center+dir+N)%N;hover=null;place();const c=cards[center];live.textContent=c.querySelector('.fan-cap').textContent;};
+  root.querySelectorAll('.fan-arrow').forEach(b=>b.addEventListener('click',()=>go(+b.dataset.dir)));
+  cards.forEach((c,i)=>{
+   c.addEventListener('mouseenter',()=>{if(!entered||mob())return;const sl=slotOf(i);if(sl!=null&&hover!==sl){hover=sl;place();}});
+   c.addEventListener('click',e=>{const sl=slotOf(i);if(sl!==half()){e.preventDefault();go(sl-half());}});});
+  root.querySelector('.fan-stage').addEventListener('mouseleave',()=>{if(hover!=null){hover=null;place();}});
+  root.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){go(1);e.preventDefault();cards[center].focus();}if(e.key==='ArrowLeft'){go(-1);e.preventDefault();cards[center].focus();}});
+  let sx=null,moved=false;const st=root.querySelector('.fan-stage');
+  st.addEventListener('pointerdown',e=>{sx=e.clientX;moved=false;});
+  st.addEventListener('pointerup',e=>{if(sx==null)return;const dx=e.clientX-sx;sx=null;if(Math.abs(dx)>40){moved=true;go(dx<0?1:-1);}});
+  st.addEventListener('click',e=>{if(moved){e.preventDefault();e.stopPropagation();moved=false;}},true);
+  addEventListener('resize',()=>place());
+  // état replié, puis ouverture en éventail à l'entrée dans l'écran
+  cards.forEach(c=>{c.style.transform='translateY(12rem) scale(.5)';c.style.opacity=0;});
+  const open=()=>{if(entered)return;root.classList.add('fan-ready');place();setTimeout(()=>{entered=true;cards.forEach(c=>c.style.transitionDelay='0s');},reduce?0:1200);};
+  if(reduce||!('IntersectionObserver' in window)){open();return;}
+  const io=new IntersectionObserver(es=>{if(es.some(x=>x.isIntersecting)){io.disconnect();requestAnimationFrame(open);}},{threshold:.25});io.observe(root);});})();
