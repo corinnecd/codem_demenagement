@@ -1212,3 +1212,7 @@ section.devis-offre.wrap{margin:18px auto 6px;box-sizing:border-box}
 .hf-discover{display:block;text-align:center;margin-top:10px;font-size:.82rem;color:var(--navy,#22264f);opacity:.75}
 .hf-discover:hover{opacity:1;text-decoration:underline}
 @media(min-width:901px){.hero-discover{display:none}.hero-offre.fx{margin-bottom:34px}}
+/* Accueil : espace réduit entre les avis et l'éventail des réalisations */
+.home-page .rv-car{padding-bottom:56px}
+.home-page .fan-section{padding-top:56px}
+@media(max-width:640px){.home-page .rv-car{padding-bottom:32px}.home-page .fan-section{padding-top:32px}}
