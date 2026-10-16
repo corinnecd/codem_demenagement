@@ -7,6 +7,8 @@ def cartes():
  out=[]
  for i,c in enumerate(CAS):
   for p in c['photos']:out.append((p,c,i))
+ # photos du terrain absentes des fiches chantier
+ for p,i in [('ancien-22',0),('ancien-06',3)]:out.append((p,CAS[i],i))
  # alterne les chantiers pour varier l'éventail
  out.sort(key=lambda x:(x[0]!=CAS[x[2]]['photos'][0],x[2]))
  return out
@@ -19,7 +21,7 @@ def fan(titre=True,cls='band-ivory'):
   cards+=(f'<a class="fan-card" href="{url("realisations")}#cas-{i+1}" data-i="{n}" tabindex="-1">'
    +im+
    f'<span class="fan-cap"><small>{t(*c["tag"])}</small>{t(*c["lieu"])}</span></a>')
- head=(f'<div class="fan-head">{eyebrow("Nos réalisations","Our work")}<h2>{t("Nos chantiers,<br><em>en images.</em>","Our jobs,<br><em>in pictures.</em>")}</h2>'
+ head=(f'<div class="fan-head">{eyebrow("Nos réalisations","Our work")}<h2>{t("Nos chantiers,<br><em>photographiés par nos équipes.</em>","Our jobs,<br><em>photographed by our teams.</em>")}</h2>'
   f'<p class="lead">{t("Monte-meubles en façade, maisons, objets d’art, musée : de vraies photos de nos équipes au travail.","Furniture lifts, houses, artwork, a museum: real photos of our crews at work.")}</p></div>') if titre else ''
  return (f'<section class="section {cls} fan-section">{"<div class=wrap>"+head+"</div>" if head else ""}'
   f'<div class="fan" data-fan role="region" aria-roledescription="carrousel" aria-label="{t("Photos de nos chantiers","Photos of our jobs")}">'

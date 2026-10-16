@@ -1174,3 +1174,4 @@ section.devis-offre.wrap{margin:18px auto 6px;box-sizing:border-box}
 /* Encart de droite : même jaune doré que le palier actif */
 .do-timer{background:var(--gold,#f3c969);border:2px solid var(--gold,#f3c969);box-shadow:0 8px 22px #0005}
 .do-timer .fx-count{color:#5a0b1a}
+.fan-dots{max-width:340px;flex-wrap:nowrap;gap:6px}
