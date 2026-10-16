@@ -166,3 +166,13 @@ document.querySelectorAll('.qsection').forEach(sec=>{
   document.body.append(d);d.showModal();track('sortie_vue');const close=()=>{d.close();d.remove();};d.querySelector('.exit-close').addEventListener('click',close);d.addEventListener('click',e=>{if(e.target===d)close();});d.querySelector('form').addEventListener('submit',()=>track('sortie_devis'));d.querySelector('.text-link').addEventListener('click',()=>track('sortie_checklist'));};
  document.addEventListener('mouseout',e=>{if(e.relatedTarget||e.clientY>0||Date.now()-t0<8000)return;if(document.querySelector('dialog[open]'))return;let s=null;try{s=sessionStorage.getItem('codem-exit');}catch{}if(!s)show();});
 })();
+
+/* Devis : note contextuelle de saisonnalité sur la date souhaitée. */
+(()=>{const n=document.querySelector('[data-saison-note]'),d=document.querySelector('#quote-form [name="date"]');
+ if(!n||!d)return;
+ const upd=()=>{const v=d.value;let txt='';
+  if(v){const w=new Date(v+'T12:00:00').getDay(),m=+v.slice(5,7);
+   if(n.dataset.offre&&v>=n.dataset.offreDebut&&v<=n.dataset.offreFin)txt=n.dataset.offre;
+   else if(w>=2&&w<=4&&(m<6||m>9))txt=n.dataset.creux;}
+  n.textContent=txt;n.hidden=!txt;};
+ d.addEventListener('change',upd);d.addEventListener('input',upd);upd();})();

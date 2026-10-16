@@ -97,5 +97,5 @@ if __name__=='__main__':
   b.write('avis',conversion.avis_page(),t('Avis clients de CODEM Déménagements à Nogent-sur-Marne : avis Google publiés tels quels, avec leur date.','CODEM Moving client reviews: Google reviews shown as written, with their date.'))
   __import__('realisations').write_all()
   for k in ['legal','privacy','cookies','access']:b.write(k,legal(k),t(*LEGAL_DESC[k]))
-  __import__('villes').write_all();__import__('fournitures').write_all();__import__('guide').write_all()
+  __import__('villes').write_all();__import__('fournitures').write_all();__import__('guide').write_all();__import__('offres').write_all()
  import sitemap;sitemap.write()

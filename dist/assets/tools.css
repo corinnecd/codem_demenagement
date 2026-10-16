@@ -979,3 +979,92 @@ html{background:var(--paper,#fafaf7)}
 /* Le bouton de devis signale qu'on est deja sur la page Devis */
 .header-actions .btn-cta[aria-current=page],.mobile-menu .btn-cta[aria-current=page]{background:#4a9429;box-shadow:inset 0 0 0 2px #ffffff59;cursor:default}
 .header-actions .btn-cta[aria-current=page]:hover,.mobile-menu .btn-cta[aria-current=page]:hover{transform:none;background:#4a9429}
+
+/* ── Offres : bandeau saisonnier, programme Coulisses ─────────────── */
+.offre-bar{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;background:linear-gradient(90deg,#4f9c30,#6fc247 55%,#8ad162);color:#14163f;padding:11px 5%;font-size:.84rem;text-align:center;border-bottom:1px solid #ffffff4d;transition:filter .2s}
+.offre-bar:hover{filter:brightness(1.06)}
+.ob-tag{background:#14163f;color:#fff;font-weight:700;font-size:.78rem;letter-spacing:.04em;padding:5px 11px;border-radius:100px;white-space:nowrap}
+.ob-txt strong{font-weight:700}
+.ob-end{font-size:.78rem;opacity:.78;white-space:nowrap}
+.ob-cta{font-weight:700;border-bottom:1px solid #14163f80;white-space:nowrap}
+@media(max-width:900px){.offre-bar{gap:9px;padding:10px 16px;font-size:.79rem}.ob-pitch,.ob-end{display:none}}
+@media(max-width:640px){.ob-cta{font-size:.76rem}}
+
+.cb-grid,.ch-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:clamp(30px,5vw,70px);align-items:center}
+.cb-text h2{margin-bottom:22px}
+.cb-steps{list-style:none;padding:0;margin:28px 0 30px;display:grid;grid-template-columns:1fr 1fr;gap:11px 26px}
+.cb-steps li{font-size:.9rem;color:#e4e7f2;display:flex;gap:12px;align-items:baseline;border-top:1px solid #ffffff2b;padding-top:11px}
+.cb-steps li span{font:600 .72rem/1.4 var(--sans);letter-spacing:.09em;text-transform:uppercase;color:#8fd96a;flex:0 0 54px}
+.cb-more{opacity:.72}
+.cb-card{background:#ffffff0f;border:1px solid #ffffff2b;border-radius:6px;padding:34px 28px;text-align:center}
+.cb-badge{display:block;font-family:var(--serif);font-size:3.6rem;line-height:1;color:#8fd96a;letter-spacing:-.045em}
+.cb-badge-txt{font-size:.9rem;color:#dfe3f0;margin:6px 0 0;max-width:none}
+.cb-places{font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:#aeb5cd;margin:16px 0 0;max-width:none}
+.cb-mascot{margin:14px auto 0}
+.cb-saison{display:flex;gap:14px;align-items:center;text-align:left;margin-top:22px;border-top:1px solid #ffffff2b;padding-top:20px}
+.cbs-tag{background:var(--green);color:#14163f;font-weight:700;font-size:.8rem;padding:6px 11px;border-radius:100px;white-space:nowrap}
+.cbs-title{font-weight:700;margin:0 0 3px;font-size:.92rem}
+.cb-saison p{font-size:.84rem;color:#dfe3f0;margin:0;max-width:none}
+.cb-saison em{color:#8fd96a;font-style:normal}
+
+.offre-check{display:flex;gap:16px;background:linear-gradient(180deg,#edf6e8,#f8fbf5);border:1px solid #cce4bd;border-left:4px solid var(--green);border-radius:5px;padding:20px 22px;margin:26px 0}
+.oc-tag{flex:0 0 auto;align-self:flex-start;background:var(--green);color:#14163f;font-weight:700;font-size:.86rem;padding:7px 12px;border-radius:100px}
+.oc-title{font-family:var(--serif);font-size:1.3rem;margin:0 0 7px;letter-spacing:-.02em}
+.oc-txt{font-size:.88rem;color:#3d4256;margin:0 0 12px}
+.offre-check .check{margin:0}
+.offre-check .fine-print{margin-top:10px}
+.saison-note{display:flex;gap:10px;font-size:.86rem;color:#2f6b1b;background:var(--mint);border:1px solid #cce4bd;border-radius:4px;padding:13px 15px;margin:2px 0 20px;max-width:none}
+.saison-note:before{content:'★';color:var(--green-dark)}
+
+.coulisses-hero h1{font-size:clamp(3rem,5.4vw,5.6rem);margin-bottom:24px}
+.ch-badge{background:var(--navy);color:#fff;border-radius:6px;padding:34px 26px;text-align:center}
+.ch-badge strong{display:block;font-family:var(--serif);font-weight:400;font-size:3.8rem;line-height:1;color:#8fd96a;letter-spacing:-.045em}
+.ch-badge span{display:block;font-size:.9rem;margin-top:8px;color:#dfe3f0}
+.ch-badge p{font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:#aeb5cd;margin:16px 0 0;max-width:none}
+.ch-mascot{margin:14px auto 0}
+.cm-grid{list-style:none;padding:0;margin:45px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+.cm-grid li{border-top:1px solid var(--line);padding-top:24px}
+.cm-num{font-family:var(--serif);font-style:italic;font-size:2rem;color:var(--green-dark);display:block;margin-bottom:18px}
+.cm-grid h3{font-size:1.5rem;margin-bottom:12px}
+.cm-grid p{font-size:.92rem;color:var(--muted)}
+.film-line{list-style:none;padding:0;margin:45px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:32px 26px}
+.film-line li{border-top:2px solid #ffffff2e;padding-top:20px;position:relative}
+.film-line li:before{content:'';position:absolute;top:-7px;left:0;width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px var(--navy)}
+.fl-day{font:600 .74rem/1.4 var(--sans);letter-spacing:.11em;text-transform:uppercase;color:#8fd96a;display:block;margin-bottom:10px}
+.film-line h3{font-size:1.35rem;margin-bottom:9px}
+.film-line p{font-size:.86rem;color:#d9dde9}
+.two-col-note{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,6vw,80px);align-items:start}
+.never-list{list-style:none;padding:0;margin:0}
+.never-list li{border-top:1px solid var(--line);padding:16px 0 16px 34px;position:relative;font-size:.95rem}
+.never-list li:before{content:'✕';position:absolute;left:0;top:16px;color:#a32a24;font-size:.9rem}
+.droits-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;margin:45px 0 0}
+.droits-grid>div{border-top:1px solid var(--line);padding-top:22px}
+.droits-grid h3{font-size:1.4rem;margin-bottom:10px}
+.droits-grid p{font-size:.9rem;color:var(--muted)}
+.offre-saison{display:flex;gap:28px;align-items:flex-start}
+.os-tag{flex:0 0 auto;background:var(--green);color:#14163f;font-weight:700;font-size:1.05rem;padding:12px 16px;border-radius:100px}
+.os-end{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green-dark);margin-top:18px}
+
+@media(max-width:900px){.cb-grid,.ch-grid,.two-col-note{grid-template-columns:1fr}
+ .cm-grid,.film-line,.droits-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.coulisses-hero h1{font-size:3.4rem}
+ .ch-badge{padding:26px 20px}.ch-badge strong{font-size:3.2rem}
+ .cb-steps{grid-template-columns:1fr;gap:0}
+ .cb-card{padding:24px 20px}.cb-badge{font-size:3rem}
+ .cm-grid,.droits-grid{grid-template-columns:1fr;gap:2px;margin-top:30px}
+ .cm-grid li,.droits-grid>div{padding-top:18px}.cm-num{margin-bottom:10px}
+ .film-line{grid-template-columns:1fr;gap:0;margin-top:30px;padding-left:6px}
+ .film-line li{border-top:0;border-left:2px solid #ffffff2e;padding:0 0 24px 26px}
+ .film-line li:last-child{border-left-color:transparent;padding-bottom:0}
+ .film-line li:before{top:3px;left:-7px}
+ .offre-saison{flex-direction:column;gap:16px}
+ .offre-check{flex-direction:column;gap:12px;padding:18px}}
+.coulisses-band h2{color:#fff}.coulisses-band h2 em{color:#8fd96a}
+.coulisses-band .lead{color:#e4e7f2}.coulisses-band .fine-print{color:#aeb5cd}
+.coulisses-band .text-link{color:#fff}
+.hero-offre{display:inline-flex;align-items:center;gap:10px;margin:0 0 18px 10px;padding:6px 14px 6px 6px;border-radius:100px;background:#5fb03a;color:#14163f;font-size:.82rem;font-weight:600;box-shadow:0 6px 22px #0004;transition:transform .2s}
+.hero-offre:hover{transform:translateY(-2px)}
+.hero-offre em{font-style:normal;font-weight:400}
+.ho-tag{background:#14163f;color:#fff;border-radius:100px;padding:4px 10px;font-weight:700}
+@media(max-width:640px){.hero-offre{margin:0 0 14px;font-size:.76rem}.hero-offre em{display:none}}
+.film-band h2{color:#fff}.film-band h2 em{color:#8fd96a}.film-band .lead{color:#e4e7f2}

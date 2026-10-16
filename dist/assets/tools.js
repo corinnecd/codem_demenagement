@@ -163,7 +163,7 @@ if(ob2){const parts=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone
 (()=>{if(!matchMedia('(max-width:640px)').matches)return;
  const fr=document.documentElement.lang!=='en';
  const bg=el=>{let n=el;while(n&&n!==document.body){const c=getComputedStyle(n).backgroundColor;if(c&&c!=='rgba(0, 0, 0, 0)'&&c!=='transparent')return c;n=n.parentElement}return '#ffffff'};
- const SKIP=/hero|quickstart|page-intro|page-title|back-bar|cta|guide-band|trust/;
+ const SKIP=/hero|quickstart|page-intro|page-title|back-bar|cta|guide-band|trust|coulisses|film-band/;
  const main=document.querySelector('main'); if(!main)return;
  const cands=[...main.children].filter(el=>{
   const cls=typeof el.className==='string'?el.className:'';
