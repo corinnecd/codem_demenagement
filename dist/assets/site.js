@@ -198,3 +198,6 @@ document.querySelectorAll('.qsection').forEach(sec=>{
   inputs.forEach(i=>i.value=txt);dateOut.textContent=etat;dateOut.hidden=!etat;};
  document.addEventListener('change',e=>{if(e.target.name==='date')upd();});document.addEventListener('input',e=>{if(e.target.name==='date')upd();});upd();
  if(viaLien)ban.classList.add('do-pulse');})();
+
+/* Devis express (accueil) : téléphone transmis au devis sans passer par l'adresse de la page */
+(function(){document.querySelectorAll('.hero-form').forEach(f=>f.addEventListener('submit',e=>{const t=f.querySelector('[data-hf-tel]');if(!t)return;const v=t.value.trim();if(!v||(/[^0-9+().\s-]/.test(v)||v.replace(/\D/g,'').length<9)){e.preventDefault();t.setCustomValidity(document.documentElement.lang==='en'?'Enter a valid phone number.':'Indiquez un numéro de téléphone valide.');t.reportValidity();t.addEventListener('input',()=>t.setCustomValidity(''),{once:true});return;}try{v?sessionStorage.setItem('codem_tel',v):sessionStorage.removeItem('codem_tel');}catch(_){}}));let v='';try{v=sessionStorage.getItem('codem_tel')||'';}catch(_){}if(v)document.querySelectorAll('#express-form [name="telephone"],#quote-form [name="telephone"]').forEach(i=>{if(!i.value)i.value=v;});})();
