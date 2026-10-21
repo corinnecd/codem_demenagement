@@ -11,7 +11,7 @@ def reponse():return t(*REPONSE)
 # Faits confirmés par CODEM (octobre 2026)
 ENGAGEMENTS=[REPONSE,('Un seul conseiller du devis au jour J','One adviser from quote to moving day'),('Prix ferme après visite','Fixed price after the survey')]
 FAITS=[('Note Google 4,9/5 · 66 avis','Google rating 4.9/5 · 66 reviews'),('Depuis 2014 · plus de 2 000 déménagements','Since 2014 · over 2,000 moves')]+ENGAGEMENTS
-WHATSAPP='33745677890';WHATSAPP_TXT='+33 7 45 67 78 90'
+WHATSAPP='33660723014';WHATSAPP_TXT='+33 6 60 72 30 14'
 def faits_band(cls='',sans=()):
  return f'<ul class="facts-band {cls}" aria-label="{t("Pourquoi CODEM","Why CODEM")}">'+''.join('<li'+(' class="fact-eng"' if (a,c) in ENGAGEMENTS else '')+f'><span class="fact-dot" aria-hidden="true"></span>{t(a,c)}</li>' for a,c in FAITS if a not in sans)+'</ul>'
 
